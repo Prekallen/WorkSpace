@@ -1,0 +1,14 @@
+create table test(
+id varchar (30),
+pwd varchar (30),
+name varchar (30));
+
+insert into test
+values('테스트','a','John')
+
+insert into test
+values('test','test','홍길동')
+
+update test
+set name='윤길동'
+where name='윤길이'
