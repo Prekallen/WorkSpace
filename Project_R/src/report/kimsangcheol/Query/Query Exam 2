@@ -56,3 +56,6 @@ select ui.class_num, ci.class_name from user_info as ui, class_info as ci
 where ui.class_num=ci.class_num;                                                                                 
                                                                                                                  
 select ui.num, ui.name, ui.id, ui.pwd, ui.age, ci.class_name, ci.class_num from user_info as ui, class_info as ci
+where ci.class_num=ui.class_num;
+
+select count(*) from user_info;
