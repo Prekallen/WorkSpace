@@ -39,7 +39,7 @@ public class Sql2 {
 			}
 		}
 	}
-	public List<HashMap> doSelect(String sql){
+	public List<HashMap> doInsert(String sql){
 
 		List<HashMap> userlist = new ArrayList<HashMap>();
 		try{
@@ -79,15 +79,15 @@ public class Sql2 {
 		String sql = "";
 
 		if(s2.state.equals("유저")){
-			List<HashMap> userList = s2.doSelect(sql);
+			List<HashMap> userList = s2.doInsert(sql);
 			sql = "insert into user_info (id,pwd,name ,age,class_num) values(?,?,?,?,?)";
-			userList = s2.doSelect(sql);
+			userList = s2.doInsert(sql);
 			 
 			
 		}else{
-			List<HashMap> userList = s2.doSelect(sql);
+			List<HashMap> userList = s2.doInsert(sql);
 			sql = "insert into class_info(class_name) values(?)";
-			userList = s2.doSelect(sql);
+			userList = s2.doInsert(sql);
 			 
 			}
 		
