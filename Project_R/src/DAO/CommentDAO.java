@@ -19,8 +19,8 @@ public class CommentDAO {
 		con = DBConn2.getCon();
 	}
 	public List<Map> getCommentList(int boardNum) throws SQLException{
-		String sql = "select ci_num, content, reg_Date, user_num, board_num from comment_info";
-		sql += " where board_num=?";
+		String sql = "select num, content, reg_Date, ui_num, b_num from comment_info";
+		sql += " where b_num=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, boardNum);
 		
@@ -50,10 +50,10 @@ public class CommentDAO {
 	public static void main(String[] args){
 		try {
 			CommentDAO cdao = new CommentDAO();
-			List<Map> commentList = cdao.getCommentList(Integer.parseInt("1"));
-			for(Map m2 : commentList){
-				System.out.println(m2);
-			}
+			List<Map> commentList = cdao.getCommentList(Integer.parseInt("b_num"));
+			for(Map m : commentList){
+				System.out.println(m);
+						}
 			DBConn2.closeCon();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
