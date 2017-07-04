@@ -1,5 +1,6 @@
 package DAO;
 
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,42 +82,45 @@ public class BoardDAO {
 	}
 
 
-	public List<Map> selectBoard(){
+	public List<Map> selectBoard() throws SQLException{
+
+
+		String sql = "select num,title,content,writer,reg_date from board";
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery(sql);
 		List<Map> sb = new ArrayList<Map>();
-		try{
-			String sql = "select * from board";
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(sql);
-			while(rs.next()){
-				Map hm = new HashMap();
-				hm.put("num", rs.getInt("num"));
-				hm.put("tilte", rs.getString("title"));
-				hm.put("content", rs.getString("content"));
-				hm.put("writer", rs.getInt("writer"));
-				hm.put("reg_date", rs.getDate("reg_date"));
-				sb.add(hm);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
+		while(rs.next()){
+			Map hm = new HashMap();
+			hm.put("num", rs.getString("num"));
+			hm.put("tilte", rs.getString("title"));
+			hm.put("content", rs.getString("content"));
+			hm.put("writer", rs.getString("writer"));
+			hm.put("reg_date", rs.getString("reg_date"));
+			sb.add(hm);
 		}
+		rs.close();
+		rs=null;
+		st.close();
+		st=null;
+
 		return sb;
 	}
 
 
 	public static void main(String[]args){
 		BoardDAO bdao = new BoardDAO();
-		try{
+		try {
 			bdao.setConnection();
-			bdao.insertBoard();
-			bdao.updateBoard();
-			bdao.deleteBoard();
-			System.out.println("정상동작 & 저장 완료!");
-			List<Map>lm = bdao.selectBoard();
-			for(Map n : lm){
-				System.out.println(n);
+			List<Map> boardList = bdao.selectBoard();
+			CommentDAO dao = new CommentDAO();
+			for(Map m : boardList){
+				System.out.println(m);
+				List<Map> commentList = dao.getCommentList(Integer.parseInt("b_num"));
+				for(Map m2 : commentList){
+					System.out.println(m2);
+				}
 			}
-
-		}catch(ClassNotFoundException | SQLException e){
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
