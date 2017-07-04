@@ -4,7 +4,9 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -18,24 +20,30 @@ public class TestDAO {
 	
 	public boolean insertTest() {
 		try{
+			String writer = "4";
 			Connection con = DBConn2.getCon();
-			HashMap<String,String>hm = new HashMap<String,String>();
-			System.out.println("title을 넣어주세요.>");
-			hm.put("title", scan.nextLine());
-			System.out.println("content를 넣어주세요.>");
-			hm.put("content", scan.nextLine());
-			System.out.println("writer를 넣어주세요.>");
-			hm.put("writer", scan.nextLine());
-			String sql = "insert into test (title,content,writer,reg_date) values(?,?,?,now())";
+			String sql = "select * from user_info where num=?";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("title"));
-			ps.setString(2, hm.get("content"));
-			ps.setString(3, hm.get("writer"));
-			int result = ps.executeUpdate();
-			DBConn2.closeCon();
-			if(result==1){
-				return true;
+			ps.setString(1, writer);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				sql = "INSERT INTO TEST(TITLE, CONTENT, WRITER, REG_DATE)";
+				sql += " values(?,?,?,?)";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, "게시물4");
+				ps.setString(2, "내용4");
+				ps.setString(3, writer);
+				Date d = new Date();
+				SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				ps.setString(4,sdt.format(d));
+				int result = ps.executeUpdate();
+				if(result==1){
+					return true;
+				}
+			}else{
+				System.out.println(writer + "번호를 가진 사람이 유저인포테이블에 없어요 자시가!!");
 			}
+			DBConn2.closeCon();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
