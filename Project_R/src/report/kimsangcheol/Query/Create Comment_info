@@ -1,0 +1,13 @@
+drop table comment_info;
+
+use iot_test;
+
+create table comment_info(
+num int(10) auto_increment primary key,
+content text,
+reg_date datetime not null,
+ui_num int not null,
+b_num int not null,
+foreign key(ui_num) references user_info(num),
+foreign key(b_num) references board(num)
+);
