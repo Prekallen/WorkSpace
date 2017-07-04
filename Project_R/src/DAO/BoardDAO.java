@@ -115,7 +115,7 @@ public class BoardDAO {
 			CommentDAO dao = new CommentDAO();
 			for(Map m : boardList){
 				System.out.println(m);
-				List<Map> commentList = dao.getCommentList(Integer.parseInt("b_num"));
+				List<Map> commentList = dao.getCommentList(Integer.parseInt((String)m.get("num")));
 				for(Map m2 : commentList){
 					System.out.println(m2);
 				}

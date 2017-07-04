@@ -50,7 +50,7 @@ public class CommentDAO {
 	public static void main(String[] args){
 		try {
 			CommentDAO cdao = new CommentDAO();
-			List<Map> commentList = cdao.getCommentList(Integer.parseInt("b_num"));
+			List<Map> commentList = cdao.getCommentList(Integer.parseInt("3"));
 			for(Map m : commentList){
 				System.out.println(m);
 						}
