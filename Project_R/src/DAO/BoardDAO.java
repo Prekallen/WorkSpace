@@ -24,7 +24,7 @@ public class BoardDAO {
 			int result = st.executeUpdate(sql);
 			if(result==1){
 				con.commit();
-				st.close();
+				st.close();			//반드시 종료해줘야 함! 메모리 초기화!!
 				st=null;
 				return true;
 			}
