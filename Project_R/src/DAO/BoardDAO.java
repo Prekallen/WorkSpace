@@ -2,6 +2,7 @@ package DAO;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -105,17 +106,44 @@ public class BoardDAO {
 
 		return sb;
 	}
-
+	public List<Map> getBoardList() throws SQLException{
+		String sql = "select b.num, b.content, b.reg_date, b.writer, ui.name from board b, user_info ui";
+		sql += " where b.writer=ui.num";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		ArrayList commentList = new ArrayList();
+		while(rs.next()){
+			HashMap hm = new HashMap();
+			hm.put("b.num", rs.getString("b.num"));
+			hm.put("b.content", rs.getString("b.content"));
+			hm.put("b.reg_Date", rs.getString("b.reg_Date"));
+			hm.put("b.writer", rs.getString("ui.name"));
+			commentList.add(hm);
+		}
+		rs.close();
+		rs = null;
+		ps.close();
+		ps = null;
+		return commentList;
+	}
 
 	public static void main(String[]args){
 		BoardDAO bdao = new BoardDAO();
 		try {
 			bdao.setConnection();
-			List<Map> boardList = bdao.selectBoard();
+//			List<Map> boardList = bdao.selectBoard();
 			CommentDAO dao = new CommentDAO();
-			for(Map m : boardList){
+//			for(Map m : boardList){
+//				System.out.println(m);
+//				List<Map> commentList = dao.getCommentList(Integer.parseInt((String)m.get("num")));
+//				for(Map m2 : commentList){
+//					System.out.println(m2);
+//				}
+//			}
+			List<Map> getBoard = bdao.getBoardList();
+			for(Map m: getBoard){
 				System.out.println(m);
-				List<Map> commentList = dao.getCommentList(Integer.parseInt((String)m.get("num")));
+				List<Map> commentList = dao.getCommentList(Integer.parseInt((String)m.get("b.num")));
 				for(Map m2 : commentList){
 					System.out.println(m2);
 				}

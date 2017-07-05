@@ -19,8 +19,8 @@ public class CommentDAO {
 		con = DBConn2.getCon();
 	}
 	public List<Map> getCommentList(int boardNum) throws SQLException{
-		String sql = "select num, content, reg_date, ui_num, b_num from comment_info";
-		sql += " where b_num=?";
+		String sql = "select ci.num, ci.content, ci.reg_date, ci.ui_num, ci.b_num, ui.name";
+		sql += " from comment_info ci, user_info ui,board b where ci.b_num=b.num and ci.ui_num=ui.num and ci.b_num=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, boardNum);
 		
@@ -31,7 +31,7 @@ public class CommentDAO {
 			hm.put("num", rs.getString("num"));
 			hm.put("content", rs.getString("content"));
 			hm.put("reg_Date", rs.getString("reg_Date"));
-			hm.put("ui_num", rs.getString("ui_num"));
+			hm.put("ui_num", rs.getString("ui.name"));
 			commentList.add(hm);
 		}
 		rs.close();
