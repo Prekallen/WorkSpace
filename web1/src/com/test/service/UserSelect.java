@@ -24,7 +24,7 @@ public class UserSelect {
 			con=DBConn.getCon();
 			ps=con.prepareStatement(sql);
 			if(hm.get("name")!=null){
-				ps.setString(1, "name");
+				ps.setString(1, hm.get("name"));
 			}
 			ResultSet rs = ps.executeQuery();
 			List lm = new ArrayList();

@@ -82,13 +82,13 @@ public class UserServlet extends HttpServlet{
 		else if(command.equals("SELECT")){
 			System.out.println("이름 : " + name);
 			hm = new HashMap();
-			if(name!=null&&name!=""){
+			if(name!=null&&!name.equals("")){
 				hm.put("name","%" + name + "%");
 			}
-			List<Map> lm= usl.selectUser(hm);
+			List<Map> list= usl.selectUser(hm);
 			String result = "";
-			for(Map m : lm){
-				result+=lm.toString();
+			for(Map m : list){
+				result += m.toString();
 			}
 			doProcess(resq, result);
 		}
