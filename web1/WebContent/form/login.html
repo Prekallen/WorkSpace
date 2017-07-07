@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SignUp</title>
+</head>
+<script>
+var idObj = document.getElementById("id");
+var pwdObj = document.getElementById("pwd");
+var dateObj = document.getElementById("date");
+var emailObj = document.getElementById("email");
+var colorObj = document.getElementById("color");
+function changeColor(){
+nameObj.style = "color:" + colorObj.value;
+idObj.style = "color:" + colorObj.value;
+pwdObj.style = "color:" + colorObj.value;
+dateObj.style = "color:" + colorObj.value;
+emailObj.style = "color:" + colorObj.value;
+}
+	function checkLogin() {
+		
+		if (idObj.value == "") {
+			alert("ID를 입력하시요.");
+			idObj.focus();
+			return false;
+		}
+		if (pwdObj.value == "") {
+			alert("Password를 입력하시요.");
+			pwdObj.focus();
+			return false;
+		}
+		if(dateObj.value==""){
+			alert("날짜를 선택해주세요.");
+			return false;
+		}
+		if(emailObj.value==""){
+			alert("E-Mail을 입력해주세요.");
+			emailObj.focus();
+			return false;
+		}
+		if(maleObj.value=="")
+		return true;
+	}
+</script>
+<body>
+	<form method="get" action="test.user" onsubmit="return checkLogin()">
+		<table border="1">
+			<tr>
+				<td align="center">아이디</td>
+				<td colspan="4" align="center"><input type="text" name="id" id="id" /></td>
+			</tr>
+			<tr>
+				<td align="center">비밀번호</td>
+				<td colspan="4" align="center"><input type="password" name="pwd" id="pwd" /></td>
+			</tr>
+			<tr>
+				<td align="center">이름</td>
+				<td colspan="4" align="center"><input type="text" name="name" id="name" /></td>
+			</tr>
+			<tr>
+				<td align="center">선호색상</td>
+				<td colspan="4" align="center"><input type="color" name="color" id="color" onchange="changeColor()"/></td>
+			</tr>
+			<tr>
+				<td align="center">생년월일</td>
+				<td colspan="4" align="center"><input type="date" name="date" id="date" /></td>
+			</tr>
+			<tr>
+				<td align="center">E-mail</td>
+				<td colspan="4" align="center"><input type="email" name="email" id="email" /></td>
+			</tr>
+			<tr>
+				<td colspan="1" align="center">성별</td>
+				<td colspan="2"align="center"><input type="radio" name="gender" id="gender" />female</td>
+				<td colspan="2"align="center"><input type="radio" name="gender" id="gender" />male</td>
+			</tr>
+			<tr>
+				<td colspan="1" align="center">혈핵형 타입</td>
+				<td colspan="2"align="center"><input type="radio" name="b_type" id="b_type" />+</td>
+				<td colspan="2"align="center"><input type="radio" name="b_type" id="b_type" />-</td>
+			</tr>
+			<tr>
+				<td align="center">혈액형</td>
+				<td align="center"><input type="radio" name="blood" id="blood" />A</td>
+				<td align="center"><input type="radio" name="blood" id="blood" />B</td>
+				<td align="center"><input type="radio"name="blood" id="blood" />AB</td>
+				<td align="center"><input type="radio"name="blood" id="blood" />O</td>
+			</tr>
+			<tr>
+				<td align="center">RESET</td>
+				<td colspan="4" align="center"><input type="reset" value="reset" /></td>
+			</tr>
+			<tr>
+				<td align="center">Transfer</td>
+				<td colspan="4" align="center"><input type="submit" value="transfer" /></td>
+			</tr>
+		</table>
+		<br /> 
+		<input type="hidden" name="command" id="command"value="USERINFO">
+	</form>
+</body>
+</html>

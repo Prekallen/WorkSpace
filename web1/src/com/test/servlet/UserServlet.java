@@ -35,9 +35,30 @@ public class UserServlet extends HttpServlet{
 		String class_num = req.getParameter("class_num");
 		String age = req.getParameter("age");
 		String num =req.getParameter("user_num");
-		System.out.println(id + "," + pwd + "," + name + "," + class_num + ", " + age);
+		int num1 =Integer.parseInt(req.getParameter("num1"));
+		int num2 =Integer.parseInt(req.getParameter("num2"));
+		
+		String op = req.getParameter("op");
 		HashMap hm = new HashMap();
 		
+		if(command.equals("INPUT")){
+			System.out.println("input html에서 넘긴 값은 >> name : " + name + "\n\t password : " + pwd);
+		}
+		if(command.equals("USERINFO")){
+			
+		}
+		if(command.equals("CALC")){
+			if(op.equals("+")){
+				System.out.println(num1 + " + " + num2 + " = " + (num1+num2));
+			}else if(op.equals("-")){
+				System.out.println(num1 + " - " + num2 + " = " + (num1-num2));
+			}else if(op.equals("*")){
+				System.out.println(num1 + " * " + num2 + " = " + (num1*num2));
+			}else if(op.equals("/")){
+				System.out.println(num1 + " / " + num2 + " = " + (num1/num2));
+			}
+			
+		}
 		if(command.equals("SIGNIN")){
 		
 		hm.put("id", id);
