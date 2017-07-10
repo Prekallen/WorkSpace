@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Board Update</title>
+</head>
+<body>
+<form action="/update.board">
+수정할 유저 번호 : <input type="text" name="num" id="num"/><br/>
+<table>
+
+<tr>
+	<td>title</td>
+	<td><input type="text" name="title" id="title"/></td>
+</tr>
+<tr>
+	<td>content</td>
+	<td><textarea name="content" id="content"/></textarea></td>
+</tr>
+<tr>
+	<td>writer</td>
+	<td><input type="text" name="writer" id="writer"/></td>
+</tr>
+</table>
+<input type="submit" value="수정"/>
+<input type="hidden" name="command" id="command" value="UPDATE"/>
+</form>
+</body>
+</html>

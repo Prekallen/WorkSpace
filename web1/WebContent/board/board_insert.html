@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert Board</title>
+</head>
+<script>
+function checkValue(){
+	var titleObj = document.getElementById("title");
+	if(titleObj.value.trim()==""){
+		alert("제목을 입력해주세요.")
+		
+		return false;
+	}
+	var contentObj = document.getElementById("content");
+	if(contentObj.value.trim()==""){
+		alert("내용을 입력해 주세요.")
+		return false;
+	}
+	var writerObj = document.getElementById("writer");
+	var writer = parseInt(writerObj.value);
+	if(isNaN(writer)){
+		alert("숫자를 입력해 주세요.");
+		return false;
+	}
+	return true;
+}
+</script>
+<body>
+<form method="get"action="/insert.board"onsubmit="return checkValue()">
+<table border=1>
+	<tr>
+		<td>제목 : <input type="text"name="title"id="title"></td>
+		</tr>
+		<tr>
+		<td>내용 : <textarea name="content" id="content"></textarea></td>
+		</tr>
+		<tr>
+		<td>글쓴이 : <input type="text"name="writer"id="writer"></td>
+		</tr>
+		<tr>
+		<td align="center"><input type="submit"value="글쓰기"/></td>
+		</tr>
+</table>
+<input type="hidden"name="command" value="INSERT"/>
+</form>
+</body>
+</html>

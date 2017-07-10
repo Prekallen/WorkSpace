@@ -35,8 +35,7 @@ public class UserServlet extends HttpServlet{
 		String class_num = req.getParameter("class_num");
 		String age = req.getParameter("age");
 		String num =req.getParameter("user_num");
-		int num1 =Integer.parseInt(req.getParameter("num1"));
-		int num2 =Integer.parseInt(req.getParameter("num2"));
+		
 		
 		String op = req.getParameter("op");
 		HashMap hm = new HashMap();
@@ -48,6 +47,8 @@ public class UserServlet extends HttpServlet{
 			
 		}
 		if(command.equals("CALC")){
+			int num1 =Integer.parseInt(req.getParameter("num1"));
+			int num2 =Integer.parseInt(req.getParameter("num2"));
 			if(op.equals("+")){
 				System.out.println(num1 + " + " + num2 + " = " + (num1+num2));
 			}else if(op.equals("-")){
