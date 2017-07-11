@@ -23,21 +23,52 @@ public class CalServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resq) throws IOException, ServletException {
 		req.setCharacterEncoding("UTF-8");
+		int result=0;
+		try{
 		int num1= Integer.parseInt(req.getParameter("num1"));
 		int num2= Integer.parseInt(req.getParameter("num2"));
 		String op= req.getParameter("op");
-		int result=0;
+		String op2=null;
 		if(op.equals("+")){
 			result = num1+num2;
+			op="더하기";
+			op2=op;
 		}else if(op.equals("-")){
 			result = num1-num2;
+			op="빼기";
+			op2=op;
 		}else if(op.equals("*")){
 			result = num1*num2;
+			op="곱하기";
+			op2=op;
 		}else if(op.equals("/")){
 			result = num1/num2;
+			op="나누기";
+			op2=op;
 		}
+		String tableSet="<script>";
+		tableSet +="function backCal(){";
+		tableSet +="location.href='/cal/cal.html';}";
+		tableSet +="</script>";
+		tableSet +="<form action='/web1/.cal'>";
+		tableSet +="<table border='1'>";
+		tableSet +="<tr>";
+		tableSet +="<td colspan='2'>" +	 num1 +" "+ op2 +" "+ num2 + "</td>" ;
+		tableSet +="</tr>";
+		tableSet +="<tr>";
+		tableSet +="<td>결과값</td>";
+		tableSet  +="<td>" + result + "</td>";
+		tableSet +="</tr>";
+		tableSet +="</table><br/>";
+		tableSet +="<input type=button value='돌아가기'onclick='backCal()'/>";
+		tableSet +="</form>";
 		
-		doProcess(resq, ""+result);
+		
+		doProcess(resq, tableSet);
+		}catch(Exception e){
+			e.printStackTrace();
+			doProcess(resq, "숫자를 넣으시라고요");
+		}
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse reqs) throws IOException {

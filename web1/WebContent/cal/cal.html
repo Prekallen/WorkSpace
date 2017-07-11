@@ -9,19 +9,20 @@
 		var opObj = document.getElementById("op");
 		var num1Obj = document.getElementById("num1");
 		var num2Obj = document.getElementById("num2");
-		if (num1Obj.value == "") {
+
+		if (num1Obj.value == "" ||isNaN(num1Obj.value)) {
 			alert("Input Number Error!");
 			num1Obj.focus();
+			return false;
+		}
+		if (opObj.value == "" ||isNaN(num2Obj.value)) {
+			alert("Input Op Error!");
 			return false;
 		}
 		if (num2Obj.value == "") {
 			alert("input Number Error!");
 			num2Obj.focus();
 			return false;
-		if (opObj.value == "") {
-			alert("Input Op Error!");
-			return false;
-		}
 		}
 		return true;
 	}
@@ -30,12 +31,12 @@
 	<form method="get" action="/.cal" onsubmit="return checkOnSubmit()">
 		<table border='1'>
 			<tr>
-				<td>연산값1 :</td>
+				<td>연산값1</td>
+				<td>연산자 </td>
+				<td>연산값2</td>
+				
+			<tr>
 				<td><input type="text" name="num1" id="num1" /></td>
-			<tr>
-				<td>연산값2 :</td>
-				<td><input type="text" name="num2" id="num2" /></td>
-			<tr>
 				<td><select name="op" id="op">
 						<option value="">연산자 선택</option>
 						<option value="+">더하기</option>
@@ -43,11 +44,10 @@
 						<option value="*">곱하기</option>
 						<option value="/">나누기</option>
 				</select></td>
-				<td><input type="submit" value="계산" /></td>
-			</tr>
+				<td><input type="text" name="num2" id="num2" /></td>
 			<tr>
-				<td>결과값 :</td>
-				<td><input type="text" name="result" id="result"/></td>
+				<td colspan="3" align="center"><input type="submit" value="계산" /></td>
+			</tr>
 		</table>
 		<input type="hidden" name="command" id="command" value="CALC">
 	</form>
