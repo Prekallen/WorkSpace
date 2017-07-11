@@ -28,23 +28,19 @@ public class CalServlet extends HttpServlet {
 		int num1= Integer.parseInt(req.getParameter("num1"));
 		int num2= Integer.parseInt(req.getParameter("num2"));
 		String op= req.getParameter("op");
-		String op2=null;
+
 		if(op.equals("+")){
 			result = num1+num2;
 			op="더하기";
-			op2=op;
 		}else if(op.equals("-")){
 			result = num1-num2;
 			op="빼기";
-			op2=op;
 		}else if(op.equals("*")){
 			result = num1*num2;
 			op="곱하기";
-			op2=op;
 		}else if(op.equals("/")){
 			result = num1/num2;
 			op="나누기";
-			op2=op;
 		}
 		String tableSet="<script>";
 		tableSet +="function backCal(){";
@@ -53,7 +49,7 @@ public class CalServlet extends HttpServlet {
 		tableSet +="<form action='/web1/.cal'>";
 		tableSet +="<table border='1'>";
 		tableSet +="<tr>";
-		tableSet +="<td colspan='2'>" +	 num1 +" "+ op2 +" "+ num2 + "</td>" ;
+		tableSet +="<td colspan='2'>" +	 num1 +" "+ op +" "+ num2 + "</td>" ;
 		tableSet +="</tr>";
 		tableSet +="<tr>";
 		tableSet +="<td>결과값</td>";
