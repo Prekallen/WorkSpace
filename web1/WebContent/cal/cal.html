@@ -9,17 +9,18 @@
 		var opObj = document.getElementById("op");
 		var num1Obj = document.getElementById("num1");
 		var num2Obj = document.getElementById("num2");
-
-		if (num1Obj.value == "" ||isNaN(num1Obj.value)) {
+		var num1 = parseInt(num1Obj.value);
+		var num2 = parseInt(num2Obj.value);
+		if (num1Obj.value == "" ||isNaN(num1)) {
 			alert("Input Number Error!");
 			num1Obj.focus();
 			return false;
 		}
-		if (opObj.value == "" ||isNaN(num2Obj.value)) {
+		if (opObj.value == "") {
 			alert("Input Op Error!");
 			return false;
 		}
-		if (num2Obj.value == "") {
+		if (num2Obj.value == "" ||isNaN(num2)) {
 			alert("input Number Error!");
 			num2Obj.focus();
 			return false;
