@@ -30,7 +30,11 @@ public class UserSelect {
 			List lm = new ArrayList();
 			while(rs.next()){
 				Map hm1 = new HashMap();
+				hm1.put("num", rs.getString("num"));
+				hm1.put("id", rs.getString("id"));
 				hm1.put("name", rs.getString("name"));
+				hm1.put("age", rs.getString("age"));
+				hm1.put("class_num", rs.getString("class_num"));
 				lm.add(hm1);
 			}
 			return lm;
