@@ -17,7 +17,7 @@ public class BoardSelect {
 		Connection con =null;
 		PreparedStatement ps =null;
 		try {
-			String sql = "select num,title,content,writer,reg_date from board ;";
+			String sql = "select num,title,content,writer,reg_date from board;";
 			con=DBConn.getCon();
 			ps=con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -47,5 +47,4 @@ public class BoardSelect {
 		}
 		return null;
 	}
-
 }
