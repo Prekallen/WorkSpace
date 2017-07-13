@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TEST6</title>
+</head>
+<script>
+function getAllValue(){
+	var elObjs = document.getElementsByName("txt");
+
+	for(var i=0; i<elObjs.length; i++){
+		alert(elObjs[i].value);
+	}
+}
+</script>
+<body>
+<form>
+<input type="text" id="blur1" name="txt"/>
+<input type="text" id="blur2" name="txt"/>
+<input type="text" id="blur3" name="txt"/>
+<input type="button" value="Just Magic"onclick="getAllValue()"/>
+</form>
+</body>
+</html>

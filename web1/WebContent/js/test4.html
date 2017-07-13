@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TEST4</title>
+</head>
+<script>
+	var sV =""; 
+	function makeThing(eObj) {
+		var divObj = document.getElementById("r_div");
+		
+		var fObj = eObj.form;
+		var mkObj=fObj.elements[0];
+		var numCheck = new Number(mkObj.value);
+
+		if (isNaN(numCheck) || numCheck == 0) {
+			alert("숫자를 넣어주세요.");
+			mkObj.value="";
+			mkObj.focus();
+			return false;
+		}
+			
+			var inputStr ="";
+		for (var i = 0; i <numCheck; i++) {
+			inputStr += "<input type='text' id='mk" + (i+1) +"'/>";
+		}
+		inputStr += "<br/> 찾을값 : <input type='text' id='searchValue'/>";
+		inputStr += "<input type='button' value='값찾기' onclick='search(this)'/>";		
+		divObj.innerHTML = inputStr;	
+		
+		
+		}
+	function search(eObj){
+		sV = document.ElementById("searchValue").value;
+		var fObj = eObj.form;
+		var feObj = fObj.elements;
+		for(var i=0;i<feObj;i++){
+			if(feObj[i].value==sV){
+				feObj[i].focus();
+				return false;
+			}
+		}
+	}
+</script>
+<body>
+	<form>
+		생성 갯수 : <input type="text" name="makeNum" />
+		<input type="button" value="생성" onclick="makeThing(this)" />
+		<input type="reset" onclick="resetB()"/>
+		<div id="r_div"></div>
+	</form>
+</body>
+</html>
