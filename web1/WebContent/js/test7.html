@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TEST7</title>
+</head>
+<script>
+function createTable(){
+	
+	var cObj = document.getElementById("create");
+	var divObj = document.getElementById("c_div");
+	var result = "";
+	var checkNum = new Number(cObj.value);
+	if(isNaN(checkNum) || cObj.value==""){
+		alert("제대로 입력해주세요.");
+		cObj.focus();
+	}
+	for(var i=0; i<cObj.value; i++){
+		result += "<input type='text' name='asshole'/>"
+	}
+	divObj.innerHTML = result;
+}
+function search(){
+	var sObj = document.getElementById("search");
+	var tObj = document.getElementsByName("asshole");
+	for( var i =0; i<tObj.length; i++){
+		
+		if(tObj[i].value.indexOf(sObj.value)!=-1){
+			
+			tObj[i].focus();
+			tObj[i].value="여기있네!!";
+		}
+			
+	}
+	
+	
+}
+</script>
+<body>
+<input type="text" id="create" name="create"/>
+<input type="button" value="생성" onclick="createTable(this)"/><br/>
+<div id="c_div"></div>
+<input type="text" id="search" name="search"/>
+<input type="button" value="값찾기" onclick="search(this)"/>
+</body>
+</html>
