@@ -61,10 +61,13 @@ function getHttpXmlObj(){
 					"application/x-www-form-urlencoded");
 		}
 		xhr.send();
+		if(xhr.redayState>0){
+			document.location.href="/user/select_user.html";
+		}
 	}
 </script>
 <body>
-	<form method="get" action="/select_user.html" onsubmit="return checkLogin()">
+	<form method="get" action="/user/select_user.html" onsubmit="return checkLogin()">
 		<table border="1" align="center" >
 			<tr>
 				<td align="center">아이디</td>

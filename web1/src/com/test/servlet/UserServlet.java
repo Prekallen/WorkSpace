@@ -84,6 +84,9 @@ public class UserServlet extends HttpServlet{
 			hm.put("userid",userid);
 			hm.put("userpwd", userpwd);
 			doProcess(resq,ul.LoginUser(hm));
+			if(ul.LoginUser(hm).equals("로그인")){
+				doProcess(resq, "location.href=/user/select_user.html");
+			}
 					
 		}else if(command.equals("DELETE")){
 			System.out.println("삭제할 번호 : " + usernum);
