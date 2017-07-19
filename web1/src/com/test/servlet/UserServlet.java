@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.service.UserDelete;
+import com.test.service.UserLogin;
 import com.test.service.UserSelect;
 import com.test.service.UserService;
 import com.test.service.UserUpdate;
@@ -23,23 +24,23 @@ public class UserServlet extends HttpServlet{
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resq) throws IOException, ServletException{
 		UserServlet u = new UserServlet();
+		UserLogin ul = new UserLogin();
 		UserService us = new UserService();
 		UserDelete ud = new UserDelete();
 		UserUpdate uu = new UserUpdate();
 		UserSelect usl = new UserSelect();
 		req.setCharacterEncoding("UTF-8");
 		String command = req.getParameter("command");
-		String id = req.getParameter("id");
-		String pwd = req.getParameter("pwd");
-		String name = req.getParameter("name");
-		String class_num = req.getParameter("class_num");
-		String age = req.getParameter("age");
-		String num =req.getParameter("num");
+		String userid = req.getParameter("userid");
+		String userpwd = req.getParameter("userpwd");
+		String username = req.getParameter("username");
+		String address = req.getParameter("address");
+		String usernum =req.getParameter("usernum");
 		String op = req.getParameter("op");
 		HashMap hm = new HashMap();
 
 		if(command.equals("INPUT")){
-			System.out.println("input html에서 넘긴 값은 >> name : " + name + "\n\t password : " + pwd);
+			System.out.println("input html에서 넘긴 값은 >> name : " + username + "\n\t password : " + userpwd);
 		}
 		if(command.equals("USERINFO")){
 
@@ -59,23 +60,34 @@ public class UserServlet extends HttpServlet{
 
 		}
 		if(command.equals("SIGNIN")){
-
-			hm.put("id", id);
-			hm.put("pwd", pwd);
-			hm.put("name", name);
-			hm.put("class_num", class_num);
+			
+			String hp1 = req.getParameter("hp1");
+			String hp2 = req.getParameter("hp2");
+			String hp3 = req.getParameter("hp3");
+			String age  = req.getParameter("age");
+			hm.put("userid", userid);
+			hm.put("userpwd", userpwd);
+			hm.put("username", username);
+			hm.put("address", address);
+			hm.put("hp1", hp1);
+			hm.put("hp2", hp2);
+			hm.put("hp3", hp3);
 			hm.put("age", age);
 
 			if(us.insertUser(hm)){
-				System.out.println("입력이 잘 되었음");
 				doProcess(resq, "입력이 잘 되었음");
 			}else{
-				System.out.println("입력이 오류");
 				doProcess(resq, "입력이 오류");
 			}
+		}else if(command.equals("LOGIN")){
+			
+			hm.put("userid",userid);
+			hm.put("userpwd", userpwd);
+			doProcess(resq,ul.LoginUser(hm));
+					
 		}else if(command.equals("DELETE")){
-			System.out.println("삭제할 번호 : " + num);
-			if(ud.deleteUser(num)){
+			System.out.println("삭제할 번호 : " + usernum);
+			if(ud.deleteUser(usernum)){
 				System.out.println("삭제 되었음");
 				doProcess(resq, "삭제 되었음");
 			}else{
@@ -84,11 +96,12 @@ public class UserServlet extends HttpServlet{
 			}
 		}
 		else if(command.equals("UPDATE")){
-			hm.put("id", id);
-			hm.put("name", name);
-			hm.put("class_num", class_num);
+			String age  = req.getParameter("age");
+			hm.put("userid", userid);
+			hm.put("username", username);
+			hm.put("address", address);
 			hm.put("age", age);
-			hm.put("num", num);
+			hm.put("usernum", usernum);
 
 			if(uu.updateUser(hm)){
 				System.out.println("수정이 잘 되었음");
@@ -99,10 +112,10 @@ public class UserServlet extends HttpServlet{
 			}
 		}
 		else if(command.equals("SELECT")){
-			System.out.println("이름 : " + name);
+			System.out.println("이름 : " + username);
 			hm = new HashMap();
-			if(name!=null&& !name.equals("")){
-				hm.put("name","%" + name + "%");
+			if(username!=null&& !username.equals("")){
+				hm.put("name","%" + username + "%");
 			}
 			List<Map> list= usl.selectUser(hm);
 			String result = "<script>";
@@ -113,7 +126,7 @@ public class UserServlet extends HttpServlet{
 			result	+="location.href='/update.user?command=UPDATE';}";
 			result +="</script>";
 			result += "<form action='/test_web/sign.user'>";
-			result += "이름 : <input type='text' name='name' id='name'/><input type='submit' value='검색'/>";
+			result += "이름 : <input type='text' name='username' id='username'/><input type='submit' value='검색'/>";
 			result += "<input type='hidden' name='command' id='command' value='SELECT'/>";
 			result += "<table border='1'>";
 			result += "<tr>";
@@ -126,12 +139,12 @@ public class UserServlet extends HttpServlet{
 			result +="</tr>";
 			for(Map m : list){
 				result += "<tr align='center'>";
-				result += "<td>"+m.get("num")+"</td>";
-				result += "<td>"+m.get("id")+"</td>";
-				result += "<td>"+m.get("name")+"</td>";
+				result += "<td>"+m.get("usernum")+"</td>";
+				result += "<td>"+m.get("userid")+"</td>";
+				result += "<td>"+m.get("username")+"</td>";
 				result += "<td>"+m.get("age")+"</td>";
-				result += "<td>"+m.get("class_num")+"</td>";
-				result += "<td><input type='button' value='삭제' onclick='deleteUser("+m.get("num")+")'/></td>";
+				result += "<td>"+m.get("address")+"</td>";
+				result += "<td><input type='button' value='삭제' onclick='deleteUser("+m.get("usernum")+")'/></td>";
 				result +="</tr>";
 			}
 			result +="</table></br>";
@@ -145,11 +158,11 @@ public class UserServlet extends HttpServlet{
 			result += "<td>클래스</td>";
 			result +="</tr>";
 			result += "<tr>";
-			result += "<td><input type='text' name='num' id='num'/></td>";
-			result += "<td><input type='text' name='id' id='id'/></td>";
-			result += "<td><input type='text' name='name' id='name'/></td>";
+			result += "<td><input type='text' name='usernum' id='usernum'/></td>";
+			result += "<td><input type='text' name='userid' id='userid'/></td>";
+			result += "<td><input type='text' name='username' id='username'/></td>";
 			result += "<td><input type='text' name='age' id='age'/></td>";
-			result += "<td><input type='text' name='class_num' id='class_num'/></td>";
+			result += "<td><input type='text' name='address' id='address'/></td>";
 			result +="</tr>";
 			result +="</table>";
 			result +="<input type='reset' name='r_btn' value='리셋'/>";

@@ -17,24 +17,24 @@ public class UserSelect {
 		Connection con =null;
 		PreparedStatement ps =null;
 		try {
-			String sql = "select num,id,name,age,class_num from user_info ";
-			if(hm.get("name")!=null){		
+			String sql = "select usernum,userid,username,age,address from user_info ";
+			if(hm.get("username")!=null){		
 				sql += "where name like ?;";
 			}
 			con=DBConn.getCon();
 			ps=con.prepareStatement(sql);
-			if(hm.get("name")!=null){
-				ps.setString(1, hm.get("name"));
+			if(hm.get("username")!=null){
+				ps.setString(1, hm.get("username"));
 			}
 			ResultSet rs = ps.executeQuery();
 			List lm = new ArrayList();
 			while(rs.next()){
 				Map hm1 = new HashMap();
-				hm1.put("num", rs.getString("num"));
-				hm1.put("id", rs.getString("id"));
-				hm1.put("name", rs.getString("name"));
+				hm1.put("usernum", rs.getString("usernum"));
+				hm1.put("userid", rs.getString("userid"));
+				hm1.put("username", rs.getString("username"));
 				hm1.put("age", rs.getString("age"));
-				hm1.put("class_num", rs.getString("class_num"));
+				hm1.put("address", rs.getString("address"));
 				lm.add(hm1);
 			}
 			return lm;
