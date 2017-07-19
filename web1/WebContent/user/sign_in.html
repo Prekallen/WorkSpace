@@ -4,39 +4,99 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script>
+function getHttpXmlObj(){
+    if(window.XMLHttpRequest){
+  		return new XMLHttpRequest();
+ 	}else if(window.ActiveXObject){
+  		return new ActiveXObject("Microsoft.XMLHTTP");
+ 	}
+	alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
+}
+function doSignin(){
+	var idStr = "userid,userpwd,username,address,hp1,hp2,hp3,age,command";
+	var lengthStr = "30,100,100,200,4,4,4,3,100";
+	var typeStr = "s,s,s,s,n,n,n,n,s";
+	var params = "?";
+	var ids = idStr.split(",");
+	var lengths = lengthStr.split(",");
+	var types = typeStr.split(",");
+	for(var i = 0; i<ids.length;i++){
+		var maxLength = new Number(lengths[i]);
+		var typeVali = types[i];
+		var elObj = document.getElementById(ids[i]);
+		if(!isNaN(maxLength)){
+			if(elObj.value.length>maxLength){
+				alert("제한 길이를 넘었습니다. 확인해주세요.");
+				elObj.value="";
+				elObj.focus();
+				return;
+			}
+		}
+		if(typeVali=="n"){
+			if(isNaN(new Number(elObj.value))){
+				alert("숫자만 입력해주세요.");
+				elObj.value="";
+				elObj.focus();
+				return;
+			}
+		}
+		params += ids[i]+"="+ elObj.value +"&";
+	}
+	var xhr = getHttpXmlObj();
+	var method = "get";
+	var url = "test.user";
+	var aSync = true;
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState==4 && xhr.status ==200){
+			var result = decodeURIComponent(xhr.responseText);
+			alert(result);
+		}
+	}
+	xhr.open(method, url+params, aSync);
+	if(method == "post"){
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	}
+	xhr.send();
+}
+
+</script>
 <body>
-<form action="/test_web/sign.user">
-<div width="100%">
+<div width="100%" id= "bd_div">
 <table border="1" cellspacing="0" cellpadding="0" width="400" align="center">
 <tr>
 	<td colspan="2"><p align="center"> = 회원 가입 = </p></td>
 </tr>
 <tr align="center">
-	<td>id</td>
-	<td><input type="text" name="id" id="id"/></td>
+	<td>아이디</td>
+	<td><input type="text" name="userid" id="userid" maxlength="30"/></td>
 </tr>
 <tr align="center">
-	<td>pwd</td>
-	<td><input type="text" name="pwd" id="pwd"/></td>
+	<td>비밀번호</td>
+	<td><input type="password" name="userpwd" id="userpwd" maxlength="100"/></td>
 </tr>
 <tr align="center">
-	<td>name</td>
-	<td><input type="text" name="name" id="name"/></td>
+	<td>이름</td>
+	<td><input type="text" name="username" id="username" maxlength ="100"/></td>
 </tr>
 <tr align="center">
-	<td>class num</td>
-	<td><input type="text" name="class_num" id="class_num"/></td>
+	<td>주소</td>
+	<td><input type="text" name="address" id="address" size="35"/></td>
 </tr>
 <tr align="center">
-	<td>age</td>
-	<td><input type="text" name="age" id="age"/></td>
+	<td>나이</td>
+	<td><input type="text" name="age" id="age" size="5" maxlength="3"/></td>
 </tr>
 <tr align="center">
-	<td colspan="2" align="center"><input type="submit" value="회원가입"/></td>
+	<td>휴대전화</td>
+	<td><input type="text" name="hp1" id="hp1" size="4"/>-<input type="text" name="hp2" id="hp2" size="4"/>-<input type="text" name="hp3" id="hp3" size="4"/></td>
+</tr>
+<tr align="center">
+	<td colspan="2" align="center"><input type="button" value="회원가입" onclick="doSignin()"/></td>
 </tr>
 </table>
 </div>
 <input type="hidden" name="command" id="command" value="Signin"/>
-</form>
+
 </body>
 </html>
