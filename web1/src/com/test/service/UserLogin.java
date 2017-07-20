@@ -12,7 +12,7 @@ import java.util.Map;
 import com.test.common.DBConn;
 
 public class UserLogin {
-	public String LoginUser(HashMap<String,String>hm) {
+	public String loginUser(HashMap<String,String>hm) {
 		Connection con =null;
 		PreparedStatement ps =null;
 		try {

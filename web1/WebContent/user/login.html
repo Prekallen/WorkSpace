@@ -50,6 +50,7 @@ function getHttpXmlObj(){
 				if (xhr.status == 200) {
 					var result = decodeURIComponent(xhr.responseText);
 					alert(result);
+					
 				} else {
 					document.getElementById("bd_div").innerHTML += xhr.responseText;
 				}
@@ -61,9 +62,7 @@ function getHttpXmlObj(){
 					"application/x-www-form-urlencoded");
 		}
 		xhr.send();
-		if(xhr.redayState>0){
-			document.location.href="/user/select_user.html";
-		}
+		
 	}
 </script>
 <body>

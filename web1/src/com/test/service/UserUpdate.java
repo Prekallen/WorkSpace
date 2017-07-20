@@ -13,13 +13,13 @@ public class UserUpdate {
 		PreparedStatement ps =null;		
 		try{
 			con = DBConn.getCon();
-			String sql = "update user_info set id=?,name=?, class_num=?, age=? where num =?;";
+			String sql = "update user_info set userid=?,username=?, address=?, age=? where usernum =?;";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("id"));
-			ps.setString(2, hm.get("name"));
-			ps.setString(3, hm.get("class_num"));
+			ps.setString(1, hm.get("userid"));
+			ps.setString(2, hm.get("username"));
+			ps.setString(3, hm.get("address"));
 			ps.setString(4, hm.get("age"));
-			ps.setString(5, hm.get("num"));
+			ps.setString(5, hm.get("usernum"));
 			int result = ps.executeUpdate();
 			if(result ==1){
 				con.commit();

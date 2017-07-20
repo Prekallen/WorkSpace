@@ -10,15 +10,15 @@ import com.test.servlet.UserServlet;
 public class UserDelete {
 
 
-	public boolean deleteUser(String user_num){
+	public boolean deleteUser(String usernum){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try{
 			con= DBConn.getCon();
-			String sql = "delete from user_info where num = ?";
+			String sql = "delete from user_info where usernum = ?";
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, Integer.parseInt(user_num));
+			ps.setString(1, usernum);
 			int result = ps.executeUpdate();
 			if(result>0){
 				con.commit();

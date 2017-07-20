@@ -19,7 +19,7 @@ public class UserSelect {
 		try {
 			String sql = "select usernum,userid,username,age,address from user_info ";
 			if(hm.get("username")!=null){		
-				sql += "where name like ?;";
+				sql += "where username like ?;";
 			}
 			con=DBConn.getCon();
 			ps=con.prepareStatement(sql);

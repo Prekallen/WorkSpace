@@ -36,6 +36,7 @@ public class UserServlet extends HttpServlet{
 		String username = req.getParameter("username");
 		String address = req.getParameter("address");
 		String usernum =req.getParameter("usernum");
+		String age  = req.getParameter("age");
 		String op = req.getParameter("op");
 		HashMap hm = new HashMap();
 
@@ -64,7 +65,6 @@ public class UserServlet extends HttpServlet{
 			String hp1 = req.getParameter("hp1");
 			String hp2 = req.getParameter("hp2");
 			String hp3 = req.getParameter("hp3");
-			String age  = req.getParameter("age");
 			hm.put("userid", userid);
 			hm.put("userpwd", userpwd);
 			hm.put("username", username);
@@ -83,10 +83,9 @@ public class UserServlet extends HttpServlet{
 			
 			hm.put("userid",userid);
 			hm.put("userpwd", userpwd);
-			doProcess(resq,ul.LoginUser(hm));
-			if(ul.LoginUser(hm).equals("로그인")){
-				doProcess(resq, "location.href=/user/select_user.html");
-			}
+			String result = ul.loginUser(hm);
+			doProcess(resq,result);
+			
 					
 		}else if(command.equals("DELETE")){
 			System.out.println("삭제할 번호 : " + usernum);
@@ -99,7 +98,7 @@ public class UserServlet extends HttpServlet{
 			}
 		}
 		else if(command.equals("UPDATE")){
-			String age  = req.getParameter("age");
+			
 			hm.put("userid", userid);
 			hm.put("username", username);
 			hm.put("address", address);
@@ -115,62 +114,17 @@ public class UserServlet extends HttpServlet{
 			}
 		}
 		else if(command.equals("SELECT")){
-			System.out.println("이름 : " + username);
 			hm = new HashMap();
 			if(username!=null&& !username.equals("")){
-				hm.put("name","%" + username + "%");
+				hm.put("username","%" + username + "%");
 			}
 			List<Map> list= usl.selectUser(hm);
-			String result = "<script>";
-			result +="function deleteUser(userNum){";
-			result +="location.href='delete.user?command=DELETE&num=' + userNum;";
-			result +="}";
-			result +="function updateUser(){";
-			result	+="location.href='/update.user?command=UPDATE';}";
-			result +="</script>";
-			result += "<form action='/test_web/sign.user'>";
-			result += "이름 : <input type='text' name='username' id='username'/><input type='submit' value='검색'/>";
-			result += "<input type='hidden' name='command' id='command' value='SELECT'/>";
-			result += "<table border='1'>";
-			result += "<tr>";
-			result += "<td>번호</td>";
-			result += "<td>ID</td>";
-			result += "<td>이름</td>";
-			result += "<td>나이</td>";
-			result += "<td>클래스</td>";
-			result += "<td>삭제버튼</td>";
-			result +="</tr>";
+			String result = "번호)-:이름)-:아이디)-:나이)-:주소(-:";
+			result+="dis)-:en)-:en)-:en)-:en(-:";
 			for(Map m : list){
-				result += "<tr align='center'>";
-				result += "<td>"+m.get("usernum")+"</td>";
-				result += "<td>"+m.get("userid")+"</td>";
-				result += "<td>"+m.get("username")+"</td>";
-				result += "<td>"+m.get("age")+"</td>";
-				result += "<td>"+m.get("address")+"</td>";
-				result += "<td><input type='button' value='삭제' onclick='deleteUser("+m.get("usernum")+")'/></td>";
-				result +="</tr>";
+				result += m.get("usernum") + ")-:" + m.get("username") + ")-:" + m.get("userid") + ")-:" + m.get("age") +")-:" + m.get("address") + "(-:";
 			}
-			result +="</table></br>";
-			result +="테이블 값 업데이트<br/>";
-			result += "<table border='1'>";
-			result += "<tr>";
-			result += "<td>변경할 번호</td>";
-			result += "<td>ID</td>";
-			result += "<td>이름</td>";
-			result += "<td>나이</td>";
-			result += "<td>클래스</td>";
-			result +="</tr>";
-			result += "<tr>";
-			result += "<td><input type='text' name='usernum' id='usernum'/></td>";
-			result += "<td><input type='text' name='userid' id='userid'/></td>";
-			result += "<td><input type='text' name='username' id='username'/></td>";
-			result += "<td><input type='text' name='age' id='age'/></td>";
-			result += "<td><input type='text' name='address' id='address'/></td>";
-			result +="</tr>";
-			result +="</table>";
-			result +="<input type='reset' name='r_btn' value='리셋'/>";
-			result +="<input type='button' name='s_btn' value='업데이트'onclick='updateUser()'/>";
-			result += "</form>";
+			result = result.substring(0, result.length()-3);
 			doProcess(resq, result);
 		}
 	}
