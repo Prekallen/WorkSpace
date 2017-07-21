@@ -6,21 +6,23 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.test.common.DBConn;
+import com.test.dto.BoardInfo;
 
 public class BoardService {
 
-	public boolean BoardInsert(HashMap<String,String> hm){
+	public boolean BoardInsert(BoardInfo bI){
 		Connection con = null;
 		PreparedStatement ps =null;		
 		try{
 			con = DBConn.getCon();
-			String sql = "insert into board(title,content,writer,reg_date)";
-			sql +=" values(?,?,?,now());";
+			String sql = "insert into board(bititle,bicontent,bipwd,creusr,credat)";
+			sql +=" values(?,?,?,?,now());";
 			
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("title"));
-			ps.setString(2, hm.get("content"));
-			ps.setInt(3, Integer.parseInt(hm.get("writer")));
+			ps.setString(1, bI.getBITitle());
+			ps.setString(2, bI.getBIContent());
+			ps.setString(2, bI.getBIPwd());
+			ps.setString(4, bI.getCreUsr());
 			int result = ps.executeUpdate();
 			if(result ==1){
 				con.commit();

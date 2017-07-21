@@ -3,22 +3,22 @@ package com.test.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import com.test.common.DBConn;
+import com.test.dto.BoardInfo;
 
 public class BoardUpdate {
-	public boolean boardUpdate(HashMap<String,String> hm){
+	public boolean boardUpdate(BoardInfo bI){
 		Connection con = null;
 		PreparedStatement ps =null;		
 		try{
 			con = DBConn.getCon();
-			String sql = "update board set title=?, content=?, writer=?, reg_date=now() where num =?;";
+			String sql = "update board set bititle=?, bicontent=?, creusr=?, credat=now() where binum =?;";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("title"));
-			ps.setString(2, hm.get("content"));
-			ps.setString(3, hm.get("writer"));
-			ps.setString(4, hm.get("num"));
+			ps.setString(1, bI.getBITitle());
+			ps.setString(2, bI.getBIContent());
+			ps.setString(3, bI.getCreUsr());
+			ps.setInt(4, bI.getBINum());
 			int result = ps.executeUpdate();
 			if(result ==1){
 				con.commit();

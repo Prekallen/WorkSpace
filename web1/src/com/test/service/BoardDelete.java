@@ -10,15 +10,15 @@ import com.test.servlet.UserServlet;
 public class BoardDelete {
 
 	
-	public boolean boardDelete(String num){
+	public boolean boardDelete(String bINum){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try{
 			con= DBConn.getCon();
-			String sql = "delete from board where num = ?";
+			String sql = "delete from board_info where binum = ?";
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, Integer.parseInt(num));
+			ps.setInt(1, Integer.parseInt(bINum));
 			int result = ps.executeUpdate();
 			if(result>0){
 				con.commit();

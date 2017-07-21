@@ -2,7 +2,6 @@ package com.test.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.test.dto.BoardInfo;
 import com.test.service.BoardDelete;
 import com.test.service.BoardSelect;
 import com.test.service.BoardService;
@@ -29,22 +29,25 @@ public class BoardServlet extends HttpServlet {
 		BoardDelete bD = new BoardDelete();
 		BoardUpdate bU = new BoardUpdate();
 		BoardSelect bSl = new BoardSelect();
+		BoardInfo bI = new BoardInfo();
 		String command = req.getParameter("command");
-		String title = req.getParameter("title");
-		String content = req.getParameter("content");
-		String writer = req.getParameter("writer");
-		String num = req.getParameter("num");
+		String bITitle = req.getParameter("bITitle");
+		String bIContent = req.getParameter("bIContent");
+		String bIPwd = req.getParameter("bIPwd");
+		String creUsr = req.getParameter("creUsr");
+		String bINum = req.getParameter("bINum");
 		String lists = req.getParameter("list");
 
 		HashMap hm = new HashMap();
 
 		if (command.equals("INSERT")) {
 
-			hm.put("title", title);
-			hm.put("content", content);
-			hm.put("writer", writer);
-
-			if (bSv.BoardInsert(hm)) {
+			bI.setBITitle(bITitle);
+			bI.setBIContent(bIContent);
+			bI.setBIPwd(bIPwd);
+			bI.setCreUsr(creUsr);
+			
+			if (bSv.BoardInsert(bI)) {
 				System.out.println("입력이 잘 되었음");
 				doProcess(resq, "입력이 잘 되	었음");
 			} else {
@@ -53,8 +56,8 @@ public class BoardServlet extends HttpServlet {
 			}
 
 		} else if (command.equals("DELETE")) {
-			System.out.println("삭제할 번호 : " + num);
-			if (bD.boardDelete(num)) {
+			System.out.println("삭제할 번호 : " + bINum);
+			if (bD.boardDelete(bINum)) {
 				System.out.println("삭제 되었음");
 				doProcess(resq, "삭제 되었음");
 			} else {
@@ -62,12 +65,13 @@ public class BoardServlet extends HttpServlet {
 				doProcess(resq, "삭제 오류");
 			}
 		} else if (command.equals("UPDATE")) {
-			hm.put("num", num);
-			hm.put("title", title);
-			hm.put("content", content);
-			hm.put("writer", writer);
+			bI.setBINum(Integer.parseInt(bINum));
+			bI.setBITitle(bITitle);
+			bI.setBIContent(bIContent);
+			bI.setCreUsr(creUsr);
+			bI.setBIPwd(bIPwd);
 
-			if (bU.boardUpdate(hm)) {
+			if (bU.boardUpdate(bI)) {
 				System.out.println("수정이 잘 되었음");
 				doProcess(resq, "수정이 잘 되었음");
 			} else {
