@@ -38,8 +38,12 @@ public class UserServlet extends HttpServlet{
 		String address = req.getParameter("address");
 		String userNum =req.getParameter("usernum");
 		String age  = req.getParameter("age");
+		String hp1 = req.getParameter("hp1");
+		String hp2 = req.getParameter("hp2");
+		String hp3 = req.getParameter("hp3");
 		String op = req.getParameter("op");
-		HashMap hm = new HashMap();
+		UserInfo ui = new UserInfo();
+		
 
 		if(command.equals("INPUT")){
 			System.out.println("input html에서 넘긴 값은 >> name : " + userName + "\n\t password : " + userPwd);
@@ -63,10 +67,6 @@ public class UserServlet extends HttpServlet{
 		}
 		if(command.equals("SIGNIN")){
 			
-			String hp1 = req.getParameter("hp1");
-			String hp2 = req.getParameter("hp2");
-			String hp3 = req.getParameter("hp3");
-			UserInfo ui = new UserInfo();
 			ui.setUserId(userId);
 			ui.setUserPwd(userPwd);
 			ui.setUserName(userName);
@@ -84,9 +84,9 @@ public class UserServlet extends HttpServlet{
 			}
 		}else if(command.equals("LOGIN")){
 			
-			hm.put("userId",userId);
-			hm.put("userPwd", userPwd);
-			String result = ul.loginUser(hm);
+			ui.setUserId(userId);
+			ui.setUserPwd(userPwd);
+			String result = ul.loginUser(ui);
 			doProcess(resq,result);
 			
 					
@@ -100,32 +100,31 @@ public class UserServlet extends HttpServlet{
 				doProcess(resq, "삭제 오류");
 			}
 		}
-		else if(command.equals("UPDATE")){
-			
-			hm.put("userId", userId);
-			hm.put("userName", userName);
-			hm.put("address", address);
-			hm.put("age", age);
-			hm.put("userNum", userNum);
-
-			if(uu.updateUser(hm)){
-				System.out.println("수정이 잘 되었음");
-				doProcess(resq, "수정이 잘 되었음");
+		else if (command.equals("UPDATE")) {
+			ui.setUserId(userId);
+			ui.setUserName(userName);
+			ui.setUserNum(Integer.parseInt(userNum));
+			ui.setAge(Integer.parseInt(age));
+			ui.setAddress(address);
+			boolean isUpdate = uu.updateUser(ui);
+			String result = "";
+			if(isUpdate){
+				result = "수정 됨";
 			}else{
-				System.out.println("수정이 오류");
-				doProcess(resq, "수정이 오류");
+				result = "수정 안됨";
 			}
+			doProcess(resq, result);
 		}
 		else if(command.equals("SELECT")){
-			hm = new HashMap();
+			
 			if(userName!=null&& !userName.equals("")){
-				hm.put("userName","%" + userName + "%");
+				ui.setUserName("%" + userName + "%");
 			}
-			List<Map> list= usl.selectUser(hm);
+			List<UserInfo> list= usl.selectUser(ui);
 			String result = "번호)-:이름)-:아이디)-:나이)-:주소(-:";
 			result+="dis)-:en)-:en)-:en)-:en(-:";
-			for(Map m : list){
-				result += m.get("userNum") + ")-:" + m.get("userName") + ")-:" + m.get("userId") + ")-:" + m.get("age") +")-:" + m.get("address") + "(-:";
+			for(UserInfo usi : list){
+				result += usi.getUserNum() + ")-:" + usi.getUserName() + ")-:" + usi.getUserId() + ")-:" + usi.getAge() +")-:" + usi.getAddress() + "(-:";
 			}
 			result = result.substring(0, result.length()-3);
 			doProcess(resq, result);

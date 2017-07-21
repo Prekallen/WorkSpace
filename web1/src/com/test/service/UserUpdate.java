@@ -6,28 +6,30 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.test.common.DBConn;
+import com.test.dto.UserInfo;
 
 public class UserUpdate {
-	public boolean updateUser(HashMap<String,String> hm){
+	public boolean updateUser(UserInfo ui){
 		Connection con = null;
-		PreparedStatement ps =null;		
-		try{
+		PreparedStatement ps = null;
+		try {
 			con = DBConn.getCon();
-			String sql = "update user_info set userid=?,username=?, address=?, age=? where usernum =?;";
+			String sql = "update user_info set userid=?,username=?,age=?,address=? where usernum=?";
+			
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("userId"));
-			ps.setString(2, hm.get("userName"));
-			ps.setString(3, hm.get("address"));
-			ps.setString(4, hm.get("age"));
-			ps.setString(5, hm.get("userNum"));
+			ps.setString(1, ui.getUserId());
+			ps.setString(2, ui.getUserName());
+			ps.setInt(3, ui.getAge());
+			ps.setString(4, ui.getAddress());
+			ps.setInt(5, ui.getUserNum());
 			int result = ps.executeUpdate();
-			if(result ==1){
+			if(result==1){
 				con.commit();
 				return true;
 			}
-		}catch(ClassNotFoundException e){
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
 			try {
@@ -36,7 +38,6 @@ public class UserUpdate {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 		}
 		return false;
 	}

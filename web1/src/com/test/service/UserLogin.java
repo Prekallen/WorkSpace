@@ -10,21 +10,22 @@ import java.util.List;
 import java.util.Map;
 
 import com.test.common.DBConn;
+import com.test.dto.UserInfo;
 
 public class UserLogin {
-	public String loginUser(HashMap<String,String>hm) {
+	public String loginUser(UserInfo ui) {
 		Connection con =null;
 		PreparedStatement ps =null;
 		try {
 			con=DBConn.getCon();
 			String sql = "select userid, userpwd from user_info where userid=?;";
 			ps=con.prepareStatement(sql);
-			ps.setString(1, hm.get("userId"));
+			ps.setString(1, ui.getUserId());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				String userpwd = rs.getString("userPwd");
+				String userpwd = rs.getString("userpwd");
 				
-					return checkPwd(userpwd,hm.get("userPwd"));
+					return checkPwd(userpwd,ui.getUserPwd());
 			}
 			
 		}catch(Exception e){
