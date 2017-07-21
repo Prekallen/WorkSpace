@@ -4,15 +4,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="/js/Ajax.js"></script>
 <script>
-	function getHttpXmlObj() {
-		if (window.XMLHttpRequest) {
-			return new XMLHttpRequest();
-		} else if (window.ActiveXObject) {
-			return new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
-	}
 	function doUpdate(userNum) {
 		var params = "";
 		var userName = document.getElementById("r" + userNum + 1).value;
@@ -20,25 +13,11 @@
 		var age = document.getElementById("r" + userNum + 3).value;
 		var address = document.getElementById("r" + userNum + 4).value;
 		var command = "UPDATE";
-			params += "?usernum=" + userNum + "&username=" + userName
-					+ "&userid=" + userId + "&age=" + age + "&address="
-					+ address + "&command=" + command;
-		
-		var xhr = getHttpXmlObj();
-		var method = "get";
-		var url = "test.user";
-		var aSync = true;
-		xhr.onreadystatechange=function(){
-	   		if (xhr.readyState==4){
-	   			if(xhr.status==200){
-		   			var result = decodeURIComponent(xhr.responseText);
-		   			alert(result);
-		   			doSelect();
-	   			}
-	   		}
-		}
-	   	xhr.open(method, url+params, aSync);
-	   	xhr.send();
+		params += "?usernum=" + userNum + "&username=" + userName + "&userid="
+				+ userId + "&age=" + age + "&address=" + address + "&command="
+				+ command;
+		var au = new AjaxUtil(params);
+		au.send();
 	}
 	function doDelete(userNum) {
 		var isDelete = confirm(userNum);
@@ -54,26 +33,8 @@
 				return false;
 			}
 		}
-		var xhr = getHttpXmlObj();
-		var method = "get";
-		var url = "test.user";
-		var aSync = true;
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4) {
-				if (xhr.status == 200) {
-					var result = decodeURIComponent(xhr.responseText);
-				} else {
-					document.getElementById("bd_div").innerHTML += xhr.responseText;
-				}
-			}
-		}
-		xhr.open(method, url + params, aSync);
-		if (method == "post") {
-			xhr.setRequestHeader("Content-type",
-					"application/x-www-form-urlencoded");
-		}
-		xhr.send();
-
+		var au = new AjaxUtil(params);
+		au.send();
 	}
 
 	function doSelect() {
@@ -107,66 +68,60 @@
 			}
 			params += names[i] + "=" + elObj.value + "&";
 		}
-		var xhr = getHttpXmlObj();
-		var method = "get";
-		var url = "test.user";
-		var aSync = true;
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4) {
-				if (xhr.status == 200) {
-					var result = decodeURIComponent(xhr.responseText);
-					var rows = result.split("(-:");
-					var tdEnables = rows[1].split(")-:");
-					var tableStr = "<table border='1'>";
-					for (var i = 0; i < rows.length; i++) {
-						if (i == 1) {
-							continue;
-						}
-						tableStr += "<tr>";
-						var columns = rows[i].split(")-:");
-						var userNum;
-						for (var j = 0; j < columns.length; j++) {
-							if (j == 0) {
-								userNum = columns[j];
-							}
-							if (i == 0) {
-								tableStr += "<td>" + columns[j] + "</td>"
-							} else {
-								if (tdEnables[j] == "en") {
-									tableStr += "<td><input type='text' id= 'r"+userNum+j+"' value='" + columns[j] + "'/></td>"
-								} else {
-									tableStr += "<td>" + columns[j] + "</td>"
+		var au = new AjaxUtil(params);
+		au.changeCallBack(function() {
+					if (au.xhr.readyState == 4) {
+						if (au.xhr.status == 200) {
+							var result = decodeURIComponent(au.xhr.responseText);
+							var rows = result.split("(-:");
+							var tdEnables = rows[1].split(")-:");
+							var tableStr = "<table border='1'>";
+							for (var i = 0; i < rows.length; i++) {
+								if (i == 1) {
+									continue;
 								}
+								tableStr += "<tr>";
+								var columns = rows[i].split(")-:");
+								var userNum;
+								for (var j = 0; j < columns.length; j++) {
+									if (j == 0) {
+										userNum = columns[j];
+									}
+									if (i == 0) {
+										tableStr += "<td>" + columns[j]
+												+ "</td>"
+									} else {
+										if (tdEnables[j] == "en") {
+											tableStr += "<td><input type='text' id= 'r"+userNum+j+"' value='" + columns[j] + "'/></td>"
+										} else {
+											tableStr += "<td>" + columns[j]
+													+ "</td>"
+										}
+									}
+								}
+								if (i == 0) {
+									tableStr += "<td>삭제</td>";
+									tableStr += "<td>수정</td>";
+								} else {
+									tableStr += "<td><input type='button' value='삭제' onclick='doDelete("
+											+ userNum + ")'/></td>";
+									tableStr += "<td><input type='button' value='수정' onclick='doUpdate("
+											+ userNum + ")'/></td>";
+								}
+								tableStr += "</tr>";
 							}
-						}
-						if (i == 0) {
-							tableStr += "<td>삭제</td>";
-							tableStr += "<td>수정</td>";
-						} else {
-							tableStr += "<td><input type='button' value='삭제' onclick='doDelete("
-									+ userNum + ")'/></td>";
-							tableStr += "<td><input type='button' value='수정' onclick='doUpdate("
-									+ userNum + ")'/></td>";
-						}
-						tableStr += "</tr>";
-					}
-					if (rows.length == 1) {
-						tableStr += "<tr><td colspan='3'>검색목록이 없음</td></tr>"
-					}
-					tableStr += "</table>";
-					document.getElementById("bd_div").innerHTML += tableStr;
+							if (rows.length == 1) {
+								tableStr += "<tr><td colspan='3'>검색목록이 없음</td></tr>"
+							}
+							tableStr += "</table>";
+							document.getElementById("bd_div").innerHTML += tableStr;
 
-				} else {
-					document.getElementById("bd_div").innerHTML += xhr.responseText;
-				}
-			}
-		}
-		xhr.open(method, url + params, aSync);
-		if (method == "post") {
-			xhr.setRequestHeader("Content-type",
-					"application/x-www-form-urlencoded");
-		}
-		xhr.send();
+						} else {
+							document.getElementById("bd_div").innerHTML += xhr.responseText;
+						}
+					}
+				});
+		au.send();
 	}
 </script>
 <body>
@@ -175,7 +130,9 @@
 	<input type="button" value="검색" onclick="doSelect()" />
 	<input type="hidden" name="command" id="command" value="SELECT" />
 	<div id="bd_div"></div>
-	
+
 </body>
-<script>doSelect();</script>
+<script>
+	doSelect();
+</script>
 </html>
