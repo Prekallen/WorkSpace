@@ -6,10 +6,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.test.common.DBConn;
+import com.test.dto.UserInfo;
 
 public class UserService {
 
-	public boolean insertUser(HashMap<String,String> hm){
+	public boolean insertUser(UserInfo ui){
 		Connection con = null;
 		PreparedStatement ps =null;		
 		try{
@@ -18,14 +19,14 @@ public class UserService {
 			sql +=" values(?,?,?,?,?,?,?,?);";
 			
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("userid"));
-			ps.setString(2, hm.get("userpwd"));
-			ps.setString(3, hm.get("username"));
-			ps.setString(4, hm.get("address"));
-			ps.setString(5, hm.get("age"));
-			ps.setString(6, hm.get("hp1"));
-			ps.setString(7, hm.get("hp2"));
-			ps.setString(8, hm.get("hp3"));
+			ps.setString(1, ui.getUserId());
+			ps.setString(2, ui.getUserPwd());
+			ps.setString(3, ui.getUserName());
+			ps.setString(4, ui.getAddress());
+			ps.setInt(5, ui.getAge());
+			ps.setString(6, ui.getHp1());
+			ps.setString(7, ui.getHp2());
+			ps.setString(8, ui.getHp3());
 			int result = ps.executeUpdate();
 			if(result ==1){
 				con.commit();

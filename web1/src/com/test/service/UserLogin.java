@@ -19,12 +19,12 @@ public class UserLogin {
 			con=DBConn.getCon();
 			String sql = "select userid, userpwd from user_info where userid=?;";
 			ps=con.prepareStatement(sql);
-			ps.setString(1, hm.get("userid"));
+			ps.setString(1, hm.get("userId"));
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				String userpwd = rs.getString("userpwd");
+				String userpwd = rs.getString("userPwd");
 				
-					return checkPwd(userpwd,hm.get("userpwd"));
+					return checkPwd(userpwd,hm.get("userPwd"));
 			}
 			
 		}catch(Exception e){

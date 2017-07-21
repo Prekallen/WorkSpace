@@ -15,11 +15,11 @@ public class UserUpdate {
 			con = DBConn.getCon();
 			String sql = "update user_info set userid=?,username=?, address=?, age=? where usernum =?;";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("userid"));
-			ps.setString(2, hm.get("username"));
+			ps.setString(1, hm.get("userId"));
+			ps.setString(2, hm.get("userName"));
 			ps.setString(3, hm.get("address"));
 			ps.setString(4, hm.get("age"));
-			ps.setString(5, hm.get("usernum"));
+			ps.setString(5, hm.get("userNum"));
 			int result = ps.executeUpdate();
 			if(result ==1){
 				con.commit();
