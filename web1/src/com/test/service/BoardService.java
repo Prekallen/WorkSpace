@@ -15,13 +15,13 @@ public class BoardService {
 		PreparedStatement ps =null;		
 		try{
 			con = DBConn.getCon();
-			String sql = "insert into board(bititle,bicontent,bipwd,creusr,credat)";
+			String sql = "insert into board_info(bititle,bicontent,bipwd,creusr,credat)";
 			sql +=" values(?,?,?,?,now());";
 			
 			ps = con.prepareStatement(sql);
 			ps.setString(1, bI.getBITitle());
 			ps.setString(2, bI.getBIContent());
-			ps.setString(2, bI.getBIPwd());
+			ps.setString(3, bI.getBIPwd());
 			ps.setString(4, bI.getCreUsr());
 			int result = ps.executeUpdate();
 			if(result ==1){
