@@ -11,8 +11,70 @@
 </head>
 <script>
 
-function logout(){
-	location.href="/user/userinfo.jsp";
+	function logout() {
+		location.href = "/user/userinfo.jsp";
+	}
+	function bSelect(){
+		document.getElementById("bd_div").innerHTML="";
+		var nameStr = "command";
+		var lengthStr = "100";
+		var typeStr = "s"
+		var params = "?";
+		var au = new AjaxUtil(params);
+		au.changeCallBack(function() {
+					if (au.xhr.readyState == 4) {
+						if (au.xhr.status == 200) {
+							var result = decodeURIComponent(au.xhr.responseText);
+							var rows = result.split("(-:");
+							var tdEnables = rows[1].split(")-:");
+							var tableStr = "<table border='1'>";
+							for (var i = 0; i < rows.length; i++) {
+								if (i == 1) {
+									continue;
+								}
+								tableStr += "<tr>";
+								var columns = rows[i].split(")-:");
+								var userNum;
+								for (var j = 0; j < columns.length; j++) {
+									if (j == 0) {
+										userNum = columns[j];
+									}
+									if (i == 0) {
+										tableStr += "<td>" + columns[j]
+												+ "</td>"
+									} else {
+										if (tdEnables[j] == "en") {
+											tableStr += "<td><input type='text' id= 'r"+userNum+j+"' value='" + columns[j] + "'/></td>"
+										} else {
+											tableStr += "<td>" + columns[j]
+													+ "</td>"
+										}
+									}
+								}
+								if (i == 0) {
+									tableStr += "<td>삭제</td>";
+									tableStr += "<td>수정</td>";
+								} else {
+									tableStr += "<td><input type='button' value='삭제' onclick='doDelete("
+											+ userNum + ")'/></td>";
+									tableStr += "<td><input type='button' value='수정' onclick='doUpdate("
+											+ userNum + ")'/></td>";
+								}
+								tableStr += "</tr>";
+							}
+							if (rows.length == 1) {
+								tableStr += "<tr><td colspan='3'>검색목록이 없음</td></tr>"
+							}
+							tableStr += "</table>";
+							document.getElementById("bd_div").innerHTML += tableStr;
+
+						} else {
+							document.getElementById("bd_div").innerHTML += xhr.responseText;
+						}
+					}
+				});
+		au.send();
+	}
 	}
 </script>
 <body>
@@ -38,8 +100,9 @@ function logout(){
 			out.println("<br/>");
 			out.println("전화번호 : " + hp1 + hp2 + hp3);
 			out.println("<p/>");
-			out.println("<input type='button' value='로그아웃' onclick='logout()'/>");
-			
+			out.println("<input type='button' value='로그아웃' onclick='logout()'/><p/>");
+			out.println("<input type='button' value='게시판보기' onclick='bSelect()/><br/>");
+			out.println("<div id='bd_div'></div>");
 			
 		} else {
 	%>
@@ -47,7 +110,7 @@ function logout(){
 		ID : <input type="text" name="id" /><br /> PWD : <input
 			type="password" name="pwd" /><br /> <input type="submit"
 			value="Log In" />
-			
+
 	</form>
 	<%
 		}

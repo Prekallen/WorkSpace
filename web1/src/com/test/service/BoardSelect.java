@@ -18,7 +18,7 @@ public class BoardSelect {
 		Connection con =null;
 		PreparedStatement ps =null;
 		try {
-			String sql = "select num,title,content,creusr,credat from board;";
+			String sql = "select num,title,content,creusr,credat from board_info;";
 			con=DBConn.getCon();
 			ps=con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();

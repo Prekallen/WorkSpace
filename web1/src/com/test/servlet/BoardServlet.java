@@ -39,7 +39,6 @@ public class BoardServlet extends HttpServlet {
 		String bINum = req.getParameter("bINum");
 		String lists = req.getParameter("list");
 
-		HashMap hm = new HashMap();
 
 		if (command.equals("INSERT")) {
 
@@ -84,8 +83,8 @@ public class BoardServlet extends HttpServlet {
 				List<BoardInfo> list = bSl.boardSelect(bI);
 				String result = "번호)-:제목)-:내용)-:비밀번호)-:사용자)-:날짜(-:";
 				result+="dis)-:en)-:en)-:en)-:en)-:en(-:";
-				for(BoardInfo bIS : list){
-					result += bIS.getBINum() + ")-:" + bIS.getBITitle() + ")-:" + bIS.getBIContent() + ")-:" + bIS.getBIPwd() + ")-:" + bIS.getCreUsr() + ")-:" + bIS.getCreDat() + "(-:";
+				for(BoardInfo bs : list){
+					result += bs.getBINum() + ")-:" + bs.getBITitle() + ")-:" + bs.getBIContent() + ")-:" + bs.getBIPwd() + ")-:" + bs.getCreUsr() + ")-:" + bs.getCreDat() + "(-:";
 				}
 				result = result.substring(0, result.length()-3);
 				doProcess(resq, result);
