@@ -10,26 +10,27 @@ import java.util.List;
 import java.util.Map;
 
 import com.test.common.DBConn;
+import com.test.dto.BoardInfo;
 
 public class BoardSelect {
 
-	public List<Map>boardSelect(HashMap<String,String>hm) {
+	public List<BoardInfo>boardSelect(BoardInfo bI) {
 		Connection con =null;
 		PreparedStatement ps =null;
 		try {
-			String sql = "select num,title,content,writer,reg_date from board;";
+			String sql = "select num,title,content,creusr,credat from board;";
 			con=DBConn.getCon();
 			ps=con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			List lm = new ArrayList();
 			while(rs.next()){
-				Map hm1 = new HashMap();
-				hm1.put("num", rs.getString("num"));
-				hm1.put("tilte", rs.getString("title"));
-				hm1.put("content", rs.getString("content"));
-				hm1.put("writer", rs.getString("writer"));
-				hm1.put("reg_date", rs.getString("reg_date"));
-				lm.add(hm1);
+				BoardInfo bI2 = new BoardInfo();
+				bI2.setBINum(Integer.parseInt(rs.getString("num")));
+				bI2.setBITitle(rs.getString("title"));
+				bI2.setBIContent(rs.getString("content"));
+				bI2.setCreUsr(rs.getString("creusr"));
+				bI2.setCreDat(rs.getString("credat"));
+				lm.add(bI2);
 			}
 			return lm;
 

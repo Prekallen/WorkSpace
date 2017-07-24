@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.dto.BoardInfo;
+import com.test.dto.UserInfo;
 import com.test.service.BoardDelete;
 import com.test.service.BoardSelect;
 import com.test.service.BoardService;
@@ -80,11 +81,13 @@ public class BoardServlet extends HttpServlet {
 			}
 		} else if (command.equals("SELECT")) {
 			if (lists.equals("목록")) {
-				String result = "";
-				List<Map> list = bSl.boardSelect(hm);
-				for (Map m : list) {
-					result += m.toString();
+				List<BoardInfo> list = bSl.boardSelect(bI);
+				String result = "번호)-:제목)-:내용)-:비밀번호)-:사용자)-:날짜(-:";
+				result+="dis)-:en)-:en)-:en)-:en)-:en(-:";
+				for(BoardInfo bIS : list){
+					result += bIS.getBINum() + ")-:" + bIS.getBITitle() + ")-:" + bIS.getBIContent() + ")-:" + bIS.getBIPwd() + ")-:" + bIS.getCreUsr() + ")-:" + bIS.getCreDat() + "(-:";
 				}
+				result = result.substring(0, result.length()-3);
 				doProcess(resq, result);
 			}
 		}
