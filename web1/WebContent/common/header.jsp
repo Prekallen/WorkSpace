@@ -8,6 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>예뻐해주세요.</title>
 </head>
+<%!
+public void printStr(String str){
+	System.out.println("WoW");
+}
+%>
 <%
 	String userId = (String) session.getAttribute("userid");
 	String userName = "";
@@ -16,6 +21,7 @@
 	String hp1 = "";
 	String hp2 = "";
 	String hp3 = "";
+	
 	boolean login = false;
 	if (userId != null) {
 		userName = (String) session.getAttribute("username");
@@ -26,10 +32,27 @@
 		hp3 = (String) session.getAttribute("hp3");
 		login = true;
 	}
+	String rootPath = request.getContextPath();
 	Date toDate = new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	String toDateStr = sdf.format(toDate);
 %>
-<script src="/js/jquery-3.2.1.js">
-	
+
+<script src="<%=rootPath%>/js/jquery-3.2.1.js">
+
+</script>
+<script>
+var rootPath ="<%=rootPath%>";
+
+function bSelect(pageId) {
+	var url="";
+	if(pageId=="board"){
+		url= rootPath + "/board/board_select.jsp"
+		location.href = url;
+	}else if(pageId=="main"){
+		location.href = rootPath + "/";
+	}else{
+	location.href= url;
+	}
+}
 </script>

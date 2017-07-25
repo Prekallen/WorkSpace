@@ -79,7 +79,7 @@ public class BoardServlet extends HttpServlet {
 				doProcess(resq, "수정이 오류");
 			}
 		} else if (command.equals("SELECT")) {
-			if (lists.equals("목록")) {
+			
 				List<BoardInfo> list = bSl.boardSelect(bI);
 				String result = "번호)-:제목)-:내용)-:비밀번호)-:사용자)-:날짜(-:";
 				result+="dis)-:en)-:en)-:en)-:en)-:en(-:";
@@ -88,8 +88,8 @@ public class BoardServlet extends HttpServlet {
 				}
 				result = result.substring(0, result.length()-3);
 				doProcess(resq, result);
-			}
 		}
+
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse reqs) throws IOException {

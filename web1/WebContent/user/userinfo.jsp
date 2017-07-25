@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*" %>
 <%@ page import="com.test.common.DBConn" %>
 <%@ page import="com.test.dto.UserInfo" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,7 +53,7 @@ if(id!=null && pwd!=null){
 		System.out.println(e);
 	}
 	if(result.equals("")){
-		result =  "아이디 입력해줘요...";
+		result =  "아이디 확인바람...";
 	}
 	out.println(result);
 }else{

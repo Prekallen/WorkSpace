@@ -18,37 +18,16 @@
 		}, 1000);
 
 	}
+
 	function stopTimer() {
 		clearInterval(setObj);
 	}
-	function bSelect() {
 
-	}
 	function logout() {
 		location.href = "/user/userinfo.jsp";
 	}
-	function bSelect() {
-		document.getElementById("bd_div").innerHTML = "";
-		var nameStr = "command";
-		var lengthStr = "100";
-		var typeStr = "s"
-		var params = "?";
-		var au = new AjaxUtil(params);
-		au
-				.changeCallBack(function() {
-					if (au.xhr.readyState == 4) {
-						if (au.xhr.status == 200) {
-							var result = decodeURIComponent(au.xhr.responseText);
 
-							document.getElementById("bd_div").innerHTML += tableStr;
-
-						} else {
-							document.getElementById("bd_div").innerHTML += xhr.responseText;
-						}
-					}
-				});
-		au.send();
-	}
+		
 </script>
 <body>
 	<%
