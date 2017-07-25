@@ -30,6 +30,6 @@
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	String toDateStr = sdf.format(toDate);
 %>
-<script>
+<script src="/js/jquery-3.2.1.js">
 	
 </script>
