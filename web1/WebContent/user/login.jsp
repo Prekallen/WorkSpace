@@ -46,7 +46,7 @@
 			out.println("전화번호 : " + hp1 + hp2 + hp3);
 			out.println("<p/>");
 			out.println("<input type='button' value='로그아웃' onclick='logout()'/>");
-			out.println("<input type='button' value='게시판보기' onclick='bSelect(\"board\")'/>");
+			out.println("<input type='button' value='게시판' onclick='bSelect(\"board\")'/>");
 			out.println("<input type='button' value='타이머' onclick='startTimer()'/>");
 			out.println("<input type='button' value='멈춤이' onclick='stopTimer()'/>");
 			out.println("<div id='bd_div'></div>");

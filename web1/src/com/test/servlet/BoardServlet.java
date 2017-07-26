@@ -36,6 +36,7 @@ public class BoardServlet extends HttpServlet {
 		String bIContent = req.getParameter("bIContent");
 		String bIPwd = req.getParameter("bIPwd");
 		String creUsr = req.getParameter("creUsr");
+		String creDat = req.getParameter("creDat");
 		String bINum = req.getParameter("bINum");
 		String lists = req.getParameter("list");
 
@@ -46,6 +47,7 @@ public class BoardServlet extends HttpServlet {
 			bI.setBIContent(bIContent);
 			bI.setBIPwd(bIPwd);
 			bI.setCreUsr(creUsr);
+			bI.setCreDat(creDat);
 			
 			if (bSv.BoardInsert(bI)) {
 				System.out.println("입력이 잘 되었음");

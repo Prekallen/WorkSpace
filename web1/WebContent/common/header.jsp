@@ -51,6 +51,9 @@ function bSelect(pageId) {
 		location.href = url;
 	}else if(pageId=="main"){
 		location.href = rootPath + "/";
+	}else if(pageId=="insert"){
+		url=rootPath +"/board/board_insert.jsp"
+		location.href = url;
 	}else{
 	location.href= url;
 	}

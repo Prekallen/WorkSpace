@@ -70,7 +70,6 @@ public class UserServlet extends HttpServlet{
 			ui.setUserId(userId);
 			ui.setUserPwd(userPwd);
 			ui.setUserName(userName);
-			ui.setUserNum(Integer.parseInt(userNum));
 			ui.setAge(Integer.parseInt(age));
 			ui.setAddress(address);
 			ui.setHp1(hp1);
