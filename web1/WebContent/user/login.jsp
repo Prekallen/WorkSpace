@@ -7,22 +7,7 @@
 <script>
 	var setObj;
 	var loopCnt=0;
-	function startTimer() {
-		setObj = setInterval(function() {
-			if (loopCnt == 3) {
-				clearInterval(setObj);
-				} else {
-				loopCnt++;
-				alert("Hello~");
-			}
-		}, 1000);
-
-	}
-
-	function stopTimer() {
-		clearInterval(setObj);
-	}
-
+	
 	function logout() {
 		location.href = "/user/userinfo.jsp";
 	}
@@ -47,8 +32,6 @@
 			out.println("<p/>");
 			out.println("<input type='button' value='로그아웃' onclick='logout()'/>");
 			out.println("<input type='button' value='게시판' onclick='bSelect(\"board\")'/>");
-			out.println("<input type='button' value='타이머' onclick='startTimer()'/>");
-			out.println("<input type='button' value='멈춤이' onclick='stopTimer()'/>");
 			out.println("<div id='bd_div'></div>");
 
 		} else {
