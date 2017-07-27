@@ -23,12 +23,15 @@
 		</tr>
 		<tr>
 		<th>내용</th>
-		<td><textarea name="bicontent" id="bicontent" style="resize:none"></textarea></td>
+		<td><textarea name="bicontent" id="bicontent" style="resize:none;"></textarea></td>
+		</tr>
+		<tr>
+		<td colspan="3" align="center"><input type="submit"  style="width: 100%;" value="올리기" /></td>
 		</tr>
 		</table>
 		<input type="hidden" name="command" id="command" value="INSERT" />
 		<p />
-		<input type="submit" value="게시" /><br />
+		
 		<input type="button" value="로그인 페이지 돌아가기" onclick="bSelect('main')" />
 		<input type="button" value="게시판" onclick="bSelect('board')" />
 	</form>
