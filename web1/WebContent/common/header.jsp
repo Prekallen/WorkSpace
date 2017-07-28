@@ -44,10 +44,7 @@ public void printStr(String str){
 	}
 %>
 
-<script src="<%=rootPath%>/js/jquery-3.2.1.js">
-<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css"/>
-<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap.min.css"/>
-</script>
+
 <script>
 var rootPath ="<%=rootPath%>";
 
@@ -65,4 +62,8 @@ function bSelect(pageId) {
 	location.href= url;
 	}
 }
+</script>
+<script src="<%=rootPath%>/js/jquery-3.2.1.js">
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap.min.css"/>
 </script>
