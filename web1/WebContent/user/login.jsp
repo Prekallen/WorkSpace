@@ -9,11 +9,15 @@
 	var loopCnt=0;
 	
 	function logout() {
-		location.href = "/user/userinfo.jsp";
+		location.href = <%=rootPath%>"/user/userinfo.jsp";
 	}
-
+	
+	function signin(){
+		location.href = <%=rootPath%>"/user/sign_in.jsp";
+	}
 		
 </script>
+<link rel="stylesheet" href="<%=rootPath %>/ui.signin.css">
 <body>
 	<%
 		if (login) {
@@ -36,12 +40,30 @@
 
 		} else {
 	%>
-	<form action="/user/userinfo.jsp">
-		ID : <input type="text" name="id" /><br /> PWD : <input
-			type="password" name="pwd" /><br /> <input type="submit"
-			value="Log In" />
+	
+	    <div class="container">
 
+      <form class="form-signin" action="<%=rootPath %>/user/userinfo.jsp">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      
+
+   
+	
+		ID : <input type="text" name="id" /><br />
+		PWD : <input type="password" name="pwd" /><br />
+		<input type="submit" value="Log In" /><input type="button" id="signin" name="signin" value="Sign In" onclick="signin()"/>
 	</form>
+	 </div> <!-- /container -->
 	<%
 		}
 	%>
