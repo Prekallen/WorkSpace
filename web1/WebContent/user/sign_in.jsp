@@ -5,6 +5,9 @@
 <%@ page import="com.test.common.DBConn" %>
 <%@ page import="com.test.dto.UserInfo" %>
 <script src="/js/Ajax.js"></script>
+<%
+
+%>
 <body>
 <form method="get" action="<%=rootPath %>/user/do_sign_in.jsp">
 	<div width="100%" id="bd_div">

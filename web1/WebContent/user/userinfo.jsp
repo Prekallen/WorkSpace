@@ -74,6 +74,6 @@ if(id!=null && pwd!=null){
 <script>
 var result = "<%=result%>";
 alert(result);
-location.href="/user/login.jsp";
+location.href="/main.jsp";
 </script>
 </html>

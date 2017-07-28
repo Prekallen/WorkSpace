@@ -5,6 +5,11 @@
 <%@ page import="com.test.common.DBConn" %>
 <%@ page import="com.test.dto.BoardInfo" %>
 <body>
+<jsp:include page="/common/top.jsp" flush="false">
+	<jsp:param value="<%=login %>" name="login"></jsp:param>
+</jsp:include>
+<div class="container">
+	<div class="starter-template">
 <%
 	int pBinum = Integer.parseInt(request.getParameter("binum"));
 	Connection con = null;
@@ -49,28 +54,39 @@
 		DBConn.closeCon();
 	}
 %>
-<table border="1">
-<tr>
-<th>번호</th><td> <%=binum %></td>
-</tr>
-<tr>
-<th>제목</th><td><input type="text" id="title" name="title" value="<%=bititle %>"/></td>
-</tr>
-<tr>
-<th>내용</th><td><textarea id="content" name="content" style="resize:none"><%=bicontent %></textarea></td>
-</tr>
-<tr>
-<th>작성자</th><td><input type="text" id="creusr" name="cresur" value="<%=creusr %>"/></td>
-</tr>
-<tr>
-<th>작성시간</th><td><%=credat %></td>
-</tr>
-<tr>
-<th>비밀번호</th><td><input type="password" id="pwd" name="pwd"/></td>
-</tr>
-</table>
-<input type="button" value="수정" onclick="updateBoard()" /><input type="button" value="삭제" onclick="deleteBoard()"/><p/>
-<input type='button' value='게시판으로 돌아가기' onclick='bSelect("board")'/>
+
+			<table class='table table-bordered table-hover' align="center" style="width:60%;">
+				<tr>
+					<th style="text-align: center;">번호</th>
+					<td><%=binum%></td>
+				</tr>
+				<tr>
+					<th style="text-align: center;">제목</th>
+					<td><input type="text" style="width: 100%;" id="title" name="title" value="<%=bititle%>" /></td>
+				</tr>
+				<tr>
+					<th style="text-align: center;">내용</th>
+					<td><textarea id="content" name="content" style="resize: none; width:100%;height:200px;"><%=bicontent%></textarea></td>
+				</tr>
+				<tr>
+					<th style="text-align: center;">작성자</th>
+					<td><input type="text" style="width: 100%;" id="creusr" name="cresur" value="<%=creusr%>" /></td>
+				</tr>
+				<tr>
+					<th style="text-align: center;">작성시간</th>
+					<td><%=credat%></td>
+				</tr>
+				<tr>
+					<th style="text-align: center;">비밀번호</th>
+					<td><input type="password" style="width: 100%;" id="pwd" name="pwd" /></td>
+				</tr>
+				<tr>
+				<td colspan="2"><input type="button" style="width: 30%;" value="수정" onclick="updateBoard()" />
+				<input type="button" style="width: 30%;"value="삭제" onclick="deleteBoard()" /></td>
+			</table>
+
+			</div>
+		</div>
 </body>
 <script>
 function deleteBoard(){
