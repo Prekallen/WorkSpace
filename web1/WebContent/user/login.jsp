@@ -32,10 +32,35 @@
     </div> <!-- /container -->
 <script>
 
-$("button").click(function(){
-	location.href="<%=rootPath %>/user/userinfo.jsp"
+$("button.btn").click(function(){
+	var id = $("#id").val();
+	var pwd = $("#pwd").val();
+	var param = {};
+	param["id"] = id;
+	param["pwd"] = pwd;
+	param = JSON.stringify(param);
+	$.ajax({ 
+        type     : "POST"
+    ,   url      : "/user/userinfo.jsp"
+    ,   dataType : "json" 
+    ,   beforeSend: function(xhr) {
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+    }
+    ,   data     : param
+    ,   success : function(result){
+    	alert(result.msg);
+    	alert(result.login);
+    	
+    }
+    ,   error : function(xhr, status, e) {
+	    	alert("에러 : "+e);
+	},
+	done : function(e) {
+	}
+	});
 });
+
 
 </script>	
 </body>
-</html>
