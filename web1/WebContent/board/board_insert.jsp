@@ -1,4 +1,5 @@
 <%@ include file="/common/header.jsp"%>
+<%@ include file="/common/footer.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -6,11 +7,8 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-</head>
-<body>
-<jsp:include page="/common/top.jsp" flush="false">
-	<jsp:param value="<%=login %>" name="login"></jsp:param>
-</jsp:include>
+
+
 
 	
 	<form method="get" action="<%=rootPath%>/board/boardinfo_insert.jsp">
@@ -45,4 +43,3 @@
 		</div>
 	</form>
 
-</html>

@@ -8,3 +8,4 @@ session.invalidate();
 alert("로그아웃 됨!");
 location.href="<%=rootPath%>/main.jsp"
 </script>
+<%@ include file="/common/footer.jsp"%>

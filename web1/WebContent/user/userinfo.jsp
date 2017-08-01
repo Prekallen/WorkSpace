@@ -6,22 +6,17 @@
 <%@ page import="org.json.simple.JSONObject" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.google.gson.*" %>
+<%@ page import="java.io.*"%>
 <%
 String id=null;
 String pwd=null;
-if(request.getReader() != null){
-JSONObject j = new Gson().fromJson(request.getReader(), JSONObject.class);
-	if(j!=null){
-		id = (String)j.get("id");
-		pwd = (String)j.get("pwd");
-	}
-}
-
+UserInfo ui = null;
+ui = new Gson().fromJson(request.getReader(), UserInfo.class);
+String login="False";
 String result = "";
-if(id!=null && pwd!=null){
-	UserInfo ui = new UserInfo();
-	ui.setUserId(id);
-	ui.setUserPwd(pwd);
+
+if(ui!=null){
+	
 	
 	Connection con = null;
 	PreparedStatement ps = null;
@@ -41,6 +36,7 @@ if(id!=null && pwd!=null){
 			String hp3 = rs.getString("hp3");
 			if(userPwd.equals(ui.getUserPwd())){
 				result =  "로그인";
+				login = "OK";
 				session.setAttribute("userid",ui.getUserId());
 				session.setAttribute("username",userName);
 				session.setAttribute("age",age);
@@ -71,8 +67,14 @@ if(id!=null && pwd!=null){
 	result="로그아웃";
 	
 }
+String loginStatus="";
+if(result=="로그인"){
+	loginStatus="OK";
+}else{
+	loginStatus="NOT OK";
+}
 HashMap hm = new HashMap();
-hm.put("login","ok");
+hm.put("login",login);
 hm.put("msg",result);
 String json = new Gson().toJson(hm);
 out.write(json);

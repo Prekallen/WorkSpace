@@ -1,13 +1,11 @@
 <%@ include file="/common/header.jsp"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="com.test.common.DBConn" %>
 <%@ page import="com.test.dto.BoardInfo" %>
-<body>
-<jsp:include page="/common/top.jsp" flush="false">
-	<jsp:param value="<%=login %>" name="login"></jsp:param>
-</jsp:include>
+
 <div class="container">
 	<div class="starter-template">
 <%
@@ -55,7 +53,7 @@
 	}
 %>
 
-			<table class='table table-bordered table-hover' align="center" style="width:60%;">
+			<table class='table table-bordered table-hover' style="width:60%; align:center;">
 				<tr>
 					<th style="text-align: center;">번호</th>
 					<td><%=binum%></td>
@@ -87,7 +85,7 @@
 
 			</div>
 		</div>
-</body>
+
 <script>
 function deleteBoard(){
 	var bipwd= document.getElementById("pwd").value;
@@ -102,4 +100,4 @@ function updateBoard(){
 	
 }
 </script>
-</html>
+<%@ include file="/common/footer.jsp"%>

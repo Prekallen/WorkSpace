@@ -1,4 +1,5 @@
 <%@ include file="/common/header.jsp"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
@@ -6,9 +7,7 @@
 <%@ page import="com.test.dto.BoardInfo"%>
 <script src="/js/Ajax.js"></script>
 <body>
-<jsp:include page="/common/top.jsp" flush="false">
-	<jsp:param value="<%=login %>" name="login"></jsp:param>
-</jsp:include>
+
 <script>
 function goBoard(bINum, param2){
 	location.href ="<%=rootPath%>/board/board_view.jsp?binum=" + bINum;
@@ -104,5 +103,4 @@ function doSearch(){
 	<div id=bd_div></div>
 	</div>
 	</div>
-</body>
-</html>
+<%@ include file="/common/footer.jsp"%>

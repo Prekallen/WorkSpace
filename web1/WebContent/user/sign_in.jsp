@@ -8,7 +8,7 @@
 <%
 
 %>
-<body>
+
 <form method="get" action="<%=rootPath %>/user/do_sign_in.jsp">
 	<div width="100%" id="bd_div">
 		<table border="1" cellspacing="0" cellpadding="0" width="400"
@@ -53,5 +53,4 @@
 	</div>
 	<input type="hidden" name="command" id="command" value="SIGNIN" />
 </form>
-</body>
-</html>
+<%@ include file="/common/footer.jsp"%>

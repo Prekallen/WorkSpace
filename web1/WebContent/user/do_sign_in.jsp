@@ -61,4 +61,4 @@ if("<%=resultNum%>"==1){
 	history.back();
 }
 </script>
-</html>
+<%@ include file="/common/footer.jsp"%>

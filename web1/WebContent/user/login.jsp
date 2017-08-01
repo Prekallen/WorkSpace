@@ -6,11 +6,7 @@
 <%@ page import="com.test.dto.UserInfo"%>
 
 <link rel="stylesheet" href="<%=rootPath %>/ui/signin.css">
-<body>
-<jsp:include page="/common/top.jsp" flush="false">
-	<jsp:param value="<%=login %>" name="login"></jsp:param>
-</jsp:include>
-	
+
 	 
 	     <div class="container">
 
@@ -30,14 +26,15 @@
       </form>
 
     </div> <!-- /container -->
+
 <script>
 
 $("button.btn").click(function(){
-	var id = $("#id").val();
-	var pwd = $("#pwd").val();
+	var userId = $("#id").val();
+	var userPwd = $("#pwd").val();
 	var param = {};
-	param["id"] = id;
-	param["pwd"] = pwd;
+	param["userId"] = userId;
+	param["userPwd"] = userPwd;
 	param = JSON.stringify(param);
 	$.ajax({ 
         type     : "POST"
@@ -51,6 +48,12 @@ $("button.btn").click(function(){
     ,   success : function(result){
     	alert(result.msg);
     	alert(result.login);
+    	if(result.login=="OK"&&result.msg=="로그인"){
+    	location.href="<%=rootPath%>/main.jsp";
+    	}else{
+    		$("#userId").val("");
+    		$("#userPwd").val("");
+    	}
     	
     }
     ,   error : function(xhr, status, e) {
@@ -63,4 +66,4 @@ $("button.btn").click(function(){
 
 
 </script>	
-</body>
+<%@ include file="/common/footer.jsp"%>
