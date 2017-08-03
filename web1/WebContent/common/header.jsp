@@ -44,14 +44,18 @@ public void printStr(String str){
 			response.sendRedirect(defaultUrl);
 		} 
 	String nowUrl=request.getRequestURI();
+
+String version = "1.2";
 %>
 
-<script src="<%=rootPath%>/js/jquery-3.2.1.js"></script>
-<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css"/>
-<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="<%=rootPath%>/ui/common.css"/>
-<link rel="stylesheet" href="<%=rootPath %>/ui/footer.css">
+<script src="<%=rootPath%>/js/jquery-3.2.1.js?version=<%=version%>"></script>
+<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js?version=<%=version%>"></script>
+<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap-table.js?version=<%=version%>"></script>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap.min.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-table.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/common.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/footer.css?version=<%=version%>"/>
 
 <script>
 var rootPath="<%=rootPath%>";

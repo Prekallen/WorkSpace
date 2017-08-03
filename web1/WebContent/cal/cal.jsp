@@ -1,45 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/header.jsp"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Calculator</title>
-</head>
-<script src="/js/jquery-3.2.1.js"></script>
 
-<body>
-<input type="text" id="num1_1"/>
-＋
-<input type="text" id="num1_2"/>
-<input type="button" value="출력" id="cal1"/>
-<input type="text" id="result1"/><br/>
+<div class="container">
+		<table id="table" data-height="460"
+			class="table table-bordered table-hover">
+			<thead style="width:100%">
+				<tr>
+					<th data-field="calnum"  class="text-center">번호</th>
+					<th data-field="num1"  class="text-center">숫자1</th>
+					<th data-field="num2"  class="text-center">숫자2</th>
+					<th data-field="op"  class="text-center">연산자</th>
+					<th data-field="result"  class="text-center">결과값</th>
+				</tr>
+			</thead>
+			<tbody id="result_tbody" style="width:100%">
+			</tbody>
+		</table>
+	</div>
+연산자 : <input type="text" id="op"/><input type="button" id="getCal" value="계산리스트호출"/>
+<div id="result_div" class="container"></div>
 
-<input type="text" id="num2_1"/>
-－
-<input type="text" id="num2_2"/>
-<input type="button" value="출력" id="cal2"/>
-<input type="text" id="result2"/><br/>
-
-<input type="text" id="num3_1"/>
-×
-<input type="text" id="num3_2"/>
-<input type="button" value="출력" id="cal3"/>
-<input type="text" id="result3"/><br/>
-
-<input type="text" id="num4_1"/>
-÷
-<input type="text" id="num4_2"/>
-<input type="button" value="출력" id="cal4"/>
-<input type="text" id="result4"/><br/>
-
-<input type="button" value="목록" id="list"/><p/>
-
-<div id= "cal_civ"></div>
-</body>
 <script>
-var ops = ["","+","-","*","/"];
+$("#getCal").click(function(){
+	var op = $("#op").val();
+	var param = {};
+	param["op"] = op;
+	param = JSON.stringify(param);
+	var a = { 
+	        type     : "POST"
+	    	    ,   url      : "/cal/cal_select.jsp"
+	    	    ,   dataType : "json" 
+	    	    ,   beforeSend: function(xhr) {
+	    	        xhr.setRequestHeader("Accept", "application/json");
+	    	        xhr.setRequestHeader("Content-Type", "application/json");
+	    	    }
+	    	    ,   data     : param
+	    	    ,   success : function(result){
+		    	        $('#table').bootstrapTable({
+		    	            data: result
+		    	        });
+	    	    }
+	    	    ,   error : function(xhr, status, e) {
+	    		    	alert("에러 : "+e);
+	    		},
+	    			complete : function(e) {
+	    		}
+	    		};
+	$.ajax(a);
+});
+
 $("input[id*='cal']").click(function(){
 	var id = this.id;
 	var idx = id.substring(id.length-1);
@@ -61,39 +72,17 @@ $("input[id*='cal']").click(function(){
 	    	    }
 	    	    ,   data     : param
 	    	    ,   success : function(result){ 
-	    	    	$("#result" + idx).val(result.num); 
-	    	    	
+	    	    	alert(result.insert);
+	    	    	$("#result" + idx).val(result.num);  
 	    	    }
 	    	    ,   error : function(xhr, status, e) {
 	    		    	alert("에러 : "+e);
 	    		},
 	    		done : function(e) {
-	    		}
-	    		};
-	$.ajax(a);
-});
-$("#list").click(function(){
-	var param = {};
-	var a = { 
-	        type     : "POST"
-	    	    ,   url      : "/cal/cal_select.jsp"
-	    	    ,   dataType : "json" 
-	    	    ,   beforeSend: function(xhr) {
-	    	        xhr.setRequestHeader("Accept", "application/json");
-	    	        xhr.setRequestHeader("Content-Type", "application/json");
-	    	    }
-	    	    ,   data     : param
-	    	    ,   success : function(result){ 
-	    	    	$("#cal_div").html(result.calnum); 
-	    	    	
-	    	    }
-	    	    ,   error : function(xhr, status, e) {
-	    		    	alert("에러 : "+e);
-	    		},
-	    		done : function(e) {
+	    			alert("왜 테이블이 찌그러 지나.......");
 	    		}
 	    		};
 	$.ajax(a);
 });
 </script>
-</html>
+<%@ include file="/common/footer.jsp"%>

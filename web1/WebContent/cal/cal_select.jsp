@@ -6,23 +6,34 @@
 <%@ page import="java.sql.*" %>
 <%
 Gson g = new Gson();
-List<HashMap> board = new ArrayList<HashMap>();
+HashMap<String,String> hm = g.fromJson(request.getReader(), HashMap.class);
+String op = "";
+if(hm!=null){
+	op = hm.get("op");
+}
 PreparedStatement ps=null;
 Connection con=null;
+ArrayList<Map<String, String>> calList = new ArrayList<Map<String, String>>();
 try{
 	con = DBConn.getCon();
-	String sql = "select calnum,num1,op,num2,result from cal where 1=1;";
+	String sql = "select calnum,num1,op,num2,result from cal where 1=1";
+	if(op!=null && !op.equals("")){
+		sql += " and op = ?";
+	}
 	ps = con.prepareStatement(sql);
+	if(op!=null && !op.equals("")){
+		ps.setString(1,op);
+	}
 	ResultSet rs = ps.executeQuery();
-	HashMap<String,String> sB = new HashMap<String,String>();
 	
 	while(rs.next()){
-		sB.put("calnum", rs.getInt("calnum")+"");
-		sB.put("num1",rs.getInt("num1")+"");
+		HashMap<String,String> sB = new HashMap<String,String>();
+		sB.put("calnum", rs.getString("calnum"));
+		sB.put("num1",rs.getString("num1"));
 		sB.put("op",rs.getString("op"));
-		sB.put("num2",rs.getInt("num2")+"");
-		sB.put("result",rs.getInt("result")+"");
-		board.add(sB);
+		sB.put("num2",rs.getString("num2"));
+		sB.put("result",rs.getString("result"));
+		calList.add(sB);
 	}
 	
 }catch(Exception e){
@@ -32,7 +43,7 @@ try{
 	DBConn.closeCon();
 }
 
-String json= g.toJson(board);
+String json= g.toJson(calList);
 out.print(json);
-System.out.print(json);
+
 %>
