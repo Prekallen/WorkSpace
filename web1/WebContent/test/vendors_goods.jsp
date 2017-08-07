@@ -40,15 +40,23 @@
 			</tbody>
 		</table>
 	</div>
-	<select id="s_vendor">
-		<option value="">회사 선택</option>
-	</select>
-	찾을 회사 <input type="text" id="giname"/><input type="button" id="btn" value="찾기"/>
+	<div class="jb-center" style="text-align:center">
+		<ul class="pagination" id="page">
+		</ul>
+	</div>
+<select id="s_vendor">
+	<option value="">회사 선택</option>
+</select>
+찾을 회사 <input type="text" id="giname"/><input type="button" id="btn" value="찾기"/>
 </body>
 <script>
 $(document).ready(function(){
+	var init=102;
+	var params = {};
 	
+	params["nowPage"]=init+"";
 	
+	params = JSON.stringify(params);
 	var send = {
 			type : "POST",
 			url : "/test/vendors_select.jsp",
@@ -57,11 +65,32 @@ $(document).ready(function(){
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
 			},
-			data : null,
+			data : params,
 			success : function(result){
 				var tableList = result.tableList;
 		    	var goodsList = result.goodsList;
-
+				var pageInfo = result.pageInfo;
+				
+				var pageStr= "<li><a>≪</a></li>";
+				pageStr+= "<li><a>＜</a></li>";
+				var nowPage = new Number(pageInfo.nowPage);
+				var blockCnt = new Number(pageInfo.blockCnt);
+				var startBlock = Math.floor((nowPage-1)/blockCnt)*10+1;
+				var endBlock = startBlock+blockCnt-1;
+				var totalPageCnt = new Number(pageInfo.totalPageCnt);
+				if(endBlock>totalPageCnt){
+					endBlock=totalPageCnt
+				}
+				for(var i=startBlock, max=endBlock;i<=max;i++){
+					if(i==pageInfo.nowPage){
+						pageStr+="<li class='active'><a>" + i + "</a></li>";		
+					}else{
+						pageStr+= "<li><a>" + i + "</a></li>";	
+					}
+				}
+				pageStr+= "<li><a>＞</a></li>";
+				pageStr+= "<li><a>≫</a></li>";
+				$("#page").html(pageStr);
 		    	for(var i=0, max=tableList.length;i<max;i++){
 		    		$("#s_vendor").append("<option value='" + tableList[i].vinum + "'>"+tableList[i].viname +"</option>")
 		    	}
@@ -83,6 +112,36 @@ $(document).ready(function(){
 $("#btn").click(function(){
 	var giname = $("#giname").val();
 	var s_vendor=$("#s_vendor").val()
+	var param = {};
+	param["giname"] = giname;
+	param["s_vendor"] = s_vendor;
+	param = JSON.stringify(param);
+	var send = {
+			type : "POST",
+			url : "/test/vendors_goods_select.jsp",
+			dataType : "json",
+			beforeSend : function(xhr){
+				xhr.setRequestHeader("Accept", "application/json");
+				xhr.setRequestHeader("Content-Type", "application/json");
+			},
+			data : param,
+			success : function(result){
+				$("#table").bootstrapTable('destroy');
+				$("#table").bootstrapTable({
+					data : result
+				})
+			},
+			error : function(xhr, status, e){
+				alert("에러 :" + e);
+			},
+			complete : function(){
+				alert("무조건");
+			}
+	}
+	$.ajax(send);
+	
+})
+$("a").click(function(){
 	var param = {};
 	param["giname"] = giname;
 	param["s_vendor"] = s_vendor;
