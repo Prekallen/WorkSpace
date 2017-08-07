@@ -59,12 +59,16 @@ $(document).ready(function(){
 			},
 			data : null,
 			success : function(result){
-				var maxNum=result.length;
-				for(var i=0;i<maxNum;i++){
-					var opt=result[i];
-				$("#s_vendor").append("<option value='" + opt.vinum + "'>"+ opt.viname +"</option>");
-							
-				}
+				var tableList = result.tableList;
+		    	var goodsList = result.goodsList;
+
+		    	for(var i=0, max=tableList.length;i<max;i++){
+		    		$("#s_vendor").append("<option value='" + tableList[i].vinum + "'>"+tableList[i].viname +"</option>")
+		    	}
+		        $('#table').bootstrapTable({
+		            data: goodsList
+		        });
+				
 			},
 			error : function(xhr, status, e){
 				alert("에러 :" + e);

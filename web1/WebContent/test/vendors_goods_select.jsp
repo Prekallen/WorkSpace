@@ -22,7 +22,7 @@
 		con=DBConn.getCon();
 		String sql = "select vi.vinum,viname,videsc,viaddress,viphone,vicredat,vicretim";
 				sql+= ",ginum,giname,gidesc,gi.vinum,gicredat,gicretim ";
-				sql+=	"from vendor_info vi, goods_info gi where vi.vinum=gi.vinum";
+				sql+=	"from vendor_info as vi, goods_info as gi where vi.vinum=gi.vinum";
 		if(vinum!=null && !vinum.equals("")){
 			sql += " and vi.vinum =?";
 		}		
@@ -54,7 +54,7 @@
 			tableM.put("gicredat", rs.getString("gicredat"));
 			tableM.put("gicretim", rs.getString("gicretim"));
 			tableList.add(tableM);
-		}	
+			}	
 	}catch (Exception e){
 		System.out.println(e);
 	}finally{
