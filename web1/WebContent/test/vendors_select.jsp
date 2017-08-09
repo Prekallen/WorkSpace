@@ -4,6 +4,8 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.test.common.DBConn" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.io.*" %>
+
 <%
 	int rowCnt = 10;
 	int nowPage=1;

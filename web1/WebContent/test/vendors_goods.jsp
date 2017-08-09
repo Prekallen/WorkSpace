@@ -1,25 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Sales</title>
-</head>
+<%@ include file="/common/header.jsp"%>
 
-<script src="/js/jquery-3.2.1.js"></script>
-<script src="/ui/btsp3.7.7/js/bootstrap.min.js"></script>
-<script src="/ui/btsp3.7.7/js/bootstrap-table.js"></script>
-<link rel="stylesheet" href="/ui/btsp3.7.7/css/bootstrap-theme.min.css"/>
-<link rel="stylesheet" href="/ui/btsp3.7.7/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="/ui/btsp3.7.7/css/bootstrap-table.css"/>
-
-
-<body>
 	<div class="container">
 		<table id="table" data-height="460"
 			class="table table-bordered table-hover">
-			<thead style="width:100%">
+			<thead>
 				<tr>
 					<th data-field="vinum"  class="text-center">회사번호</th>
 					<th data-field="viname"  class="text-center">회사이름</th>
@@ -50,65 +36,74 @@
 찾을 회사 <input type="text" id="giname"/><input type="button" id="btn" value="찾기"/>
 </body>
 <script>
-$(document).ready(function(){
-	var init=102;
-	var params = {};
+var nowPage=0;
+var blockCnt=0;
+var startBloc=0;
+var endBlock=0;
+var totalPageCnt=0;
+function callback(results){
+	var tableList = results.tableList;
+	var goodsList = results.goodsList;
+	var pageInfo = results.pageInfo;			
 	
-	params["nowPage"]=init+"";
-	
-	params = JSON.stringify(params);
-	var send = {
-			type : "POST",
-			url : "/test/vendors_select.jsp",
-			dataType : "json",
-			beforeSend : function(xhr){
-				xhr.setRequestHeader("Accept", "application/json");
-				xhr.setRequestHeader("Content-Type", "application/json");
-			},
-			data : params,
-			success : function(result){
-				var tableList = result.tableList;
-		    	var goodsList = result.goodsList;
-				var pageInfo = result.pageInfo;
-				
-				var pageStr= "<li><a>≪</a></li>";
-				pageStr+= "<li><a>＜</a></li>";
-				var nowPage = new Number(pageInfo.nowPage);
-				var blockCnt = new Number(pageInfo.blockCnt);
-				var startBlock = Math.floor((nowPage-1)/blockCnt)*10+1;
-				var endBlock = startBlock+blockCnt-1;
-				var totalPageCnt = new Number(pageInfo.totalPageCnt);
-				if(endBlock>totalPageCnt){
-					endBlock=totalPageCnt
-				}
-				for(var i=startBlock, max=endBlock;i<=max;i++){
-					if(i==pageInfo.nowPage){
-						pageStr+="<li class='active'><a>" + i + "</a></li>";		
-					}else{
-						pageStr+= "<li><a>" + i + "</a></li>";	
-					}
-				}
-				pageStr+= "<li><a>＞</a></li>";
-				pageStr+= "<li><a>≫</a></li>";
-				$("#page").html(pageStr);
-		    	for(var i=0, max=tableList.length;i<max;i++){
-		    		$("#s_vendor").append("<option value='" + tableList[i].vinum + "'>"+tableList[i].viname +"</option>")
-		    	}
-		        $('#table').bootstrapTable({
-		            data: goodsList
-		        });
-				
-			},
-			error : function(xhr, status, e){
-				alert("에러 :" + e);
-			},
-			complete : function(){
-				alert("무조건");
-			}
+	var pageStr= "<li><a>≪</a></li>";
+	pageStr+= "<li><a>＜</a></li>";
+	nowPage = new Number(pageInfo.nowPage);
+	blockCnt = new Number(pageInfo.blockCnt);
+	startBlock = Math.floor((nowPage-1)/blockCnt)*10+1;
+	endBlock = startBlock+blockCnt-1;
+	totalPageCnt = new Number(pageInfo.totalPageCnt);
+	if(endBlock>totalPageCnt){
+		endBlock=totalPageCnt
 	}
-	$.ajax(send);
+	setPagination(startBlock, endBlock, nowPage, totalPageCnt, "page");
+	$("#s_vendor").html("");
 	
-})
+	for(var i=0, max=tableList.length;i<max;i++){
+		$("#s_vendor").append("<option value='" + tableList[i].vinum + "'>"+tableList[i].viname +"</option>")
+	}
+	$('#table').bootstrapTable('destroy');
+	$('#table').bootstrapTable({
+		data: goodsList
+	});
+	setEvent();
+	
+}
+function setEvent(){
+	$("ul[class='pagination']>li:not([class='disabled'])>a").click(function(){
+		var pageNum = new Number (this.innerHTML);
+		var params = {}
+		if(isNaN(pageNum)){
+			switch(this.innerHTML){
+				case "≪" : nowPage=1;
+				break;
+				case "＜" : nowPage-= blockCnt;
+				break;
+				case "＞" : nowPage+= blockCnt;
+				break;
+				case "≫" : nowPage = totalPageCnt;
+				break;
+				default: nowPage=1;
+			}
+		}else{
+			nowPage=pageNum;
+		}
+		if(nowPage<=0){
+			nowPage=1;
+		}else if(nowPage>totalPageCnt){
+			nowPage=totalPageCnt;
+		}
+		var params={};
+		params["nowPage"]= nowPage+"";
+		goPage(params, "/test/vendors_select.jsp", callback);
+	})
+};
+$(document).ready(function(){
+	var params = {};
+	params["nowPage"] = "1";
+	goPage(params, "/test/vendors_select.jsp", callback);
+});
+
 $("#btn").click(function(){
 	var giname = $("#giname").val();
 	var s_vendor=$("#s_vendor").val()
@@ -141,35 +136,7 @@ $("#btn").click(function(){
 	$.ajax(send);
 	
 })
-$("a").click(function(){
-	var param = {};
-	param["giname"] = giname;
-	param["s_vendor"] = s_vendor;
-	param = JSON.stringify(param);
-	var send = {
-			type : "POST",
-			url : "/test/vendors_goods_select.jsp",
-			dataType : "json",
-			beforeSend : function(xhr){
-				xhr.setRequestHeader("Accept", "application/json");
-				xhr.setRequestHeader("Content-Type", "application/json");
-			},
-			data : param,
-			success : function(result){
-				$("#table").bootstrapTable('destroy');
-				$("#table").bootstrapTable({
-					data : result
-				})
-			},
-			error : function(xhr, status, e){
-				alert("에러 :" + e);
-			},
-			complete : function(){
-				alert("무조건");
-			}
-	}
-	$.ajax(send);
-	
-})
+
 </script>
-</html>
+
+<%@ include file="/common/footer.jsp"%>

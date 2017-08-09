@@ -45,7 +45,7 @@ public void printStr(String str){
 		} 
 	String nowUrl=request.getRequestURI();
 
-String version = "1.2";
+String version = "1.2.2";
 %>
 
 <script src="<%=rootPath%>/js/jquery-3.2.1.js?version=<%=version%>"></script>
@@ -74,10 +74,63 @@ function bSelect(pageId) {
 	location.href= url;
 	}
 }
+Number.prototype.equals = function(obj){
+	if(obj instanceof Number){
+		return this.toString() == obj.toString();
+	}
+	return this==obj;
+}
+
+function setPagination(sNum,eNum,nPage,nTotal, objId){
+	var pageStr=""; 
+	if(nPage==1){
+		pageStr = "<li class='disabled'><a>≪</a></li>";
+		pageStr+= "<li class='disabled'><a>＜</a></li>";
+	}else{
+	pageStr = "<li><a>≪</a></li>";
+	pageStr+= "<li><a>＜</a></li>";
+	}
+	for(var i=sNum, max=eNum;i<=max;i++){
+		if(i==nPage){
+			pageStr +="<li class='active'><a>" + i + "</a></li>";		
+		}else{
+			pageStr+= "<li><a>" + i + "</a></li>";	
+		}
+	}
+	
+	if(nPage.equals(nTotal)){
+		pageStr+= "<li class='disabled'><a>＞</a></li>";
+		pageStr+= "<li class='disabled'><a>≫</a></li>";
+	}else{
+	pageStr+= "<li><a>＞</a></li>";
+	pageStr+= "<li><a>≫</a></li>";
+	}
+	$("#"+objId).html(pageStr);
+}
 $(document).ready(function(){
 	var nowUrl = "<%=nowUrl%>";
 	$("a[href='" + nowUrl + "']").parent().attr("class","active");
 });
+function goPage(pParams, pUrl, pCallBackFunc){
+	var params = JSON.stringify(pParams);
+	$.ajax({ 
+    		type     : "POST"
+	    ,   url      : pUrl
+	    ,   dataType : "json" 
+	    ,   beforeSend: function(xhr) {
+	        xhr.setRequestHeader("Accept", "application/json");
+	        xhr.setRequestHeader("Content-Type", "application/json");
+	    }
+	    ,   data     : params
+	    ,   success : pCallBackFunc
+	    ,   error : function(xhr, status, e) {
+		    	alert("에러 : "+e);
+		},
+		complete  : function() {
+		}
+	});
+}
+
 </script>
 <%
 
