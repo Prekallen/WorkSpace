@@ -34,39 +34,50 @@ var startBloc=0;
 var endBlock=0;
 var totalPageCnt=0;
 function callback(results){
-	var goodsList = results;
+	var goodsList = results.list ;
+	var barList = results.bList ;
+	var page = results.page;
+	
+	setPagination(page, "page")
+	$("#s_vendor").html("");
+	
+	for(var i=0, max=barList.length;i<max;i++){
+		$("#s_vendor").append("<option value='" + barList[i].vinum + "'>" + barList[i].viName + "</option>")
+	}
     $('#table').bootstrapTable('destroy');
     $('#table').bootstrapTable({
         data: goodsList
     });
+    setEvent(page);
 }
-function setEvent(){
+function setEvent(pageInfo){
 	$("ul[class='pagination']>li:not([class='disabled'])>a").click(function(){
 		var pageNum = new Number (this.innerHTML);
-		var params = {}
+		var thisNowPage = pageInfo.nowPage;
 		if(isNaN(pageNum)){
-			switch(this.innerHTML){
-				case "≪" : nowPage=1;
-				break;
-				case "＜" : nowPage-= blockCnt;
-				break;
-				case "＞" : nowPage+= blockCnt;
-				break;
-				case "≫" : nowPage = totalPageCnt;
-				break;
-				default: nowPage=1;
+			if(this.innerHTML=="＜"){
+				thisNowPage -= pageInfo.blockCnt;
+			}else if(this.innerHTML=="≪"){
+				thisNowPage = 1;
+			}else if(this.innerHTML=="＞"){
+				thisNowPage += pageInfo.blockCnt;
+			}else if(this.innerHTML=="≫"){
+				thisNowPage = pageInfo.totalPageCnt;
 			}
-		}else{
-			nowPage=pageNum;
+			if(thisNowPage<=0){
+				thisNowPage = 1;
+			}else if(thisNowPage>pageInfo.totalPageCnt){
+				thisNowPage = pageInfo.totalPageCnt;
+			}
+			pageNum = thisNowPage;
 		}
-		if(nowPage<=0){
-			nowPage=1;
-		}else if(nowPage>totalPageCnt){
-			nowPage=totalPageCnt;
-		}
-		var params={};
-		params["nowPage"]= nowPage+"";
-		goPage(params, "/test/vendors_select.jsp", callback);
+		
+		var page={};
+		page["nowPage"]= pageNum+"";
+		var params = {}
+		params["page"] = page;
+		params["command"] = "list";
+		goPage(params, "/list.goods", callback);
 	})
 };
 $(document).ready(function(){

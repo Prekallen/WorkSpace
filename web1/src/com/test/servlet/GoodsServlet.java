@@ -2,6 +2,7 @@ package com.test.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,12 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.test.dto.Goods;
+import com.test.dto.Page;
 import com.test.service.GoodsService;
 
 public class GoodsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private GoodsService gs = new GoodsService();
+	
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		response.setCharacterEncoding("UTF-8");
@@ -29,11 +32,20 @@ public class GoodsServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		Gson g = new Gson();
 		Goods goods = g.fromJson(request.getReader(), Goods.class);
-		System.out.println(goods);		
 		String command = goods.getCommand();
+		
 		if(command.equals("list")){
+				
+			int totalCnt = gs.getTotalCount(goods);
+			Page page = goods.getPage();
+			page.setTotalCnt(totalCnt);
+			List<Goods> bList = gs.barList(goods);
 			List<Goods> list = gs.selectGoodsList(goods);
-			String jsonStr = g.toJson(list);
+			HashMap lists = new HashMap();
+			lists.put("list", list);
+			lists.put("bList", bList);
+			lists.put("page", page);
+			String jsonStr = g.toJson(lists);
 			doProcess(response,jsonStr);
 		}
 	}

@@ -53,10 +53,11 @@ public class Goods {
 	public void setPage(Page page) {
 		this.page = page;
 	}
+	
 	@Override
 	public String toString() {
 		return "Goods [giNum=" + giNum + ", giName=" + giName + ", giDesc=" + giDesc + ", viNum=" + viNum + ", viName="
 				+ viName + ", command=" + command + ", page=" + page + "]";
 	}
-	
+		
 }
