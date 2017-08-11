@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/header.jsp"%>
+	<div class="container" style="align:center">
+		<select id="s_vendor">
+			<option value="">회사 선택</option>
+		</select>
+	상품명 :  <input type="text" id="searchName"/><input type="button" id="btn" value="찾기"/>
+	</div>
 
 	<div class="container">
 		<table id="table" data-height="460"
@@ -22,10 +28,7 @@
 		<ul class="pagination" id="page">
 		</ul>
 	</div>
-<select id="s_vendor">
-	<option value="">회사 선택</option>
-</select>
-찾을 회사 <input type="text" id="giname"/><input type="button" id="btn" value="찾기"/>
+
 </body>
 <script>
 var nowPage=0;
@@ -33,62 +36,69 @@ var blockCnt=0;
 var startBloc=0;
 var endBlock=0;
 var totalPageCnt=0;
+var pageInfo={};
+$("#btn").click(function(){
+	var giName = $("#searchName").val().trim();
+	var viNum = $("#s_vendor").val().trim();
+	if(giName=="" && viNum==""){
+		alert("회사 선택이나 제품명을 입력해주세요.");
+		return;
+	}
+	var params = {};
+	if(giName!=""){
+		params["giName"] = giName;
+	}
+	if(viNum!=""){
+		params["viNum"] = viNum;
+	}
+	params["command"] = "list";
+	var page={};
+	page["nowPage"]="1";
+	params["page"]=page;
+	movePageWithAjax(params, "/list.goods", callback);
+})
+
 function callback(results){
 	var goodsList = results.list ;
 	var barList = results.bList ;
 	var page = results.page;
-	
-	setPagination(page, "page")
-	$("#s_vendor").html("");
-	
-	for(var i=0, max=barList.length;i<max;i++){
-		$("#s_vendor").append("<option value='" + barList[i].vinum + "'>" + barList[i].viName + "</option>")
+	var search = results.search;
+	var selStr = "<option value=''>회사선택</option>";
+	for (var i = 0, max = barList.length; i < max; i++) {
+		var vendor = barList[i];
+		var selectStr = "";
+		if(search.viNum==vendor.viNum){
+			selectStr = "selected";
+		}
+		selStr += "<option value='" + vendor.viNum + "' " + selectStr + ">" + vendor.viName
+				+ "</option>";
 	}
+	$("#s_vendor").html(selStr);
+	var params = {};
+	if(search.viNum!=0){
+		params["viNum"] = search.viNum;
+	}
+	if(search.giName){
+		params["giName"] = search.giName;
+	}
+	
+	makePagination(page, "page")
+	setEvent(page,params, "/list.goods");
     $('#table').bootstrapTable('destroy');
     $('#table').bootstrapTable({
         data: goodsList
     });
-    setEvent(page);
+    
 }
-function setEvent(pageInfo){
-	$("ul[class='pagination']>li:not([class='disabled'])>a").click(function(){
-		var pageNum = new Number (this.innerHTML);
-		var thisNowPage = pageInfo.nowPage;
-		if(isNaN(pageNum)){
-			if(this.innerHTML=="＜"){
-				thisNowPage -= pageInfo.blockCnt;
-			}else if(this.innerHTML=="≪"){
-				thisNowPage = 1;
-			}else if(this.innerHTML=="＞"){
-				thisNowPage += pageInfo.blockCnt;
-			}else if(this.innerHTML=="≫"){
-				thisNowPage = pageInfo.totalPageCnt;
-			}
-			if(thisNowPage<=0){
-				thisNowPage = 1;
-			}else if(thisNowPage>pageInfo.totalPageCnt){
-				thisNowPage = pageInfo.totalPageCnt;
-			}
-			pageNum = thisNowPage;
-		}
-		
-		var page={};
-		page["nowPage"]= pageNum+"";
-		var params = {}
-		params["page"] = page;
-		params["command"] = "list";
-		goPage(params, "/list.goods", callback);
-	})
-};
+
 $(document).ready(function(){
 	var page={};
 	page["nowPage"]="1";
 	var params = {};
 	params["page"] = page;
 	params["command"] = "list";
-	goPage(params, "/list.goods", callback);
+	movePageWithAjax(params, "/list.goods", callback);
 });
-
 
 </script>
 

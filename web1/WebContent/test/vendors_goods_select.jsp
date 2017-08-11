@@ -27,7 +27,7 @@
 			sql += " and vi.vinum =?";
 		}		
 		if(giname!=null && !giname.equals("")){
-			sql += " and giname =?";
+			sql += " and gi.giname =?";
 		}
 		ps = con.prepareStatement(sql);
 		if(vinum!=null&&!vinum.equals("") && giname!=null&&!giname.equals("")){

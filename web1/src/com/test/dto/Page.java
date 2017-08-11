@@ -51,7 +51,7 @@ public class Page{
 
 	public void setTotalCnt(int totalCnt) {
 		this.totalCnt = totalCnt;
-		calPage();
+		calPage(); 
 	}
 
 	public int getRowCnt() {

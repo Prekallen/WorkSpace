@@ -10,6 +10,7 @@ public class Goods {
 	private String command;
 	private Page page;
 	
+	
 	public int getGiNum() {
 		return giNum;
 	}
@@ -58,6 +59,7 @@ public class Goods {
 	public String toString() {
 		return "Goods [giNum=" + giNum + ", giName=" + giName + ", giDesc=" + giDesc + ", viNum=" + viNum + ", viName="
 				+ viName + ", command=" + command + ", page=" + page + "]";
+
 	}
 		
 }

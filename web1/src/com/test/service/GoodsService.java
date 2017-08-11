@@ -5,12 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.test.common.DBConn;
 import com.test.dto.Goods;
 import com.test.dto.Page;
+import com.test.dto.Vendor;
 
 public class GoodsService {
 
@@ -21,13 +22,36 @@ public class GoodsService {
 			con = DBConn.getCon();
 			String sql = "select gi.ginum, gi.giname, gi.gidesc, vi.vinum, vi.viname"
 				+" from goods_info as gi, vendor_info as vi"
-				+" where gi.vinum=vi.vinum"
-				+" order by gi.ginum"
-				+" limit ?,?";
+				+" where gi.vinum=vi.vinum";
+			
+			if(pGoods.getViNum()!=0){
+				sql += " and vi.vinum =?";
+			}		
+			if(pGoods.getGiName()!=null && !pGoods.getGiName().equals("")){
+				sql += " and gi.giname like ?";
+			}
+			sql+=" order by gi.ginum"
+			+" limit ?,?";
 			Page page = pGoods.getPage();
 			ps=con.prepareStatement(sql);
-			ps.setInt(1,page.getStartRow());
-			ps.setInt(2,page.getRowCnt());
+			
+			if(pGoods.getViNum()!=0 && (pGoods.getGiName()!=null&&!pGoods.getGiName().equals(""))){
+				ps.setInt(1,pGoods.getViNum());
+				ps.setString(2,"%" + pGoods.getGiName() + "%");
+				ps.setInt(3,page.getStartRow());
+				ps.setInt(4,page.getRowCnt());
+			}else if(pGoods.getGiName()!=null && !pGoods.getGiName().equals("")){
+				ps.setString(1,"%" + pGoods.getGiName() + "%");
+				ps.setInt(2,page.getStartRow());
+				ps.setInt(3,page.getRowCnt());
+			}else if(pGoods.getViNum()!=0){
+				ps.setInt(1,pGoods.getViNum());
+				ps.setInt(2,page.getStartRow());
+				ps.setInt(3,page.getRowCnt());
+			}else{
+				ps.setInt(1,page.getStartRow());
+				ps.setInt(2,page.getRowCnt());
+			}
 			ResultSet rs = ps.executeQuery();
 			List<Goods> gList = new ArrayList<Goods>();
 			while(rs.next()){
@@ -39,7 +63,7 @@ public class GoodsService {
 				goods.setViName(rs.getString("vi.viname"));
 				gList.add(goods);
 			}
-			System.out.println(page);
+			
 			return gList;
 			
 		}catch(ClassNotFoundException e){
@@ -58,7 +82,8 @@ public class GoodsService {
 		return null;
 		
 	}
-	public List<Goods> barList(Goods pGoods){
+	
+	public List<Vendor> barList(){
 		Connection con = null;
 		PreparedStatement ps =null;		
 		try{
@@ -67,12 +92,12 @@ public class GoodsService {
 				+" from vendor_info";
 			ps=con.prepareStatement(sql);		
 			ResultSet rs = ps.executeQuery();
-			List<Goods> bList = new ArrayList<Goods>();
+			List<Vendor> bList = new ArrayList<Vendor>();
 			while(rs.next()){
-				Goods goods = new Goods();
-				goods.setViNum(rs.getInt("vinum"));
-				goods.setViName(rs.getString("viname"));
-				bList.add(goods);
+				Vendor vendor = new Vendor();
+				vendor.setViNum(rs.getInt("vinum"));
+				vendor.setViName(rs.getString("viname"));
+				bList.add(vendor);
 			}
 			return bList;
 			
@@ -96,13 +121,29 @@ public class GoodsService {
 		PreparedStatement ps =null;
 		try{
 			con = DBConn.getCon();	
-			String sql= "select count(1) from goods_info as gi, vendor_info as vi where gi.vinum=vi.vinum;";
+			String sql= "select count(1) from goods_info as gi, vendor_info as vi where gi.vinum=vi.vinum";
+			if(pGoods.getViNum()!=0){
+				sql += " and gi.vinum =?";
+			}		
+			if(pGoods.getGiName()!=null && !pGoods.getGiName().equals("")){
+				sql += " and gi.giname like ?";
+			}
+			
 			ps = con.prepareStatement(sql);
+			if(pGoods.getViNum()!=0 && pGoods.getGiName()!=null&&!pGoods.getGiName().equals("")){
+				ps.setInt(1,pGoods.getViNum());
+				ps.setString(2,"%" + pGoods.getGiName() + "%");
+			}else if(pGoods.getGiName()!=null && !pGoods.getGiName().equals("")&&pGoods.getViNum()==0){
+				ps.setString(1,"%" + pGoods.getGiName() + "%");
+			}else if(pGoods.getViNum()!=0&&(pGoods.getGiName()==null || pGoods.getGiName().equals(""))){
+				ps.setInt(1,pGoods.getViNum());
+			}
 			ResultSet rs=ps.executeQuery();
+			
 			while(rs.next()){
 				return rs.getInt(1);
 			}
-				
+			
 				
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
@@ -119,4 +160,5 @@ public class GoodsService {
 		}
 		return 0;
 	}
+
 }

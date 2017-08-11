@@ -56,7 +56,7 @@ function callback(results){
 	if(endBlock>totalPageCnt){
 		endBlock=totalPageCnt
 	}
-	setPagination(startBlock, endBlock, nowPage, totalPageCnt, "page");
+	makePagination(startBlock, endBlock, nowPage, totalPageCnt, "page");
 	$("#s_vendor").html("");
 	
 	for(var i=0, max=tableList.length;i<max;i++){
@@ -95,13 +95,13 @@ function setEvent(){
 		}
 		var params={};
 		params["nowPage"]= nowPage+"";
-		goPage(params, "/test/vendors_select.jsp", callback);
+		movePageWithAjax(params, "/test/vendors_select.jsp", callback);
 	})
 };
 $(document).ready(function(){
 	var params = {};
 	params["nowPage"] = "1";
-	goPage(params, "/test/vendors_select.jsp", callback);
+	movePageWithAjax(params, "/test/vendors_select.jsp", callback);
 });
 
 $("#btn").click(function(){
