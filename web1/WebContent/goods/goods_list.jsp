@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/header.jsp"%>
-	<div class="container" style="align:center">
+	<div class="container" >
 		<select id="s_vendor">
 			<option value="">회사 선택</option>
 		</select>
@@ -23,6 +23,7 @@
 			<tbody id="result_tbody" >
 			</tbody>
 		</table>
+		<button id="btn2" class="btn" size="30px" type="button">글작성</button>
 	</div>
 	<div class="jb-center" style="text-align:center">
 		<ul class="pagination" id="page">
@@ -31,12 +32,16 @@
 
 </body>
 <script>
-var nowPage=0;
+var nowPage="<%=request.getParameter("nowPage")%>";
 var blockCnt=0;
 var startBloc=0;
 var endBlock=0;
 var totalPageCnt=0;
 var pageInfo={};
+
+if(nowPage=="null"){
+	nowPage = "1";
+}
 $("#btn").click(function(){
 	var giName = $("#searchName").val().trim();
 	var viNum = $("#s_vendor").val().trim();
@@ -57,11 +62,13 @@ $("#btn").click(function(){
 	params["page"]=page;
 	movePageWithAjax(params, "/list.goods", callback);
 })
-
+$("#btn2").click(function(){
+	location.href="/goods/goods_insert.jsp";
+})
 function callback(results){
 	var goodsList = results.list ;
 	var barList = results.bList ;
-	var page = results.page;
+	var pageInfo = results.page;
 	var search = results.search;
 	var selStr = "<option value=''>회사선택</option>";
 	for (var i = 0, max = barList.length; i < max; i++) {
@@ -82,23 +89,50 @@ function callback(results){
 		params["giName"] = search.giName;
 	}
 	
-	makePagination(page, "page")
-	setEvent(page,params, "/list.goods");
+	var tableStr="";
+	makePagination(pageInfo, "page")
+	setEvent(pageInfo,params, "/list.goods");
     $('#table').bootstrapTable('destroy');
-    $('#table').bootstrapTable({
-        data: goodsList
-    });
-    
-}
+	//data: goodsList
+  	for(var i=0, max=goodsList.length;i<max;i++){
+  		var goods = goodsList[i]
+   		tableStr +="<tr data-view='" + goods.giNum + "'>";
+   		tableStr += "<td class='text-center'>" + goods.giNum + "</td>";
+   	    tableStr += "<td class='text-center'>" + goods.giName + "</td>";
+  	    tableStr += "<td class='text-center'>" + goods.giDesc + "</td>";	
+   	   	tableStr += "<td class='text-center'>" + goods.viNum + "</td>";
+   	   	tableStr += "<td class='text-center'>" + goods.viName + "</td>";
+   	   	tableStr += "</tr>";
+   	}
+   	
+   	$("#result_tbody").html(tableStr);
+    $("tbody[id='result_tbody']>tr[data-view]").click(function(){
+    	var params = {};
+    	params["giNum"] = this.getAttribute("data-view");
+    	params["command"] = "view";
+    	var page = {};
+    	page["nowPage"] = pageInfo.nowPage;
+    	params["page"]= page;
+    	movePageWithAjax(params,"/list.goods",callBackView);		
+    })
+ function callBackView(result){
+    	var url = result.url + "?nowPage=" + result.page.nowPage + "&giNum=" + result.goods.giNum;
+    	url += "&giName=" + result.goods.giName;
+    	url += "&giDesc=" + result.goods.giDesc;
+    	url += "&viNum=" + result.goods.viNum;
+    	url += "&viName=" + result.goods.viName;
+		location.href=url;
+ 	}
+}		
 
 $(document).ready(function(){
 	var page={};
-	page["nowPage"]="1";
+	page["nowPage"]=nowPage;
 	var params = {};
 	params["page"] = page;
 	params["command"] = "list";
 	movePageWithAjax(params, "/list.goods", callback);
-});
+})
 
 </script>
 

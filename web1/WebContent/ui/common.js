@@ -96,3 +96,9 @@ function makePagination(pageInfo, objId){
 	}
 	$("#"+objId).html(pageStr);
 }
+function callBackView(result){
+	alert(result.msg);
+	if(result.url!=""){	
+		location.href = result.url + "?nowPage=" + result.page.nowPage;
+	}
+}
