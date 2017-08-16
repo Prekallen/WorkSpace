@@ -5,7 +5,7 @@
 		<select id="s_vendor">
 			<option value="">회사 선택</option>
 		</select>
-	상품명 :  <input type="text" id="searchName"/><input type="button" id="btn" value="찾기"/>
+	상품명 :  <input type="text" id="searchName"/><input type="button" id="searchBtn" value="찾기"/>
 	</div>
 
 	<div class="container">
@@ -23,7 +23,8 @@
 			<tbody id="result_tbody" >
 			</tbody>
 		</table>
-		<button id="btn2" class="btn" size="30px" type="button">글작성</button>
+		<button id="vendorViewBtn" class="btn" size="30px" type="button">회사관리</button>
+		<button id="insertBtn" class="btn" size="30px" type="button">글작성</button>
 	</div>
 	<div class="jb-center" style="text-align:center">
 		<ul class="pagination" id="page">
@@ -42,7 +43,7 @@ var pageInfo={};
 if(nowPage=="null"){
 	nowPage = "1";
 }
-$("#btn").click(function(){
+$("#searchBtn").click(function(){
 	var giName = $("#searchName").val().trim();
 	var viNum = $("#s_vendor").val().trim();
 	if(giName=="" && viNum==""){
@@ -62,8 +63,11 @@ $("#btn").click(function(){
 	params["page"]=page;
 	movePageWithAjax(params, "/list.goods", callback);
 })
-$("#btn2").click(function(){
+$("#insertBtn").click(function(){
 	location.href="/goods/goods_insert.jsp";
+})
+$("#vendorViewBtn").click(function(){
+	location.href="/vendor/vendor_view.jsp";
 })
 function callback(results){
 	var goodsList = results.list ;

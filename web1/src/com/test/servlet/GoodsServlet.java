@@ -75,9 +75,6 @@ public class GoodsServlet extends HttpServlet {
 			int result = gs.updateGoods(goods);
 			List<Vendor> bList = gs.barList();
 			HashMap resultList = new HashMap();
-			resultList.put("page", page);
-			resultList.put("bList",bList);
-			resultList.put("search", goods);
 			resultList.put("msg", "수정이 완료 되었습니다.");
 			resultList.put("url", "/goods/goods_list.jsp");
 			if(result!=1){
@@ -87,6 +84,19 @@ public class GoodsServlet extends HttpServlet {
 			String jsonStr = g.toJson(resultList);
 			doProcess(response,jsonStr);
 			
+		}else if(command.equals("insert")){
+			int result = gs.insertGoods(goods);
+			List<Vendor> bList = gs.barList();
+			HashMap resultList = new HashMap();
+			resultList.put("msg", "입력 완료 되었습니다.");
+			resultList.put("url", "/goods/goods_list.jsp");
+			if(result!=1){
+				resultList.put("msg", "입력이 실패하였습니다.");
+	    		resultList.put("url", "");
+			}
+			String jsonStr = g.toJson(resultList);
+			doProcess(response,jsonStr);
+		
 		}else if(command.equals("barList")){
 			List<Vendor> bList = gs.barList();
 			HashMap resultList = new HashMap();

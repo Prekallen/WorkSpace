@@ -72,7 +72,7 @@ function callback(results){
 function setEvent(){
 	$("ul[class='pagination']>li:not([class='disabled'])>a").click(function(){
 		var pageNum = new Number (this.innerHTML);
-		var params = {}
+		var params = {};
 		if(isNaN(pageNum)){
 			switch(this.innerHTML){
 				case "≪" : nowPage=1;

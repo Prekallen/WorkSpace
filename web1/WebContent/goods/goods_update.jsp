@@ -44,30 +44,24 @@
 $(document).ready(function(){
 	var params={};
 	params["command"]="barList";
-	movePageWithAjax(params, "/list.goods", callBack);
+	movePageWithAjax(params, "/list.goods", callback);
 })
 function callback(result){
-	var barList = results.bList ;
-	var pageInfo = results.page;
-	var search = results.search;
+	var barList = result.bList;
 	var selStr = "<option value=''>회사선택</option>";
 	for (var i = 0, max = barList.length; i < max; i++) {
-		var vendor = barList[i];
-		var selectStr = "";
-		if(search.viNum==vendor.viNum){
-			selectStr = "selected";
-		}
-		selStr += "<option value='" + vendor.viNum + "' " + selectStr + ">" + vendor.viName
-				+ "</option>";
+		var bar = barList[i];
+		selStr += "<option value='" + bar.viNum + "'>" + bar.viName + "</option>";
 	}
 	$("#bar_List").html(selStr);
+
 }
 $("#updateList").click(function(){
 	var giName = $("#giName").val().trim();
 	var giDesc = $("#giDesc").val().trim();
 	var viNum = $("#bar_List").val().trim();
 	if(giName==""){
-		alter("상품명을 입력하세요.");
+		alert("상품명을 입력하세요.");
 		return;
 	}
 	if(giDesc==""){
@@ -83,17 +77,17 @@ $("#updateList").click(function(){
 	if(isUpdate){
 		var params={};
 		params["giNum"]="<%=request.getParameter("giNum") %>";
-		params["command"]="update"
-		params["giName"]=$("#giName").value();
+		params["command"]="update";
+		params["giName"]=$("#giName").val();
 		params["giDesc"]=$("#giDesc").val();
 		params["viNum"]=$("#bar_List").val();
-		var page={};
-		page["nowPage"] = "<%=request.getParameter("nowPage")%>";
-		params["page"]=page;
-		movePageWithAjax(params, "/list.goods", callBackView);
+		movePageWithAjax(params, "/list.goods", callbackUpdate);
 	}
-	location.href = "/goods/goods_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>
 })
+function callbackUpdate(result){
+		alert(result.msg);
+		location.href = result.url;
+}
 	
 $("#returnList").click(function(){
 	location.href = "/goods/goods_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>
