@@ -4,19 +4,19 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="com.test.common.DBConn"%>
 <%@ page import="com.test.dto.UserInfo"%>
-<div class="container-view" style="width:35%;" > 
-		<table id="table"  data-height="460"	class="table table-bordered table-hover" >
+<div class="container" style="width:25%">
+		<table id="table" data-height="460" class="table table-bordered table-hover">
 		<thead>		
 			<tr> 
-				<th colspan = "3" class="text-center"><h5 class="form-signin-heading">수정 페이지</h5></th>
+				<th colspan = "2" class="text-center"><h5 class="form-signin-heading">상품 등록 페이지</h5></th>
 			</tr>
 			<tr>
-				<td class="col-md-2">상품이름</td>
-				<td colspan="2"><input id="giName"/></td>
+				<td >상품이름</td>
+				<td ><input id="giName"/></td>
 			</tr>
 			<tr>
 				<td >상품설명</td>
-				<td colspan="2"><input id="giDesc" /></td>
+				<td ><input id="giDesc" /></td>
 			</tr>
 			<tr>
 				<td >생산자이름</td>
@@ -26,15 +26,11 @@
 				</select>
 				</td>
 			</tr>
-			<tr>
-				<td >
-					<button  id="insertList" class="btn btn-md-2 btn-primary btn-block"  style="width:100px" type="button">입력</button>
-				</td>
-				<td >
-					<button id="returnList" class="btn btn-md-2 btn-primary btn-block"  style="width:100px" type="button">리스트 이동</button>
-				</td>
-			</tr>
-		</table>
+		</table>			
+		<button  id="insertList" class="btn btn-md-2 btn-primary"  style="width:100px" type="button">입력</button>
+		<button id="returnList" class="btn btn-md-2 btn-primary"  style="width:100px" type="button">리스트 이동</button>
+			
+
 	</div>
 <!-- /container -->
 <script>

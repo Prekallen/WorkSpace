@@ -107,7 +107,7 @@ if(login){
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/board/board_select.jsp">게시판가기</a></li>
-            <li><a href="/goods/goods_list.jsp">STARCRAFT</a></li>
+            <li><a href="/goods/goods_list.jsp">CHAOS</a></li>
             <li><a href="/user/user_info.jsp">유저정보가기</a></li>
             <li><a href="/role/role_select.jsp">권한정보가기</a></li>
             <li><a href="/user/logout.jsp"><%=loginStr %></a></li>

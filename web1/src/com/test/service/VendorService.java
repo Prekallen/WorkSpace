@@ -36,7 +36,7 @@ public class VendorService {
 				vendor.setViName(rs.getString("viname"));
 				vendor.setViDesc(rs.getString("videsc"));
 				vendor.setViAddress(rs.getString("viaddress"));
-				vendor.setViPhone(rs.getString("viPhone"));
+				vendor.setViPhone(rs.getString("viphone"));
 				vendor.setViCreDat(rs.getString("vicredat"));
 				vendor.setViCreTim(rs.getString("vicretim"));
 				vList.add(vendor);
@@ -61,32 +61,29 @@ public class VendorService {
 		
 	}
 	
-	public Goods selectGoods(Goods pGoods){
+	public Vendor selectVendor(int viNum){
 		Connection con = null;
 		PreparedStatement ps =null;		
 		try{
 			con = DBConn.getCon();
-			String sql = "select gi.ginum, gi.giname, gi.gidesc, vi.vinum, vi.viname"
-				+" from goods_info as gi, vendor_info as vi"
-				+" where gi.vinum=vi.vinum";
-			sql += " and gi.ginum =?";
-					
-			Page page = pGoods.getPage();
+			String sql = "select vinum, viname, videsc, viaddress, viphone, vicredat, vicretim"
+				+" from vendor_info where vinum=?";
 			ps=con.prepareStatement(sql);
-			
-			if(pGoods.getGiNum()!=0){
-				ps.setInt(1,pGoods.getGiNum());
+			if(viNum!=0){
+				ps.setInt(1, viNum);
 			}
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()){
-				Goods goods = new Goods();
-				goods.setGiNum(rs.getInt("gi.ginum"));
-				goods.setGiName(rs.getString("gi.giname"));
-				goods.setGiDesc(rs.getString("gi.gidesc"));
-				goods.setViNum(rs.getInt("vi.vinum"));
-				goods.setViName(rs.getString("vi.viname"));
-				return goods;
+				Vendor vendor = new Vendor();
+				vendor.setViNum(rs.getInt("vinum"));
+				vendor.setViName(rs.getString("viname"));
+				vendor.setViDesc(rs.getString("videsc"));
+				vendor.setViAddress(rs.getString("viaddress"));
+				vendor.setViPhone(rs.getString("viphone"));
+				vendor.setViCreDat(rs.getString("vicredat"));
+				vendor.setViCreTim(rs.getString("vicretim"));
+				return vendor;
 			}
 			
 		}catch(ClassNotFoundException e){
@@ -106,7 +103,7 @@ public class VendorService {
 		
 	}
 
-	public int deleteVendor(Goods pGoods){
+	public int deleteVendor(Vendor vendor){
 		Connection con = null;
 		PreparedStatement ps =null;		
 		try{
@@ -115,8 +112,8 @@ public class VendorService {
 			
 			ps=con.prepareStatement(sql);
 			
-			if(pGoods.getViNum()!=0){
-				ps.setInt(1,pGoods.getViNum());
+			if(vendor.getViNum()!=0){
+				ps.setInt(1,vendor.getViNum());
 			}
 			int result = ps.executeUpdate();
 			con.commit();
@@ -138,20 +135,20 @@ public class VendorService {
 		return 0;
 		
 	}
-	public int updateVendor(Goods pGoods){
+	public int updateVendor(Vendor vendor){
 		Connection con = null;
 		PreparedStatement ps =null;		
 		try{
 			con = DBConn.getCon();
-			String sql = "update goods_info set giname =? , gidesc=? , vinum =?, gicredat= date_format(now(),'%Y%m%d'), gicretim=date_format(now(),'%H%i%s')";
-				sql+=" where ginum = ?;";
+			String sql = "update vendor_info set viname =? , videsc=? , viaddress =?, viphone=?, vicredat= date_format(now(),'%Y%m%d'), vicretim=date_format(now(),'%H%i%s')";
+				sql+=" where vinum = ?;";
 			
 			ps=con.prepareStatement(sql);
-			ps.setString(1, pGoods.getGiName());
-			ps.setString(2, pGoods.getGiDesc());
-			ps.setInt(3,pGoods.getViNum());
-			ps.setInt(4,pGoods.getGiNum());
-			
+			ps.setString(1, vendor.getViName());
+			ps.setString(2, vendor.getViDesc());
+			ps.setString(3,vendor.getViAddress());
+			ps.setString(4,vendor.getViPhone());
+			ps.setInt(5,vendor.getViNum());
 			int result = ps.executeUpdate();
 			con.commit();
 			return result;
@@ -172,17 +169,18 @@ public class VendorService {
 		return 0;
 		
 	}
-	public int insertVendor(Goods pGoods){
+	public int insertVendor(Vendor vendor){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			String sql = "insert into goods_info(giname, gidesc, vinum, gicredat, gicretim)";
-			sql += " values(?,?,?,DATE_FORMAT(NOW(),'%Y%m%d'), DATE_FORMAT(NOW(),'%H%i%s'));";
+			String sql = "insert into vendor_info(viname, videsc, viaddress, viphone, vicredat, vicretim)";
+			sql += " values(?,?,?,?,DATE_FORMAT(NOW(),'%Y%m%d'), DATE_FORMAT(NOW(),'%H%i%s'));";
 			con = DBConn.getCon(); 
 			ps = con.prepareStatement(sql);
-			ps.setString(1, pGoods.getGiName());
-			ps.setString(2, pGoods.getGiDesc());
-			ps.setInt(3, pGoods.getViNum());
+			ps.setString(1, vendor.getViName());
+			ps.setString(2, vendor.getViDesc());
+			ps.setString(3, vendor.getViAddress());
+			ps.setString(4, vendor.getViPhone());
 			int result = ps.executeUpdate();
 			con.commit();
 			return result;

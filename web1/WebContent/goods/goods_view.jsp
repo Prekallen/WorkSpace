@@ -4,11 +4,11 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="com.test.common.DBConn"%>
 <%@ page import="com.test.dto.UserInfo"%>
-	<div class="container-view" style="width:45%; text-align: center;"> 
-		<table id="table"  data-height="460"	class="table table-bordered table-hover" >
+<div class="container" style="width:40%">
+		<table id="table" data-height="460" class="table table-bordered table-hover">
 		<thead>		
 			<tr> 
-				<th colspan = "3" class="text-center"><h5 class="form-signin-heading">상품상세 페이지</h5></th>
+				<th colspan = "3" class="text-center"><h5 class="form-signin-heading">상품 상세 페이지</h5></th>
 			</tr>
 			<tr>
 				<td class="col-md-2">상품번호</td>
@@ -22,25 +22,19 @@
 				<td colspan="2"><%=request.getParameter("giDesc") %></td>
 			</tr>
 			<tr>
-				<td >생산자번호</td>
+				<td >회사번호</td>
 				<td colspan="2"><%=request.getParameter("viNum") %></td>
 			</tr>
 			<tr>
-				<td >생산자이름</td>
+				<td >회사명</td>
 				<td colspan="2"><%=request.getParameter("viName") %></td>
 			</tr>
-			<tr>
-				<td >
-					<button id="deleteList" class="btn btn-md-2 btn-primary btn-block" 	style="width:100px" type="button">삭제</button>
-				</td>
-				<td >
-					<button  id="updateList" class="btn btn-md-2 btn-primary btn-block"  style="width:100px"  type="button">수정</button>
-				</td>
-				<td >
-					<button id="returnList" class="btn btn-md-2 btn-primary btn-block"  style="width:100px"	type="button">리스트 이동</button>
-				</td>
-			</tr>
-		</table>
+		</table>	
+			
+		<button id="deleteList" class="btn btn-md-2 btn-primary " 	style="width:100px" type="button">삭제</button>
+		<button  id="updateList" class="btn btn-md-2 btn-primary"  style="width:100px"  type="button">수정</button>
+		<button id="returnList" class="btn btn-md-2 btn-primary"  style="width:100px"	type="button">리스트 이동</button>
+		
 	</div>
 	<!-- /container -->
 <script>

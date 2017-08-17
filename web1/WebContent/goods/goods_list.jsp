@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/header.jsp"%>
-	<div class="container" >
+	<div class="container" style="padding-left: 120px; padding-bottom: 15px;";>
 		<select id="s_vendor">
 			<option value="">회사 선택</option>
 		</select>
 	상품명 :  <input type="text" id="searchName"/><input type="button" id="searchBtn" value="찾기"/>
 	</div>
 
-	<div class="container">
+	<div class="container" style="width:70%">
 		<table id="table" data-height="460"
 			class="table table-bordered table-hover">
 			<thead>
@@ -67,7 +67,7 @@ $("#insertBtn").click(function(){
 	location.href="/goods/goods_insert.jsp";
 })
 $("#vendorViewBtn").click(function(){
-	location.href="/vendor/vendor_view.jsp";
+	location.href="/vendor/vendor_list.jsp";
 })
 function callback(results){
 	var goodsList = results.list ;

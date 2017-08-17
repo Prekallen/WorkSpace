@@ -48,7 +48,6 @@ public class GoodsServlet extends HttpServlet {
 			lists.put("list", list);
 			lists.put("bList", bList);
 			lists.put("search", goods);
-			
 			String jsonStr = g.toJson(lists);
 			doProcess(response,jsonStr);
 		}else if (command.equals("view")){
@@ -75,6 +74,7 @@ public class GoodsServlet extends HttpServlet {
 			int result = gs.updateGoods(goods);
 			List<Vendor> bList = gs.barList();
 			HashMap resultList = new HashMap();
+			resultList.put("page", page);
 			resultList.put("msg", "수정이 완료 되었습니다.");
 			resultList.put("url", "/goods/goods_list.jsp");
 			if(result!=1){
