@@ -84,3 +84,4 @@ $("#returnList").click(function(){
 })
 
 </script>
+<%@ include file="/common/footer.jsp"%>

@@ -47,8 +47,7 @@ $("button.btn").click(function(){
     ,   data     : param
     ,   success : function(result){
     	alert(result.msg);
-    	alert(result.login);
-    	if(result.login=="OK"&&result.msg=="로그인"){
+    	if(result.msg=="로그인"){
     	location.href="<%=rootPath%>/main.jsp";
     	}else{
     		$("#userId").val("");

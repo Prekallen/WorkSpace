@@ -21,7 +21,7 @@
 			<tr>
 				<td >생산자이름</td>
 				<td>
-				<select id="bar_List">
+				<select id="bar_List" style="width:150px; height:30px;">
 			<option >회사 선택</option>
 				</select>
 				</td>
@@ -88,3 +88,4 @@ $("#returnList").click(function(){
 })
 
 </script>
+<%@ include file="/common/footer.jsp"%>

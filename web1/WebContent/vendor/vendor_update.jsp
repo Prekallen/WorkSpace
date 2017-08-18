@@ -19,18 +19,34 @@
 				
 			<tr>
 				<td ><input id="viNum" disabled value= "<%=request.getParameter("viNum") %>"/></td>
-				<td ><input id="viName"/></td>
-				<td ><input id="viDesc" /></td>
-				<td ><input id="viAddress" /></td>
-				<td ><input id="viPhone" /></td>
+				<td ><input id="viName" value="<%=request.getParameter("viName") %>"/></td>
+				<td ><input id="viDesc" value="<%=request.getParameter("viDesc") %>"/></td>
+				<td ><input id="viAddress" value="<%=request.getParameter("viAddress") %>"/></td>
+				<td ><input id="viPhone" value="<%=request.getParameter("viPhone") %>"/></td>
 			</tr>
 		</table>
 		<button  id="updateVendor" class="btn btn-md-2 btn-primary "  style="width:100px" type="button">수정</button>
+		<button  id="returnVendor" class="btn btn-md-2 btn-primary "  style="width:100px" type="button">이전 페이지</button>
 		<button id="returnList" class="btn btn-md-2 btn-primary "  style="width:100px"  type="button">리스트 이동</button>
 		
 	</div>
 <!-- /container -->
 <script>
+$(document).ready(function(){
+	$("#viName").on("click", function(){
+		$(this).select();
+	});
+	$("#viDesc").on("click", function(){
+		$(this).select();
+	});
+	$("#viAddress").on("click", function(){
+		$(this).select();
+	});
+	$("#viPhone").on("click", function(){
+		$(this).select();
+	});
+		
+})
 
 $("#updateVendor").click(function(){
 	var viNum = $("#viNum").val();
@@ -83,5 +99,26 @@ $("#updateVendor").click(function(){
 $("#returnList").click(function(){
 	location.href = "/vendor/vendor_list.jsp";
 })
-
+$("#returnVendor").click(function(){
+	var viNum = <%=request.getParameter("viNum") %>;
+	var params = "command=view&viNum=" + viNum;
+	$.ajax({
+		type	: "POST"
+	,	url		: "/list.vendor"
+	,	dataType : "text"
+	,	data 	: params
+	,	success : function(result){
+		var url = "/vendor/vendor_view.jsp";
+			url+= result;
+		location.href= url;
+		
+	}
+	,	error : function(xhr, status, e){
+			alert("에러 : " + e);	
+	}
+	,	complete : function(){
+	}
+});
+})
 </script>
+<%@ include file="/common/footer.jsp"%>

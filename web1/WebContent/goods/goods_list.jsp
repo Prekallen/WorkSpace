@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/common/header.jsp"%>
 	<div class="container" style="padding-left: 120px; padding-bottom: 15px;";>
-		<select id="s_vendor">
+		<select id="s_vendor" style="width:150px; height:30px;">
 			<option value="">회사 선택</option>
 		</select>
 	상품명 :  <input type="text" id="searchName"/><input type="button" id="searchBtn" value="찾기"/>

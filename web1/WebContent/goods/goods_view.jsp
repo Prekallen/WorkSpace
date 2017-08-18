@@ -4,7 +4,7 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="com.test.common.DBConn"%>
 <%@ page import="com.test.dto.UserInfo"%>
-<div class="container" style="width:40%">
+<div class="container" style="width:30%">
 		<table id="table" data-height="460" class="table table-bordered table-hover">
 		<thead>		
 			<tr> 
@@ -54,8 +54,10 @@ $("#deleteList").click(function(){
 	}
 })
 $("#updateList").click(function(){
-	location.href="/goods/goods_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&giNum=" + <%=request.getParameter("giNum")%>;
-	
+	var url="/goods/goods_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&giNum=" + <%=request.getParameter("giNum")%>
+		+"&giName=" + '<%=request.getParameter("giName")%>' + "&giDesc=" + '<%=request.getParameter("giDesc")%>'
+		+"&viNum=" + <%=request.getParameter("viNum")%>;
+	location.href= url;
 })
 
 	

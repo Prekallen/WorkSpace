@@ -4,7 +4,7 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="com.test.common.DBConn"%>
 <%@ page import="com.test.dto.UserInfo"%>
-<div class="container" style="width:80%">
+<div class="container" style="width:70%">
 		<table id="table" data-height="460" class="table table-bordered table-hover">
 		<thead>		
 			<tr> 
@@ -26,7 +26,7 @@
 		<button  id="returnList" class="btn btn-primary"  type="button">상품 리스트 이동</button>
 		<button id="btnInsert" class="btn btn-primary"  type="button">회사등록</button><p/>
 	</div>
-	<div  style="padding-top:15px; padding-left:180px;">
+	<div  style="padding-top:10px; padding-left:280px;">
 		회사명 : <input type="text" id="searchName"/><input type="button" id="searchBtn" value="찾기"/>
 	</div>
 	<!-- /container -->

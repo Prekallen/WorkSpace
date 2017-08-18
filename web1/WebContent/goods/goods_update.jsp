@@ -15,16 +15,16 @@
 				<td ><input id="giNum" disabled value= "<%=request.getParameter("giNum") %>"/></td>
 			<tr>
 				<td >상품이름</td>
-				<td ><input id="giName"/></td>
+				<td ><input id="giName" value="<%=request.getParameter("giName") %>"/></td>
 			</tr>
 			<tr>
 				<td >상품설명</td>
-				<td ><input id="giDesc" /></td>
+				<td ><input id="giDesc" value="<%=request.getParameter("giDesc") %>"/></td>
 			</tr>
 			<tr>
 				<td >생산자이름</td>
 				<td>
-				<select id="bar_List">
+				<select id="bar_List" style="width:150px; height:30px;">
 			<option >회사 선택</option>
 				</select>
 				</td>
@@ -39,13 +39,24 @@ $(document).ready(function(){
 	var params={};
 	params["command"]="barList";
 	movePageWithAjax(params, "/list.goods", callback);
+	$("#giName").on("click", function(){
+		$(this).select();
+	});
+	$("#giDesc").on("click", function(){
+		$(this).select();
+	});
+		
 })
 function callback(result){
 	var barList = result.bList;
 	var selStr = "<option value=''>회사선택</option>";
 	for (var i = 0, max = barList.length; i < max; i++) {
 		var bar = barList[i];
-		selStr += "<option value='" + bar.viNum + "'>" + bar.viName + "</option>";
+		var selectStr= "";
+		if(<%=request.getParameter("viNum")%>==bar.viNum){
+			selectStr="selected";
+		}
+		selStr += "<option value='" + bar.viNum + "'" + selectStr + ">" + bar.viName + "</option>";
 	}
 	$("#bar_List").html(selStr);
 
@@ -88,3 +99,4 @@ $("#returnList").click(function(){
 })
 
 </script>
+<%@ include file="/common/footer.jsp"%>

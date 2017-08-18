@@ -23,8 +23,12 @@ public class Page{
 		this.endBlock = endBlock;
 	}
 
-	private void calPage(){
+	private void calPage(){							//페이징이 뭔가 이상함!!!!!!!!!!!!!!!!!!!!!
+		if(totalCnt%rowCnt!=0){
 		totalPageCnt = (totalCnt/rowCnt)+1;
+		}else{
+			totalPageCnt=totalCnt/rowCnt;
+		}
 		startRow = (nowPage-1) * rowCnt;
 		startBlock = ((nowPage-1)/blockCnt)*blockCnt+1;
 		endBlock = getStartBlock()+blockCnt-1;

@@ -65,11 +65,10 @@ $("#deleteBtn").click(function(){
 })
 $("#updateBtn").click(function(){
 	var viNum = <%=request.getParameter("viNum") %>;
-			location.href = "/vendor/vendor_update.jsp?viNum=" + viNum;
+	location.href = "/vendor/vendor_update.jsp?viNum=" + viNum + "&viName=" + '<%=request.getParameter("viName") %>'
+		+ "&viDesc=" + '<%=request.getParameter("viDesc") %>' + "&viAddress=" +'<%=request.getParameter("viAddress") %>' 
+		+ "&viPhone=" + '<%=request.getParameter("viPhone") %>';
 		
 })
-
-
-	
 </script>
 <%@ include file="/common/footer.jsp"%>

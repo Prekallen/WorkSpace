@@ -12,7 +12,6 @@ String id=null;
 String pwd=null;
 UserInfo ui = null;
 ui = new Gson().fromJson(request.getReader(), UserInfo.class);
-String login="False";
 String result = "";
 
 if(ui!=null){
@@ -36,7 +35,6 @@ if(ui!=null){
 			String hp3 = rs.getString("hp3");
 			if(userPwd.equals(ui.getUserPwd())){
 				result =  "로그인";
-				login = "OK";
 				session.setAttribute("userid",ui.getUserId());
 				session.setAttribute("username",userName);
 				session.setAttribute("age",age);
@@ -74,7 +72,6 @@ if(result=="로그인"){
 	loginStatus="NOT OK";
 }
 HashMap hm = new HashMap();
-hm.put("login",login);
 hm.put("msg",result);
 String json = new Gson().toJson(hm);
 out.write(json);
