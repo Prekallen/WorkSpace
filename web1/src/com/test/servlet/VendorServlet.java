@@ -2,7 +2,6 @@ package com.test.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.dto.Vendor;
+import com.test.service.ServiceFactory;
 import com.test.service.VendorService;
 
 public class VendorServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private VendorService vs = new VendorService();
-	
+	private VendorService vs; 	
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		response.setCharacterEncoding("UTF-8");
@@ -26,6 +25,7 @@ public class VendorServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setCharacterEncoding("UTF-8");
+		vs = ServiceFactory.getVendorService();
 		String command = request.getParameter("command");
 		String viName= request.getParameter("viName");
 		String viDesc= request.getParameter("viDesc");
@@ -37,7 +37,7 @@ public class VendorServlet extends HttpServlet {
 			resultStr="";
 			List<Vendor> vendorList = vs.selectVendorList(viName);
 	    	for(Vendor v : vendorList){
-	    		resultStr += "<tr id='" + v.getViNum() + "'>";
+	    		resultStr += "<tr id='" + v.getViNum() + "' style='cursor:pointer'>";
 	    		resultStr += "<td>" + v.getViNum() + "</td>";
 	    		resultStr += "<td>" + v.getViName() + "</td>";
 	    		resultStr += "<td>" + v.getViDesc() + "</td>";

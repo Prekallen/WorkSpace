@@ -39,6 +39,7 @@
 				<p />
 
 				<input type="button" value="메인으로 가기" onclick="bSelect('main')" />
+				<input type="button" value="게시판 가기" onclick="bSelect('board')" />
 			</div>
 		</div>
 	</form>

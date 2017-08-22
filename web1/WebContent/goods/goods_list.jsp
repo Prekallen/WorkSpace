@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/common/header.jsp"%>
 	<div class="container" style="padding-left: 120px; padding-bottom: 15px;";>
+	<button id="goodsHomeBtn" class="btn" size="30px" type="button" >CHAOS HOME</button><p style="padding-top:15px;"/>
 		<select id="s_vendor" style="width:150px; height:30px;">
 			<option value="">회사 선택</option>
 		</select>
@@ -69,6 +70,9 @@ $("#insertBtn").click(function(){
 $("#vendorViewBtn").click(function(){
 	location.href="/vendor/vendor_list.jsp";
 })
+$("#goodsHomeBtn").click(function(){
+	location.href="/goods/goods_list.jsp";
+})
 function callback(results){
 	var goodsList = results.list ;
 	var barList = results.bList ;
@@ -100,7 +104,7 @@ function callback(results){
 	//data: goodsList
   	for(var i=0, max=goodsList.length;i<max;i++){
   		var goods = goodsList[i]
-   		tableStr +="<tr data-view='" + goods.giNum + "'>";
+   		tableStr +="<tr data-view='" + goods.giNum + "' style='cursor:pointer'>";
    		tableStr += "<td class='text-center'>" + goods.giNum + "</td>";
    	    tableStr += "<td class='text-center'>" + goods.giName + "</td>";
   	    tableStr += "<td class='text-center'>" + goods.giDesc + "</td>";	

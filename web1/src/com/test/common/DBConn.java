@@ -1,17 +1,27 @@
 package com.test.common;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DBConn {
-
+	private static Properties pro = new Properties();
 	private static Connection con;
 
+	static{
+		try{
+			pro.load(PropertiesTest.class.getClassLoader().getResourceAsStream("db.properties"));
+			
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 	public static Connection getCon() throws SQLException,ClassNotFoundException{
 		if (con == null) {
-			Class.forName("org.mariadb.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/iot", "root", "prekallen13");
+			Class.forName(pro.getProperty("db.driver"));
+			con = DriverManager.getConnection(pro.getProperty("db.url"), pro.getProperty("db.id"),pro.getProperty("db.pwd"));
 			con.setAutoCommit(false);
 		}
 		return con;

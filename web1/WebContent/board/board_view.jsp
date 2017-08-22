@@ -87,6 +87,15 @@
 		</div>
 
 <script>
+$("#title").on("click", function(){
+	$(this).select();
+})
+$("#content").on("click", function(){
+	$(this).select();
+})
+$("#creusr").on("click", function(){
+	$(this).select();
+})
 function deleteBoard(){
 	var bipwd= document.getElementById("pwd").value;
 	location.href="<%=rootPath%>/board/board_delete.jsp?binum=<%=binum%>&bipwd=" + bipwd;
