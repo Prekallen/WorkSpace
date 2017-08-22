@@ -5,7 +5,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted" style="color:black; font-weight:bold; text-align: center;">To BE or NOT To BE, That is The Question.....</p>
+        <p class="text-muted" style="color:#d9d9d9; font-weight:bold; text-align: center;">To BE or NOT To BE, That is The Question.....</p>
       </div>
     </footer>
 
