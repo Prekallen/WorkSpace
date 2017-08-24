@@ -1,5 +1,7 @@
 package com.iot.sp.user.dao;
 
-public interface UserDao {
+import com.iot.sp.user.dto.UserInfo;
 
+public interface UserDao {
+	UserInfo selectUser(UserInfo user);
 }

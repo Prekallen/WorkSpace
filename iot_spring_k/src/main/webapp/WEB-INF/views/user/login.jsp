@@ -12,7 +12,7 @@
       <form class="form-signin" >
         <h2 class="form-signin-heading">Log in</h2>
         <label for="inputId" >ID</label>
-        <input type="text" id="id" name="id" class="form-control"  value ="${pageContext.request.contextPath}";placeholder="ID" required autofocus>
+        <input type="text" id="id" name="id" class="form-control"  placeholder="ID" required autofocus>
         <label for="inputPassword">Password</label>
         <input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" required>
         <div class="checkbox">
@@ -21,7 +21,6 @@
 		</label>
         </div>
         <button id="btn2" class="btn btn-lg btn-primary btn-block" type="button">Log in</button>
-       ${test}
       </form>
 
     </div> <!-- /container -->
