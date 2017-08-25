@@ -15,9 +15,29 @@
 	<select id="SELECT_USER2" parameterType="user" resultType="user">
 	  select 
 	    userid,
-	  	userpwd 
+	  	userpwd,
+	  	username 
 	  from user_info
 	  where userid = #{userId}
+	</select>
+	
+	<select id="SELECT_USERLIST" parameterType="Map" resultType="user">
+	  select 
+	    userid,
+	  	username,
+	  	age,
+	  	address,
+	  	hp1,
+	  	hp2,
+	  	hp3,
+	  	departnum,
+	  	userrolelevel,
+	  	gender 
+	  from user_info
+	  where 1=1
+	<if test="userName!=null">
+		and username like #{userName}
+	</if>
 	</select>
 </mapper>
 
