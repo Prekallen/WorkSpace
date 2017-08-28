@@ -59,9 +59,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.POST)
-	public @ResponseBody ModelMap getUserList(HttpServletRequest resquest,@RequestBody Map hm, ModelMap model){
+	public @ResponseBody ModelMap getUserList(HttpServletRequest resquest,@RequestBody Map hm, ModelMap model, HttpSession hs){
 		List<UserInfo> userList = us.getUserList(hm);
 		model.put("userList", userList);
 		return model;
+	}
+	
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public String moveList(HttpServletRequest resquest){
+		return "/user/list";
 	}
 }

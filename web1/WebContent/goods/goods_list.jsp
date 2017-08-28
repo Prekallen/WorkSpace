@@ -104,7 +104,7 @@ function callback(results){
 	//data: goodsList
   	for(var i=0, max=goodsList.length;i<max;i++){
   		var goods = goodsList[i]
-   		tableStr +="<tr data-view='" + goods.giNum + "' style='cursor:pointer'>";
+   		tableStr += "<tr data-view='" + goods.giNum + "' style='cursor:pointer'>";
    		tableStr += "<td class='text-center'>" + goods.giNum + "</td>";
    	    tableStr += "<td class='text-center'>" + goods.giName + "</td>";
   	    tableStr += "<td class='text-center'>" + goods.giDesc + "</td>";	

@@ -10,7 +10,7 @@ if(userId!=null){
 
 <div class="container">
 	<form class="form-signin" >
-		<button id="userListBtn" class="btn btn-lg btn-primary " type="button">LIST</button>
+		<button id="userListBtn" class="btn btn-lg btn-primary " type="button" data-url="/user/list">LIST</button>
 		<button id="logOutBtn" class="btn btn-lg btn-primary " type="button">Log Out</button>
 	</form>
 	<h5 class="form-signin-heading" >${userId} 님 환영합니다.</h5>
@@ -21,8 +21,13 @@ $("#logOutBtn").click(function(){
 	alert("Log Out");
 	location.href="${pageContext.request.contextPath}/user/logout";
 })
-$("#userListBtn").click(function(){
-	
+$(document).ready(function(){
+	$("#userListBtn").click(function(){
+		var url = this.getAttribute("data-url");
+		if(url){
+			location.href="${pageContext.request.contextPath}" + url;
+		}
+	})
 })
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

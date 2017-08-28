@@ -17,6 +17,9 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao{
 	}
 	@Override
 	public List<UserInfo> selectUserList(Map hm){
+		if(hm.get("userName")!=null){
+			hm.put("userName", "%" + hm.get("userName") + "%");
+		}
 		return this.getSqlSession().selectList("userinfo.SELECT_USERLIST", hm);
 	}
 }
