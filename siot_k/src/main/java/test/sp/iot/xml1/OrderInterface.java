@@ -1,4 +1,4 @@
-package test.sp.iot;
+package test.sp.iot.xml1;
 
 public interface OrderInterface {
 	
