@@ -12,7 +12,7 @@ public class OrderManager {
 	@Inject
 	@Qualifier("au")
 	private Maker maker;
-	@Autowired
+	@Inject
 	private Money money;
 	
 	public OrderManager(){}
