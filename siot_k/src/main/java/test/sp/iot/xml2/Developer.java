@@ -1,10 +1,5 @@
-package test.sp.iot.anno2;
+package test.sp.iot.xml2;
 
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
-
-@Service
-@Order(1)
 public class Developer implements Worker{
 	
 	public void work(){
