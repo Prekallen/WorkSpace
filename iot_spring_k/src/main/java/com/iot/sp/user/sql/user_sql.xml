@@ -39,6 +39,12 @@
 		and username like #{userName}
 	</if>
 	</select>
+	<insert id="INSERT_USER" parameterType="user" >
+	  insert into user_info
+	    (userid, username, age, address, hp1, hp2, hp3, departnum, userrolelevel, gender )
+	 	value(
+	 	#(userId), #(userName), #(age), #(address), #(hp1), #(hp2), #(hp3), #(departNum), #(userRoleLevel), #(gender)) 
+	</insert>
 </mapper>
 
 

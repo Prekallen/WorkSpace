@@ -9,21 +9,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>SPRING</title>
 </head>
-<%
-String version = "1.0.0";
-%>
-<script src="<c:url value="/resources/js/jquery-3.2.1.js?version=<%=version%>"/>"></script>
-<script src="<c:url value="/resources/js/jquery-ui-1.9.2.custom.js?version=<%=version%>"/>"></script>
-<script src="<c:url value="/resources/js/jquery.fileupload.js?version=<%=version%>"/>"></script>
-<script src="<c:url value="/resources/js/jquery.iframe-transport.js?version=<%=version%>"/>"></script>
-<script src="<c:url value="/resources/ui/common.js?version=<%=version%>"/>"></script>
-<script src="<c:url value="/resources/ui/btsp3.7.7/js/bootstrap.min.js?version=<%=version%>"/>"></script>
-<script src="<c:url value="/resources/ui/btsp3.7.7/js/bootstrap-table.js?version=<%=version%>"/>"></script>
-<script src="<c:url value="/resources/ui/btsp3.7.7/js/bootstrap-table.js?version=<%=version%>"/>"></script>
-<link rel="stylesheet" href="<c:url value="/resources/ui/btsp3.7.7/css/bootstrap-theme.min.css?version=<%=version%>"/>"/>
-<link rel="stylesheet" href="<c:url value="/resources/ui/btsp3.7.7/css/bootstrap.min.css?version=<%=version%>"/>"/>
-<link rel="stylesheet" href="<c:url value="/resources/ui/btsp3.7.7/css/bootstrap-table.css?version=<%=version%>"/>"/>
-<link rel="stylesheet" href="<c:url value="/resources/ui/common.css?version=<%=version%>"/>"/>
-<link rel="stylesheet" href="<c:url value="/resources/ui/signin.css?version=<%=version%>"/>"/>
-<link rel="stylesheet" href="<c:url value="/resources/ui/footer.css?version=<%=version%>"/>"/>
+<c:set var="version" value="1.0.0"/>
+<c:set var="rootPath" value="${pageContext.request.contextPath}"/>
+
+<script src="<c:url value="/resources/js/jquery-3.2.1.js?version=${version}"/>"></script>
+<script src="<c:url value="/resources/js/jquery-ui-1.9.2.custom.js?version=${version}"/>"></script>
+<script src="<c:url value="/resources/js/jquery.fileupload.js?version=${version}"/>"></script>
+<script src="<c:url value="/resources/js/jquery.iframe-transport.js?version=${version}"/>"></script>
+<script src="<c:url value="/resources/ui/common.js?version=${version}"/>"></script>
+<script src="<c:url value="/resources/ui/btsp3.7.7/js/bootstrap.min.js?version=${version}"/>"></script>
+<script src="<c:url value="/resources/ui/btsp3.7.7/js/bootstrap-table.js?version=${version}"/>"></script>
+<script src="<c:url value="/resources/ui/btsp3.7.7/js/bootstrap-table.js?version=${version}"/>"></script>
+<link rel="stylesheet" href="<c:url value="/resources/ui/btsp3.7.7/css/bootstrap-theme.min.css?version=${version}"/>"/>
+<link rel="stylesheet" href="<c:url value="/resources/ui/btsp3.7.7/css/bootstrap.min.css?version=${version}"/>"/>
+<link rel="stylesheet" href="<c:url value="/resources/ui/btsp3.7.7/css/bootstrap-table.css?version=${version}"/>"/>
+<link rel="stylesheet" href="<c:url value="/resources/ui/common.css?version=${version}"/>"/>
+<link rel="stylesheet" href="<c:url value="/resources/ui/signin.css?version=${version}"/>"/>
+<link rel="stylesheet" href="<c:url value="/resources/ui/footer.css?version=${version}"/>"/>
 <body>

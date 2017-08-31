@@ -22,4 +22,9 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao{
 		}
 		return this.getSqlSession().selectList("userinfo.SELECT_USERLIST", hm);
 	}
+	@Override
+	public UserInfo insertUser(UserInfo user) {
+		
+		return this.getSqlSession().selectOne("userinfo.INSERT_USER", user);
+	}
 }

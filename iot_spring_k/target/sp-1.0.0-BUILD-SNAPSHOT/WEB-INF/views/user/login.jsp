@@ -16,13 +16,13 @@
         	<input type="checkbox" value="remember-me"> Remember me
 		</label>
         </div>
-        <button id="btn2" class="btn btn-lg btn-primary btn-block" type="button">Log in</button>
+        <button id="LogInBtn" class="btn btn-lg btn-primary btn-block" type="button">Log in</button>
       </form>
 
     </div> <!-- /container -->
 
 <script>
-$("button.btn").click(function(){
+$("#LogInBtn").click(function(){
 	var userId = $("#id").val();
 	var userPwd = $("#pwd").val();
 	var param = {};
@@ -31,7 +31,7 @@ $("button.btn").click(function(){
 	param = JSON.stringify(param);
 	$.ajax({ 
         type     : "POST"
-    ,   url      : "${pageContext.request.contextPath}/user/login"
+    ,   url      : "${pageContext.request.contextPath}/user/login1"
     ,   dataType : "json" 
     ,   beforeSend: function(xhr) {
         xhr.setRequestHeader("Accept", "application/json");
@@ -49,6 +49,7 @@ $("button.btn").click(function(){
     	
     }
     ,   error : function(xhr, status, e) {
+    		$("#error").html(xhr.responseText);
 	    	alert("에러 : "+e);
 	},
 	done : function(e) {
@@ -56,5 +57,5 @@ $("button.btn").click(function(){
 	});
 });
 </script>	
-
+<div id="error"></div>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

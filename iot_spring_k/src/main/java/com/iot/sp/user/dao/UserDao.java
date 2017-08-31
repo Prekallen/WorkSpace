@@ -8,4 +8,5 @@ import com.iot.sp.user.dto.UserInfo;
 public interface UserDao {
 	UserInfo selectUser(UserInfo user);
 	List<UserInfo> selectUserList(Map hm);
+	UserInfo insertUser(UserInfo user);
 }

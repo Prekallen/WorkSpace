@@ -25,6 +25,8 @@
 			<tbody id="result_tbody" >
 			</tbody>	
 			</table>
+		<p/>
+		<button id="userInsertBtn" class="btn btn-lg btn-primary " type="button">회원등록</button>
 </div>
 <script>
 
@@ -67,45 +69,7 @@ $(document).ready(function(){
 		});
 
 })
-$("#searchBtn").click(function(){
-	var param={};
-	var userName = $("#searchName").val();
-	param["userName"]= userName;
-		param=JSON.stringify(param);
-		$.ajax({ 
-	        type     : "POST"
-	    ,   url      : "${pageContext.request.contextPath}/user/list"
-	    ,   dataType : "json" 
-	    ,   beforeSend: function(xhr) {
-	        xhr.setRequestHeader("Accept", "application/json");
-	        xhr.setRequestHeader("Content-Type", "application/json");
-	    }
-	    ,   data     : param
-	    ,   success : function(result){
-	    	var userList = result.userList;
-	    	var resultList="";
-	    	var max = userList.length;
-	    	for(var i=0; i<max;i++){
-	    		user=userList[i]
-	    		resultList += "<tr style='cursor:pointer'>";
-	    		resultList += "<td class='text-center'>" + user.userId + "</td>";
-	    		resultList += "<td class='text-center'>" + user.userName + "</td>";
-	    		resultList += "<td class='text-center'>" + user.age + "</td>";
-	    		resultList += "<td class='text-center'>" + user.address + "</td>";	
-	    		resultList += "<td class='text-center'>" + user.userRoleLevel + "</td>";
-	    		resultList += "<td class='text-center'>" + user.gender + "</td>";
-	    		resultList += "</tr>";
-	    	}
-	    	$("#result_tbody").html(resultList);
-	    }
-	    ,   error : function(xhr, status, e) {
-		    	alert("에러 : "+e);
-		},
-		done : function(e) {
-		}
-		});
 
-})
 $("#userMainBtn").click(function(){
 	location.href="${pageContext.request.contextPath}/user/main"
 })

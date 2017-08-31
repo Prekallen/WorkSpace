@@ -24,4 +24,9 @@ public class UserServiceImpl implements UserService{
 	public List<UserInfo> getUserList(Map hm){
 		return userDao.selectUserList(hm);
 	}
+	@Override
+	public UserInfo userInsert(UserInfo user) {
+		
+		return userDao.insertUser(user);
+	}
 }

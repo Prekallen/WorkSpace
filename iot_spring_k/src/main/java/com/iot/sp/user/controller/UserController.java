@@ -37,7 +37,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public @ResponseBody ModelMap logIn(HttpServletRequest request, @RequestBody UserInfo pUser, ModelMap model, HttpSession hs){
+	@ResponseBody
+	public  ModelMap logIn(HttpServletRequest request, @RequestBody UserInfo pUser, ModelMap model, HttpSession hs){
 		UserInfo user = us.getUser(pUser);
 		if(user==null){
 			model.put("data", "F");
@@ -48,7 +49,6 @@ public class UserController {
 			model.put("data", "S");
 			model.put("url", "/user/main");
 			model.put("msg", "Success");
-			
 		}
 		return model;
 	}
@@ -69,4 +69,17 @@ public class UserController {
 	public String moveList(HttpServletRequest resquest){
 		return "/user/list";
 	}
+	
+	@RequestMapping(value="/insert", method=RequestMethod.GET)
+	public String moveInsert(HttpServletRequest resquest){
+		return "/user/insert";
+	}
+	
+	@RequestMapping(value="/insert", method=RequestMethod.POST)
+	public @ResponseBody ModelMap userInsert(HttpServletRequest resquest,@RequestBody UserInfo user, ModelMap model, HttpSession hs){
+		UserInfo userInsert = us.userInsert(user);
+		model.put("userInsert", userInsert);
+		return model;
+	}
+	
 }
