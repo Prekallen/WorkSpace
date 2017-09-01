@@ -3,12 +3,15 @@ package com.iot.sp.user.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,12 +28,23 @@ public class UserController {
 	private UserService us; 
 	
 	@RequestMapping("/main")
-	public String init(HttpServletRequest request, ModelMap model, HttpSession hs) {
-		String userId = (String)hs.getAttribute("userId");
-		if(userId!=null){
-			model.addAttribute("userId", userId);
+	public String init(HttpServletRequest request, ModelMap model, HttpSession hs, @CookieValue(value="id",required=false)Cookie ck) {
+		UserInfo user = (UserInfo)hs.getAttribute("user");
+		if(user!=null){
+			model.addAttribute("userName", user.getUserName());
 			return "/user/main";
 		}else{
+			String userId="";
+			String saveId="";
+			if(ck!=null){
+				userId = ck.getValue();
+				saveId = "checked";
+			}else{
+				userId="";
+				saveId="";
+			}
+			model.addAttribute("userId",userId);
+			model.addAttribute("saveId",saveId);
 		return "/user/login";
 		}
 		
@@ -38,24 +52,37 @@ public class UserController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	@ResponseBody
-	public  ModelMap logIn(HttpServletRequest request, @RequestBody UserInfo pUser, ModelMap model, HttpSession hs){
+	public  ModelMap logIn(HttpServletRequest request, @RequestBody UserInfo pUser, ModelMap model, HttpSession hs, HttpServletResponse response,  @CookieValue(value="id",required=false)Cookie ck){
 		UserInfo user = us.getUser(pUser);
 		if(user==null){
 			model.put("data", "F");
 			model.put("url", "/user/login");
 			model.put("msg", "Fail");
 		}else{
-			hs.setAttribute("userId", user.getUserId());
+			if(pUser.isSaveId()){
+				if(ck==null){
+					ck = new Cookie("id",pUser.getUserId());
+					ck.setMaxAge(60*60*24*30);
+				}else{
+					System.out.println(ck.getMaxAge());
+					ck.setMaxAge(60*60*24*30);
+				}
+				response.addCookie(ck);
+				System.out.println(ck); 
+			}else{
+				ck=new Cookie("id",null);
+			}
+			hs.setAttribute("user", user);
 			model.put("data", "S");
 			model.put("url", "/user/main");
 			model.put("msg", "Success");
 		}
 		return model;
 	}
-	@RequestMapping("/logout")
-	public String logOut(HttpServletRequest request, ModelMap model, HttpSession hs){
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logOut(HttpSession hs){
 		hs.invalidate();
-		return "/user/login";
+		return "redirect:/user/main";
 	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.POST)

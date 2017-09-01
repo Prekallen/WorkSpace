@@ -16,7 +16,7 @@ public class UserInfo {
 	private int departNum;
 	private String userRoleLevel;
 	private String gender;
-
+	private boolean saveId;
 	
 	public int getDepartNum() {
 		return departNum;
@@ -89,5 +89,11 @@ public class UserInfo {
 	}
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
+	}
+	public boolean isSaveId() {
+		return saveId;
+	}
+	public void setSaveId(boolean saveId) {
+		this.saveId = saveId;
 	}
 }

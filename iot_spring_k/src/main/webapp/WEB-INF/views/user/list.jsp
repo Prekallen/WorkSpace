@@ -4,10 +4,6 @@
     
     
 <div class="container">
-	<form class="form-signin" >
-		<button id="userMainBtn" class="btn btn-lg btn-primary " type="button">MAIN</button>
-		<button id="logOutBtn" class="btn btn-lg btn-primary " type="button">Log Out</button>
-	</form>
 	<h2 class="form-signin-heading" style="text-align:center">리스트</h2>
 	<input type="text" id="searchName" /><button id="searchBtn"  type="button">찾기</button><p/>
 		<table id="table" data-height="460"
@@ -33,7 +29,7 @@
 function searchName(){
 	
 	var param={};
-	var userName = null;
+	var userName = $("#searchName").val();
 	param["userName"]= userName;
 		param=JSON.stringify(param);
 		$.ajax({ 
@@ -74,19 +70,14 @@ $(document).ready(function(){
 	$("#searchBtn").click(function(){
 		if($("#searchName").val().trim()==""){
 			alert("검색할 이름을 입력해주세요.");
-			$("#userName").val("");
-			$("#userName").focus();
+			$("#searchName").val("");
+			$("#searchName").focus();
 			return;
 		}
-		searchUser();
+		searchName();
 	})
 })
 
-$("#userMainBtn").click(function(){
-	location.href="${pageContext.request.contextPath}/user/main"
-})
-$("#logOutBtn").click(function(){
-	location.href="${pageContext.request.contextPath}/user/logout"
-})
+
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

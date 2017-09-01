@@ -8,12 +8,12 @@
       <form class="form-signin" >
         <h2 class="form-signin-heading" >Log in</h2>
         <label for="inputId" >ID</label>
-        <input type="text" id="id" name="id" class="form-control"  placeholder="ID" required autofocus>
+        <input type="text" id="id" name="id" class="form-control"  placeholder="ID" required value="${userId}">
         <label for="inputPassword">Password</label>
         <input type="password" id="pwd" name="pwd" class="form-control"  placeholder="Password" required>
         <div class="checkbox">
  		<label>
-        	<input type="checkbox" value="remember-me"> Remember me
+        	<input type="checkbox" value="1" id="saveId" ${saveId}> Remember me
 		</label>
         </div>
         <button id="LogInBtn" class="btn btn-lg btn-primary btn-block" type="button">Log in</button>
@@ -28,6 +28,7 @@ $("#LogInBtn").click(function(){
 	var param = {};
 	param["userId"] = userId;
 	param["userPwd"] = userPwd;
+	param["saveId"] = $("#saveId").prop("checked");
 	param = JSON.stringify(param);
 	$.ajax({ 
         type     : "POST"
