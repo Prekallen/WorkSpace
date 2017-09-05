@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserInfo {
 	
+	private int userNum;
 	private String userId;
 	private String userName;
 	private int age;
@@ -81,5 +82,11 @@ public class UserInfo {
 	}
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
+	}
+	public int getUserNum() {
+		return userNum;
+	}
+	public void setUserNum(int userNum) {
+		this.userNum = userNum;
 	}
 }

@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public UserInfo logIn(UserInfo pUser) {
-		UserInfo user = (UserInfo) userDAO.selectUser(pUser);
+		UserInfo user = userDAO.selectUser(pUser);
 		if(user!=null && user.getUserPwd().equals(pUser.getUserPwd())){
 			return user;
 		}
@@ -23,9 +23,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<UserInfo> selectUserList(Map hm) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserInfo> selectUserList(UserInfo pUser) {
+		return userDAO.selectUserList(pUser);
 	}
 
 	@Override

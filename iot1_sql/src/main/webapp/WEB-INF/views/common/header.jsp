@@ -31,17 +31,14 @@ $(document).ready(function(){
 	var nowUrl = "${nowUrl}";
 	var obj = $("a[href='" + nowUrl + "']").parent().attr("class","active");
 })
-
 var JSException = function(msg){
 	alert(msg);
 	console.log(msg);
 }
-
 var pageMove = function(page){
 	page = page.replace("/",":");
-	location.href = "${rootPath}/url/"+page;
+	location.href = "${rootPath}/url/" + page;
 }
-
 var AjaxUtil = function (url, params, type, dataType){
 	if(!url){
 		alert("url정보가 없습니다.");
@@ -49,7 +46,6 @@ var AjaxUtil = function (url, params, type, dataType){
 	}
 	this.url = "${rootPath}/" + url;
 	
-	this.param = JSON.stringify(initData);
 	var generateJSON = function(params){
 		var paramArr = params.split(",");
 		var data = {};
@@ -69,7 +65,6 @@ var AjaxUtil = function (url, params, type, dataType){
 	this.param = generateJSON(params);
 	this.callbackSuccess = function(json){
     	var url = json.url;
-    	var data = json.data;
     	var msg = json.msg;
     	if(msg){
     		alert(msg);
@@ -115,12 +110,12 @@ var AjaxUtil = function (url, params, type, dataType){
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="${rootPath}/user/main">WHAT</a>
+          <a class="navbar-brand" href="${rootPath}/url/user:main">WHAT</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/board/board_select.jsp">게시판가기</a></li>
-            <li><a href="${rootPath}/user/list">유저정보가기</a></li>
+            <li><a href="${rootPath}/user/user_list">유저정보가기</a></li>
             <li><a href="${rootPath}/user/user_info">권한정보가기</a></li>
             <li><a href="${rootPath}/user/logout">로그아웃</a></li>
           </ul>

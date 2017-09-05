@@ -6,9 +6,13 @@ import java.util.Map;
 import com.iot1.sql.user.dao.dto.UserInfo;
 
 public interface UserDAO {
-	UserInfo selectUser(UserInfo user);
-	List<UserInfo> selectUserList (UserInfo user);
-	UserInfo insertUser(UserInfo user);
-	UserInfo updateUser(UserInfo user);
-	UserInfo deleteUser(UserInfo user);
+	public UserInfo selectUser(UserInfo user);
+	
+	public List<UserInfo> selectUserList (UserInfo user);
+	
+	public int insertUser(UserInfo user);
+	
+	public int updateUser(UserInfo user);
+	
+	public int deleteUser(UserInfo user);
 }

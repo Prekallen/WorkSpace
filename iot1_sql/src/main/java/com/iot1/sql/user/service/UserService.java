@@ -7,8 +7,8 @@ import com.iot1.sql.user.dao.dto.UserInfo;
 
 public interface UserService {
 	public UserInfo logIn(UserInfo pUser);
-	public List<UserInfo> selectUserList(Map hm);
-	public UserInfo insertUser(UserInfo user);
-	public UserInfo updateUser(UserInfo user);
-	public UserInfo deleteUser(UserInfo user);
+	public List<UserInfo> selectUserList(UserInfo pUser);
+	public UserInfo insertUser(UserInfo pUser);
+	public UserInfo updateUser(UserInfo pUser);
+	public UserInfo deleteUser(UserInfo pUser);
 }

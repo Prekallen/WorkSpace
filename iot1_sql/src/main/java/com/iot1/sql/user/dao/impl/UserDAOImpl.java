@@ -3,11 +3,11 @@ package com.iot1.sql.user.dao.impl;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.iot1.sql.user.dao.UserDAO;
 import com.iot1.sql.user.dao.dto.UserInfo;
-@Repository
+@Service
 public class UserDAOImpl extends SqlSessionDaoSupport implements UserDAO{
 
 	@Override
@@ -21,17 +21,17 @@ public class UserDAOImpl extends SqlSessionDaoSupport implements UserDAO{
 	}
 
 	@Override
-	public UserInfo insertUser(UserInfo user) {
+	public int insertUser(UserInfo user) {
 		return this.getSqlSession().insert("userinfo.INSERT_USER", user);
 	}
 
 	@Override
-	public UserInfo updateUser(UserInfo user) {
+	public int updateUser(UserInfo user) {
 		return this.getSqlSession().update("userinfo.UPDATE_USER", user);
 	}
 
 	@Override
-	public UserInfo deleteUser(UserInfo user) {
+	public int deleteUser(UserInfo user) {
 		return this.getSqlSession().delete("userinfo.DELETE_USER", user);
 	}
 

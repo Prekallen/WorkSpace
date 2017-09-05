@@ -7,9 +7,9 @@
       <form class="form-signin" >
         <h2 class="form-signin-heading" >Log in</h2>
         <label for="inputId" >ID</label>
-        <input type="text" id="id" name="id" class="form-control"  placeholder="ID" required value="${userId}">
+        <input type="text" id="userId" name="id" class="form-control"  placeholder="ID" required value="${userId}">
         <label for="inputPassword">Password</label>
-        <input type="password" id="pwd" name="pwd" class="form-control"  placeholder="Password" required>
+        <input type="password" id="userPwd" name="pwd" class="form-control"  placeholder="Password" required>
         <div class="checkbox">
  		<label>
         	<input type="checkbox" value="1" id="saveId" ${saveId}> Remember me
@@ -24,7 +24,6 @@
 $("#LogInBtn").click(function(){
 	var paramIds = "userId,userPwd";
 	var au = new AjaxUtil("/user/login",paramIds);
-	au.setCallbackSuccess(test);
 	au.send();
 })
 </script>
