@@ -48,4 +48,18 @@ public class UserController {
 	public String list(HttpSession hs, UserInfo user, ModelMap hm){
 		return "/user/user_list";
 	}
+	
+	@RequestMapping(value="/user/update", method=RequestMethod.POST)
+	public @ResponseBody int svaeUserList(HttpSession hs, @RequestBody UserInfo user, ModelMap hm){
+		return us.updatetUser(user);
+	}
+	@RequestMapping(value="/user/delete", method=RequestMethod.POST)
+	public @ResponseBody int deleteUserList(HttpSession hs, @RequestBody UserInfo user, ModelMap hm){
+		return us.deleteUser(user);
+	}
+	@RequestMapping(value="/user/create", method=RequestMethod.POST)
+	public @ResponseBody List<UserInfo> saveUserList(HttpSession hs, @RequestBody UserInfo[] userList, ModelMap hm){
+		int rCnt = us.insertUserList(userList);
+		return us.selectUserList(null);
+	}
 }

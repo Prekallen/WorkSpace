@@ -17,4 +17,8 @@ public interface UserService {
 	public int updatetUser(UserInfo user);
 	
 	public int deleteUser(UserInfo user);
+	
+	public int insertUserList(UserInfo[] userList);
+	
+
 }

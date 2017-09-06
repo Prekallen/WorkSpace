@@ -9,9 +9,11 @@
 	</settings>
 	
 	<typeAliases>
-    	<typeAlias alias="user" type="com.iot1.sql.user.dao.dto.UserInfo"/>
+		<typeAlias alias="user" type="com.iot1.sql.user.dao.dto.UserInfo"/>
+    	<typeAlias alias="goods" type="com.iot1.sql.goods.dto.GoodsInfo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/iot1/sql/user/dao/sql/user_sql.xml" />
+		<mapper resource="com/iot1/sql/goods/sql/goods_sql.xml" />
 	</mappers>
 </configuration>

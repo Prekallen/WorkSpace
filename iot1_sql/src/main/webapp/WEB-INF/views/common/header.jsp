@@ -62,6 +62,7 @@ var AjaxUtil = function (url, params, type, dataType){
 	this.url = "${rootPath}/" + url;
 	
 	var generateJSON = function(params){
+		if(!params) return "";
 		var paramArr = params.split(",");
 		var data = {};
 		for(var i=0,max=paramArr.length;i<max;i++){

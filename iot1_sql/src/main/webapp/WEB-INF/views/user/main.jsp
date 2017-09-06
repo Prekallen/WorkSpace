@@ -8,7 +8,7 @@ if(userId!=null){
 }
 %>
 
-<div class="container" style="padding-top:50px;">
+<div class="container" style="padding-top:80px;">
 	<h4 class="form-signin-heading" >${userName} 님 환영합니다.</h4>
 	<h1 style="text-align:center;padding-top:50px;">메인화면</h1>	
 </div>
