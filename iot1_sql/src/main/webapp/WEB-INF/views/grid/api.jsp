@@ -1,7 +1,4 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="kendo" uri="http://www.kendoui.com/jsp/tags"%>
-
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <c:url value="/user/list" var="readUrl" />
 <c:url value="/user/update" var="updateUrl" />
@@ -46,7 +43,7 @@
 			<kendo:dataSource-transport>
 				<kendo:dataSource-transport-read url="${readUrl}" dataType="json" type="POST" contentType="application/json" />
 				<kendo:dataSource-transport-update url="${updateUrl}" dataType="json" type="POST" contentType="application/json" />
-				<kendo:dataSource-transport-delete url="${deleteUrl}" dataType="json" type="POST" contentType="application/json" />
+
 				<kendo:dataSource-transport-create url="${createUrl}" dataType="json" type="POST" contentType="application/json" />
 				<kendo:dataSource-transport-parameterMap>
                 	<script>

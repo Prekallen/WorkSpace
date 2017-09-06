@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="kendo" uri="http://www.kendoui.com/jsp/tags"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -131,7 +132,7 @@ var AjaxUtil = function (url, params, type, dataType){
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/board/board_select.jsp">게시판가기</a></li>
+            <li><a id="board" style="cursor:pointer;">게시판가기</a></li>
             <li><a id="userList" style="cursor:pointer;">유저정보가기</a></li>
             <li><a href="${rootPath}/user/user_info">권한정보가기</a></li>
             <li><a id="logOut" style="cursor:pointer;">로그아웃</a></li>
@@ -143,6 +144,9 @@ var AjaxUtil = function (url, params, type, dataType){
 <script>
 $("#main").click(function(){
 	pageMove("user/main");
+})
+$("#board").click(function(){
+	pageMove("vendor/vendor_list")
 })
 $("#userList").click(function(){
 	pageMove("grid/api");
