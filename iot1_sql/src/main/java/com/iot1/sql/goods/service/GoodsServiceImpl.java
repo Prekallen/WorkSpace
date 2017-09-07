@@ -28,7 +28,7 @@ public class GoodsServiceImpl implements GoodsService{
 	public int insertGoods(GoodsInfo[] gi) {
 		int rCnt= 0;
 		for(GoodsInfo goods : gi){
-			rCnt=gd.insertGoods(goods);
+			rCnt=gd.insertGoodsInfo(goods);
 		}
 		return rCnt;
 	}
@@ -40,17 +40,13 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public int updateGoods(GoodsInfo[] gi) {
-		int rCnt= 0;
-		for(GoodsInfo goods : gi){
-			rCnt=gd.updateGoods(goods);
-		}
-		return rCnt;
+	public int updateGoodsInfo(GoodsInfo gi) {
+		return gd.updateGoodsInfo(gi);
 	}
 
 	@Override
-	public int deleteGoods(GoodsInfo gi) {
-		return gd.deleteGoods(gi);
+	public int deleteGoodsInfo(GoodsInfo gi) {
+		return gd.deleteGoodsInfo(gi);
 	}
 
 }

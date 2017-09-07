@@ -16,7 +16,7 @@ public interface GoodsService {
 
 	List<GoodsInfo> insertGoodsList(GoodsInfo[] gi);
 	
-	public int updateGoods(GoodsInfo[] gi);
+	public int updateGoodsInfo(GoodsInfo gi);
 	
-	public int deleteGoods(GoodsInfo gi);
+	public int deleteGoodsInfo(GoodsInfo gi);
 }

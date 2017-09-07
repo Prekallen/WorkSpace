@@ -30,12 +30,16 @@ public class GoodsController {
 	}
 	@RequestMapping(value="/goods/update", method=RequestMethod.POST)
 	public @ResponseBody List<GoodsInfo> updateGoodsInfoList(@RequestBody GoodsInfo[] goodsList, GoodsInfo gi){
-			gs.updateGoods(goodsList);
+		for(GoodsInfo goods : goodsList){
+			gs.updateGoodsInfo(goods);
+		}
 		return gs.getGoodsInfoList(gi);
 	}
 	@RequestMapping(value="/goods/delete", method=RequestMethod.POST)
-	public @ResponseBody List<GoodsInfo> deleteGoodsInfoList(@RequestBody GoodsInfo goodsList, GoodsInfo gi){
-			gs.deleteGoods(goodsList);
+	public @ResponseBody List<GoodsInfo> deleteGoodsInfoList(@RequestBody GoodsInfo[] goodsList, GoodsInfo gi){
+		for(GoodsInfo goods : goodsList){	
+			gs.deleteGoodsInfo(goods);
+		}
 		return gs.getGoodsInfoList(gi);
 	}
 	

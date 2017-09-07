@@ -18,8 +18,7 @@
 	</insert>
 	
 	<update id="UPDATE_GOODS" parameterType="goods">
-		update goods_info set giname=#{giName}, gidesc=#{giDesc}, vinum=#{viNum},
-		 gicredat=DATE_FORMAT(NOW(), '%Y%m%d'), gicretim=DATE_FORMAT(NOW(), '%H%i%s')
+		update goods_info set giname=#{giName}, gidesc=#{giDesc}, vinum=#{viNum}
 		 where ginum=#{giNum}
 	</update>
 	
