@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <c:url value="/vendor/list" var="readUrl" />
+<c:url value="/vendor/create" var="createUrl" />
 <script>
 // function callback(result){
 // 	alert("회사갯수 : " + result.length);
@@ -56,8 +57,13 @@ $("#goGoodsBtn").click(function(){
 </script>
 <div class="container" id="r_div"></div>
 <kendo:grid title="그리드" name="grid" pageable="true" sortable="true" scrollable="true" height="530">
+	<kendo:grid-editable mode="incell"/>
+	<kendo:grid-toolbar>
+		<kendo:grid-toolbarItem name="create" text="생성"/>
+		<kendo:grid-toolbarItem name="save" text="저장"/>
+	</kendo:grid-toolbar>
 	<kendo:grid-columns>
-		<kendo:grid-column title="회사번호" field="viNum" />
+		<kendo:grid-column title="회사번호" field="viNum" editable="false"/>
 		<kendo:grid-column title="회사명" field="viName" />
 		<kendo:grid-column title="회사설명" field="viDesc" />
 		<kendo:grid-column title="회사주소" field="viAddress" />
@@ -68,7 +74,31 @@ $("#goGoodsBtn").click(function(){
 	<kendo:dataSource pageSize="14">
 		<kendo:dataSource-transport>
 			<kendo:dataSource-transport-read url="${readUrl}" dataType="json" type="POST" contentType="application/json" />
+			<kendo:dataSource-transport-create url="${createUrl}" dataType="json" type="POST" contentType="application/json" />
+			<kendo:dataSource-transport-parameterMap>
+				<script>
+				function parameterMap(options,type){
+					if(type==="read"){
+						return JSON.stringify(options);
+					}else{
+						return JSON.stringify(options.models);
+					}
+				}
+				</script>
+			</kendo:dataSource-transport-parameterMap>
 		</kendo:dataSource-transport>
+		
+		<kendo:dataSource-schema>
+			<kendo:dataSource-schema-model id="viNum" >
+				<kendo:dataSource-schema-model-fields>
+					<kendo:dataSource-schema-model-field name="viName" type="string">
+						<kendo:dataSource-schema-model-field-validation required="true"/>
+					</kendo:dataSource-schema-model-field>
+					
+				</kendo:dataSource-schema-model-fields>
+			</kendo:dataSource-schema-model>
+		</kendo:dataSource-schema>
+
 	</kendo:dataSource>
 </kendo:grid>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iot1.sql.user.dao.dto.UserInfo;
 import com.iot1.sql.vendor.dao.VendorDao;
 import com.iot1.sql.vendor.dto.VendorInfo;
 
@@ -15,13 +16,22 @@ public class VendorServiceImpl implements VendorService{
 	VendorDao vd;
 	
 	@Override
-	public VendorInfo getVendorInfo(VendorInfo vendor) {
-		return vd.selectVendor(vendor);
+	public VendorInfo getVendorInfo(VendorInfo vi) {
+		return vd.selectVendor(vi);
 	}
 
 	@Override
-	public List<VendorInfo> getVendorInfoList(VendorInfo vendor) {
-		return vd.selectVendorList(vendor);
+	public List<VendorInfo> getVendorInfoList(VendorInfo vi) {
+		return vd.selectVendorList(vi);
+	}
+
+	@Override
+	public int insertVendor(VendorInfo[] vi) {
+		int rCnt = 0;
+		for(VendorInfo vendor : vi){
+			rCnt += vd.insertVendor(vendor);
+		}
+		return rCnt;
 	}
 
 }

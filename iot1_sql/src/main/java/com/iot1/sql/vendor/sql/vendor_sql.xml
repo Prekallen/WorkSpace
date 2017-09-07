@@ -11,6 +11,13 @@
 			and vinum = #{viNum}
 		</if>
 	</select>
+	
+	<insert id="INSERT_VENDOR" parameterType="vendor">
+		insert into goods_info ( viname, videsc, viaddress, viphone, vicredat, vicretim) 
+		values ( #{viName}, #{viDesc}, #{viAddress}, #{viPhone}, DATE_FORMAT(NOW(), '%Y%m%d'), DATE_FORMAT(NOW(), '%H%i%s'))
+	</insert>
+	
+
 </mapper>
 
 

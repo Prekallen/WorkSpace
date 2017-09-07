@@ -9,4 +9,10 @@ public interface GoodsDao {
 	public GoodsInfo selectGoodsInfo(GoodsInfo gi);
 	
 	public List<GoodsInfo> selectGoodsInfoList(GoodsInfo gi);
+	
+	public int insertGoods(GoodsInfo gi);
+	
+	public int updateGoods(GoodsInfo gi);
+	
+	public int deleteGoods(GoodsInfo gi);
 }

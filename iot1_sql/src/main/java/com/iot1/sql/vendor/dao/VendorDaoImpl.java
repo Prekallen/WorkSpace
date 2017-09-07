@@ -10,14 +10,20 @@ import com.iot1.sql.vendor.dto.VendorInfo;
 public class VendorDaoImpl extends SqlSessionDaoSupport implements VendorDao{
 
 	@Override
-	public VendorInfo selectVendor(VendorInfo vendor) {
-		return this.getSqlSession().selectOne("vendor.SELECT_VENDOR",vendor);
+	public VendorInfo selectVendor(VendorInfo vi) {
+		return this.getSqlSession().selectOne("vendor.SELECT_VENDOR",vi);
 	}
 
 	@Override
-	public List<VendorInfo> selectVendorList(VendorInfo vendor) {
-		return this.getSqlSession().selectList("vendor.SELECT_VENDOR",vendor);
+	public List<VendorInfo> selectVendorList(VendorInfo vi) {
+		return this.getSqlSession().selectList("vendor.SELECT_VENDOR",vi);
 	}
+
+	@Override
+	public int insertVendor(VendorInfo vi) {
+		return this.getSqlSession().insert("vendor.INSERT_VENDOR", vi);
+	}
+
 	
 
 }
