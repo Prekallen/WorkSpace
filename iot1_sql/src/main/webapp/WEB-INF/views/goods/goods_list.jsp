@@ -18,11 +18,11 @@
 		
 	})
 
-	function onChange(arg){
+/* 	function onChange(arg){
 		var selectViNum = this.dataItem(this.select()).viNum();
 			var grid = $('#vGrid').data('kendoGrid');
 			var selectedvGrid = grid.dataItem(grid.select());
-			var reload = function(options)({
+			var reload = function(options){
 			    transport: {
 			        read: {
 			            url: "${vReadUrl}",
@@ -37,11 +37,11 @@
 			$("#gGrid").data("kendoGrid").dataSource.transport.read=reload;
 			$("#gGrid").data("kendoGrid").dataSource.read();
 		
-	}
+	} */
 </script>
 <br><br><p/><br>
 <h4 style="padding-left:50px; padding-bottom:5px;bold;">회사목록</h4>
-<kendo:grid title="회사그리드" name="vGrid" selectable="multiple" sortable="true" scrollable="true" height="235" dataBound="test" >
+<kendo:grid title="회사그리드" name="vGrid" selectable="multiple" sortable="true" scrollable="true" height="235"  >
 	<kendo:grid-editable mode="inline"/>
 	<kendo:grid-toolbar>
 		<kendo:grid-toolbarItem name="create" text="생성"/>
