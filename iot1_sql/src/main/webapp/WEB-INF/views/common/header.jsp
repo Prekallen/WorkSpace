@@ -146,7 +146,7 @@ $("#main").click(function(){
 	pageMove("user/main");
 })
 $("#board").click(function(){
-	pageMove("vendor/vendor_list")
+	pageMove("goods/goods_list")
 })
 $("#userList").click(function(){
 	pageMove("grid/api");

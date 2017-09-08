@@ -6,6 +6,8 @@ import com.iot1.sql.vendor.dto.VendorInfo;
 
 public interface VendorDao {
 	
+	public List<VendorInfo> selectVendorInfoCombo();
+	
 	public VendorInfo selectVendor(VendorInfo vi);
 	
 	public List<VendorInfo> selectVendorList(VendorInfo vi);

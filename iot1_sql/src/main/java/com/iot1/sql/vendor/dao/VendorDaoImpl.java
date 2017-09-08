@@ -8,6 +8,11 @@ import org.springframework.stereotype.Repository;
 import com.iot1.sql.vendor.dto.VendorInfo;
 @Repository
 public class VendorDaoImpl extends SqlSessionDaoSupport implements VendorDao{
+	
+	@Override
+	public List<VendorInfo> selectVendorInfoCombo() {
+		return this.getSqlSession().selectList("vendor.SELECT_VENDOR_COMBO");
+	}
 
 	@Override
 	public VendorInfo selectVendor(VendorInfo vi) {

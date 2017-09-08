@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 
 import com.iot1.sql.goods.dao.GoodsDao;
 import com.iot1.sql.goods.dto.GoodsInfo;
@@ -25,28 +24,30 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public int insertGoods(GoodsInfo[] gi) {
-		int rCnt= 0;
+	public int insertGoodsList(GoodsInfo[] gi) {
+		int result=0;
 		for(GoodsInfo goods : gi){
-			rCnt=gd.insertGoodsInfo(goods);
+			result += gd.insertGoodsInfo(goods);
 		}
-		return rCnt;
+		return result;
 	}
 
 	@Override
-	public List<GoodsInfo> insertGoodsList(GoodsInfo[] gi) {
-		// TODO Auto-generated method stub
-		return null;
+	public int updateGoodsInfo(GoodsInfo[] gi) {
+		int result=0;
+		for(GoodsInfo goods : gi){
+			result += gd.updateGoodsInfo(goods);
+		}
+		return result;
 	}
 
 	@Override
-	public int updateGoodsInfo(GoodsInfo gi) {
-		return gd.updateGoodsInfo(gi);
-	}
-
-	@Override
-	public int deleteGoodsInfo(GoodsInfo gi) {
-		return gd.deleteGoodsInfo(gi);
+	public int deleteGoodsInfo(GoodsInfo[] gi) {
+		int result=0;
+		for(GoodsInfo goods : gi){
+			result+= gd.deleteGoodsInfo(goods);
+		}
+		return result;
 	}
 
 }

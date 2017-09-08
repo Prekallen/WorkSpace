@@ -16,6 +16,11 @@ public class VendorServiceImpl implements VendorService{
 	VendorDao vd;
 	
 	@Override
+	public List<VendorInfo> getVendorInfoCombo() {
+		return vd.selectVendorInfoCombo();
+	}
+	
+	@Override
 	public VendorInfo getVendorInfo(VendorInfo vi) {
 		return vd.selectVendor(vi);
 	}

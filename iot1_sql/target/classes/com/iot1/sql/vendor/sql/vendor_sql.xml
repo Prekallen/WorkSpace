@@ -3,6 +3,11 @@
 
 <mapper namespace="vendor">
 
+	<select id="SELECT_VENDOR_COMBO" parameterType="vendor1" resultType="vendor1">
+		select vinum, viName
+		from vendor_info
+	</select>
+
 	<select id="SELECT_VENDOR" parameterType="vendor1" resultType="vendor1">
 		select vinum, viname, videsc, viaddress, viphone, vicredat, vicretim 
 		from vendor_info
@@ -12,7 +17,7 @@
 		</if>
 	</select>
 	
-	<insert id="INSERT_VENDOR" parameterType="vendor">
+	<insert id="INSERT_VENDOR" parameterType="vendor1">
 		insert into goods_info ( viname, videsc, viaddress, viphone, vicredat, vicretim) 
 		values ( #{viName}, #{viDesc}, #{viAddress}, #{viPhone}, DATE_FORMAT(NOW(), '%Y%m%d'), DATE_FORMAT(NOW(), '%H%i%s'))
 	</insert>
