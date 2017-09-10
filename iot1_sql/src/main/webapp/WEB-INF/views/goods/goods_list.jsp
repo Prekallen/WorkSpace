@@ -24,7 +24,7 @@ $("#goVendorBtn").click(function(){
 	<kendo:grid-toolbar>
 		<kendo:grid-toolbarItem name="create" text="생성"/>
 		<kendo:grid-toolbarItem name="save" text="저장" />
-		<kendo:grid-toolbarItem name="update" text="변경"/>
+		<kendo:grid-toolbarItem name="edit" text="변경"/>
 	</kendo:grid-toolbar>
 <kendo:grid-columns>
 		<kendo:grid-column title="상품번호" field="giNum" editable="false"/>
