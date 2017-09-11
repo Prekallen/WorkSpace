@@ -103,8 +103,11 @@
 		<kendo:grid-toolbarItem name="create" text="생성"/>
 		<kendo:grid-toolbarItem name="save" text="저장" />
 		<kendo:grid-toolbarItem name="edit" text="변경"/>
+<<<<<<< HEAD
 		<kendo:grid-toolbarItem name="destroy" text="삭제" />
 		<kendo:grid-toolbarItem name="cancel" text="취소"/>
+=======
+>>>>>>> branch 'master' of https://github.com/Prekallen/WorkSpace.git
 	</kendo:grid-toolbar>
 <kendo:grid-columns>
 		<kendo:grid-column title="상품번호" field="giNum" editable="false"/>
