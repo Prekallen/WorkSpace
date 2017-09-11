@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transfer for Operator</title>
+</head>
+<script>
+	function checkOnSubmit() {
+		var opObj = document.getElementById("op");
+		var num1Obj = document.getElementById("num1");
+		var num2Obj = document.getElementById("num2");
+		if (opObj.value == "") {
+			alert("Input Op Error!");
+			return false;
+		}
+		if (num1Obj.value == "") {
+			alert("Input Number Error!");
+			num1Obj.focus();
+			return false;
+		}
+		if (num2Obj.value == "") {
+			alert("input Number Error!");
+			num2Obj.focus();
+			return false;
+		}
+		return true;
+	}
+</script>
+<body>
+	<form method="get" action="/test.user"onsubmit="return checkOnSubmit()">
+		<select name="op" id="op">
+			<option value="">연산자 선택</option>
+			<option value="+">더하기</option>
+			<option value="-">빼기</option>
+			<option value="*">곱하기</option>
+			<option value="/">나누기</option>
+		</select> <br /> 
+		연산값1 : <input type="text" name="num1" id="num1" />
+		연산값2 : <input type="text" name="num2" id="num2" /> <br /> 
+		<input type="submit"value="Operator Transfer" />
+		 <input type="hidden" name="command"id="command" value="CALC">
+	</form>
+</body>
+</html>

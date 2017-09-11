@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Board Select</title>
+</head>
+<script src="/js/Ajax.js"></script>
+<script>
+document.getElementById("bd_div").innerHTML = "";
+var nameStr = "command";
+var params = "?";
+for (var i = 0; i < names.length; i++) {
+	var maxLength = new Number(lengths[i]);
+
+	params += namesStr + "=" + document.getElementById("nameStr").value + "&";
+}
+var au = new AjaxUtil(params);
+au.changeCallBack(function() {
+			if (au.xhr.readyState == 4) {
+				if (au.xhr.status == 200) {
+					var result = decodeURIComponent(au.xhr.responseText);
+					var rows = result.split("(-:");
+					var tdEnables = rows[1].split(")-:");
+					var tableStr = "<table border='1'>";
+					for (var i = 0; i < rows.length; i++) {
+						if (i == 1) {
+							continue;
+						}
+						tableStr += "<tr>";
+						var columns = rows[i].split(")-:");
+						var userNum;
+						for (var j = 0; j < columns.length; j++) {
+							if (j == 0) {
+								userNum = columns[j];
+							}
+							if (i == 0) {
+								tableStr += "<td>" + columns[j]
+										+ "</td>"
+							} else {
+								if (tdEnables[j] == "en") {
+									tableStr += "<td><input type='text' id= 'r"+userNum+j+"' value='" + columns[j] + "'/></td>"
+								} else {
+									tableStr += "<td>" + columns[j]
+											+ "</td>"
+								}
+							}
+						}
+						
+						tableStr += "</tr>";
+					}
+					tableStr += "</table>";
+					document.getElementById("bd_div").innerHTML += tableStr;
+
+				}else {
+					document.getElementById("bd_div").innerHTML += xhr.responseText;
+				}
+			}
+		});
+au.send();
+
+</script>
+<body>
+<form action="/select.board">
+	<input type="submit"name="list"id="list" value="목록" onclick="doSelect()"/>
+	<input type="hidden"name="command" value="SELECT"/>
+</form>
+</body>
+</html>

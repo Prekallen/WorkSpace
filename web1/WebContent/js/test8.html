@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TEST8</title>
+</head>
+<script>
+function getHttpXmlObj(){
+	if(window.XMLHttpRequest){
+		return new XMLHttpRequest();
+	}else if(window.ActiveXObject){
+		return new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	alert("해당 브라우저가 Ajax를 지원하지 않습니다.");
+}
+</script>
+<body>
+
+</body>
+</html>

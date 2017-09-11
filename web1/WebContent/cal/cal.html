@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Calculator</title>
+</head>
+<script>
+	function checkOnSubmit() {
+		var opObj = document.getElementById("op");
+		var num1Obj = document.getElementById("num1");
+		var num2Obj = document.getElementById("num2");
+		var num1 = parseInt(num1Obj.value);
+		var num2 = parseInt(num2Obj.value);
+		if (num1Obj.value == "" ||isNaN(num1)) {
+			alert("Input Number Error!");
+			num1Obj.focus();
+			return false;
+		}
+		if (opObj.value == "") {
+			alert("Input Op Error!");
+			return false;
+		}
+		if (num2Obj.value == "" ||isNaN(num2)) {
+			alert("input Number Error!");
+			num2Obj.focus();
+			return false;
+		}
+		return true;
+	}
+</script>
+<body>
+	<form method="get" action="/.cal" onsubmit="return checkOnSubmit()">
+		<table border='1'>
+			<tr>
+				<td>연산값1</td>
+				<td>연산자 </td>
+				<td>연산값2</td>
+				
+			<tr>
+				<td><input type="text" name="num1" id="num1" /></td>
+				<td><select name="op" id="op">
+						<option value="">연산자 선택</option>
+						<option value="+">더하기</option>
+						<option value="-">빼기</option>
+						<option value="*">곱하기</option>
+						<option value="/">나누기</option>
+				</select></td>
+				<td><input type="text" name="num2" id="num2" /></td>
+			<tr>
+				<td colspan="3" align="center"><input type="submit" value="계산" /></td>
+			</tr>
+		</table>
+		<input type="hidden" name="command" id="command" value="CALC">
+	</form>
+</body>
+</html>

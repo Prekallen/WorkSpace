@@ -1,0 +1,35 @@
+create database iot_test2;
+use iot_test2;
+create table user(
+id varchar (30),
+password varchar(30),
+name varchar(30),
+age varchar(3),
+zip_code varchar(5),
+address1 varchar(100),
+address2 varchar(100));
+
+insert into user
+values('test10', 'pass10', 'name10','30', '12345', '서울 강서구 등촌1동', '보람3차아파트 101동 301호');
+
+select * from user;
+update user 
+set address1 = '서울시 강남구 역삼동'
+where id = 'test3';
+
+update user 
+set address1 = '서울시 영등포구 여의도동'
+where id = 'test5';
+
+update user
+set password = 'pass'
+where password = 'pass1'
+or password = 'pass2';
+
+update user
+set address1 = '서울 강서구 화곡동'
+where address1 like '%등촌1동';
+
+select * from user
+where address1 like '%화곡동%'
+and password = 'pass';

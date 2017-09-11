@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>LOGIN</title>
+</head>
+<script>
+
+function makeSureForm(){
+	var nameObj = document.getElementById("name");
+	var passObj = document.getElementById("pass");
+	alert(nameObj.value + " , " + passObj.value)
+	
+}
+
+</script>
+<body>
+<form id="test_form" method="get" action="/test.user">
+	이름 : <input type="text" id="name" name="name"/><br/>
+	비밀번호 : <input type="password" id="pwd" name="pwd"/><br/>
+	<input type="button" value="confirm" onclick="makeSureForm()"/>
+	<input type="submit" value="transter">
+	<input type="hidden" name="command" id="command" value="INPUT"/>
+</form>
+</body>
+</html>

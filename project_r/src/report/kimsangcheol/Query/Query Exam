@@ -1,0 +1,39 @@
+/*
+	iot_test2 데이터 베이스 생성
+	CREATE DATABASE iot_test2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+	
+	user라는 테이블을 생성해주세요. 컬럼정보는 아래와 같습니다.
+	-컬럼 정보-
+	 1. id varchar(30)
+	 2. password varchar(30)
+	 3. name varchar(100)
+	 4. age varchar(3)
+	 5. zip-code varchar(5)
+	 6. address1 varchar(100)
+	 7. address2 varchar(100)
+	 
+	각 컬럼에 맞는 값을 10개로우 입력해주세요.
+	test1, pass1, name1, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	test2, pass2, name2, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	test3, pass3, name3, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	test4, pass4, name4, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	test5, pass5, name5, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	test6, pass6, name6, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	test7, pass7, name7, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	test8, pass8, name8, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	test9, pass9, name9, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	test10, pass10, name10, 30, 12345, 서울 강서구 등촌1동, 보람3차아파트 101동 301호
+	
+	id의 값이 test3인 사람의 address1의 정보를 "서울 강남구 역삼동"으로 수정해주세요
+	
+	id의 값이 test5인 사람의 address1의 정보를 "서울 영등포구 여의도동"으로 수정해주세요
+	
+	address1의 값중에 등촌1동이라는 값을 가지고 있는 사람의 address1의 정보를
+	"서울 강서구 화곡동" 으로 수정해주세요
+	
+	password의 값중 pass1, pass2의 값인 사람의 비밀번호를 pass로 변경해주세요.
+	
+	
+	
+	
+*/
