@@ -46,11 +46,21 @@ public class VendorController {
 	}
 	
 	@RequestMapping(value="/vendor/create", method=RequestMethod.POST)
-	public @ResponseBody List<VendorInfo> saveVendorInfoList(@RequestBody VendorInfo[] vendorList, VendorInfo vi){
+	public @ResponseBody List<VendorInfo> saveVendorInfo(@RequestBody VendorInfo[] vendorList, VendorInfo vi){
 			vs.insertVendor(vendorList);
 		return vs.getVendorInfoList(vi);	
 	}
 	
+	@RequestMapping(value="/vendor/update", method=RequestMethod.POST)
+	public @ResponseBody List<VendorInfo> updateVendorInfo(@RequestBody VendorInfo[] vendorList, VendorInfo vi){
+			vs.updateVendor(vendorList);
+		return vs.getVendorInfoList(vi);	
+	}
 	
+	@RequestMapping(value="/vendor/delete", method=RequestMethod.POST)
+	public @ResponseBody List<VendorInfo> deleteVendorInfo(@RequestBody VendorInfo[] vendorList, VendorInfo vi){
+			vs.deleteVendor(vendorList);
+		return vs.getVendorInfoList(vi);
+	}
 }
 

@@ -15,8 +15,8 @@ public class VendorDaoImpl extends SqlSessionDaoSupport implements VendorDao{
 	}
 
 	@Override
-	public VendorInfo selectVendor(VendorInfo vi) {
-		return this.getSqlSession().selectOne("vendor.SELECT_VENDOR",vi);
+	public List<VendorInfo> selectVendor(VendorInfo[] vi) {
+		return this.getSqlSession().selectList("vendor.SELECT_VENDOR",vi);
 	}
 
 	@Override
@@ -27,6 +27,17 @@ public class VendorDaoImpl extends SqlSessionDaoSupport implements VendorDao{
 	@Override
 	public int insertVendor(VendorInfo vi) {
 		return this.getSqlSession().insert("vendor.INSERT_VENDOR", vi);
+	}
+
+	@Override
+	public int updateVendor(VendorInfo vi) {
+		return this.getSqlSession().update("vendor.UPDATE_VENDOR",vi);
+		
+	}
+
+	@Override
+	public int deleteVendor(VendorInfo vi) {
+		return this.getSqlSession().delete("vendor.DELETE_VENDOR",vi);
 	}
 
 	

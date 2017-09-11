@@ -14,14 +14,10 @@ public class GoodsServiceImpl implements GoodsService{
 	GoodsDao gd;
 	
 	@Override
-	public GoodsInfo getGoodsInfo(GoodsInfo gi) {
-		return gd.selectGoodsInfo(gi);
-	}
-
-	@Override
 	public List<GoodsInfo> getGoodsInfoList(GoodsInfo gi) {
 		return gd.selectGoodsInfoList(gi);
 	}
+	
 
 	@Override
 	public int insertGoodsList(GoodsInfo[] gi) {

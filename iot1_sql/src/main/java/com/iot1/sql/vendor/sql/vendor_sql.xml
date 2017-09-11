@@ -18,10 +18,18 @@
 	</select>
 	
 	<insert id="INSERT_VENDOR" parameterType="vendor1">
-		insert into goods_info ( viname, videsc, viaddress, viphone, vicredat, vicretim) 
-		values ( #{viName}, #{viDesc}, #{viAddress}, #{viPhone}, DATE_FORMAT(NOW(), '%Y%m%d'), DATE_FORMAT(NOW(), '%H%i%s'))
+		insert into vendor_info ( viname, videsc, viaddress, viphone, vicredat, vicretim) 
+		values ( #{viName}, #{viDesc}, #{viAddress}, #{viPhone}, DATE_FORMAT(NOW(), '%Y-%m-%d'), DATE_FORMAT(NOW(), '%H:%i:%s'))
 	</insert>
 	
+	<update id="UPDATE_VENDOR" parameterType="vendor1">
+		update vendor_info set viname=#{viName}, videsc=#{viDesc}, vinum=#{viNum}, viaddress=#{viAddress}, viphone=#{viPhone}
+		 where vinum=#{viNum}
+	</update>
+	
+	<delete id="DELETE_VENDOR" parameterType="vendor1">
+		delete from vendor_info where vinum = #{viNum} 
+	</delete>
 
 </mapper>
 
