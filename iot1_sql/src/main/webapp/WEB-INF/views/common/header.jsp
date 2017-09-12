@@ -8,8 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>SPRING</title>
-</head>
+
+
 <c:set var="version" value="1.0.0"/>
 <c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 <c:set var="nowUrl" value="${pageContext.request.requestURI}"/>
@@ -114,10 +114,39 @@ var AjaxUtil = function (url, params, type, dataType){
 		});
 	}
 }
+var KendoItem = function(obj, grid, url, keyStr){
+	var selectValue = obj.dataItem(obj.select())[keyStr];
+	this.key = keyStr;
+	this.param = {};
+	this.param[keyStr]=selectValue;
+	var gridObj = grid.data("kendoGrid");
+	gridObj.dataSource.transport.param = this.param;
+	var reload = function(options){
+        $.ajax({
+        	type : "post",
+			url : url,
+			dataType : "json",
+			data : JSON.stringify(this.param),
+		    beforeSend: function(xhr) {
+		        xhr.setRequestHeader("Content-Type", "application/json");
+		    },
+		    success : function(result){
+		    	options.success(result);
+			},
+			error : function(xhr){
+				alert(xhr.responseText);
+			}
+        });
+	}
+	this.send = function(){
+	    gridObj.dataSource.transport.read = reload;
+		gridObj.dataSource.read();
+	}
+}
 
 </script>
 
-<body>
+
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -146,7 +175,7 @@ $("#main").click(function(){
 	pageMove("user/main");
 })
 $("#board").click(function(){
-	pageMove("vendor/vendor_list")
+	pageMove("goods/goods_list")
 })
 $("#userList").click(function(){
 	pageMove("grid/api");
@@ -156,3 +185,4 @@ $("#logOut").click(function(){
 })
 
 </script>
+<br><br><p/><br>

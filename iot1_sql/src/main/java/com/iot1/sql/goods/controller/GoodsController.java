@@ -19,27 +19,28 @@ public class GoodsController {
 	GoodsService gs;
 	
 	@RequestMapping(value="/goods/list", method=RequestMethod.POST)
-	public @ResponseBody List<GoodsInfo> getGoodsInfoList(GoodsInfo gi){
+	public @ResponseBody List<GoodsInfo> getGoodsInfoList(@RequestBody GoodsInfo gi){
 		return gs.getGoodsInfoList(gi);	
 	}
 	
 	@RequestMapping(value="/goods/create", method=RequestMethod.POST)
 	public @ResponseBody List<GoodsInfo> saveGoodsInfoList(@RequestBody GoodsInfo[] goodsList, GoodsInfo gi){
-			gs.insertGoods(goodsList);
+			gs.insertGoodsList(goodsList);
 		return gs.getGoodsInfoList(gi);
 	}
 	@RequestMapping(value="/goods/update", method=RequestMethod.POST)
 	public @ResponseBody List<GoodsInfo> updateGoodsInfoList(@RequestBody GoodsInfo[] goodsList, GoodsInfo gi){
-		for(GoodsInfo goods : goodsList){
-			gs.updateGoodsInfo(goods);
-		}
+			gs.updateGoodsInfo(goodsList);
+			
 		return gs.getGoodsInfoList(gi);
 	}
 	@RequestMapping(value="/goods/delete", method=RequestMethod.POST)
 	public @ResponseBody List<GoodsInfo> deleteGoodsInfoList(@RequestBody GoodsInfo[] goodsList, GoodsInfo gi){
-		for(GoodsInfo goods : goodsList){	
-			gs.deleteGoodsInfo(goods);
-		}
+			gs.deleteGoodsInfo(goodsList);
+		return gs.getGoodsInfoList(gi);
+	}
+	@RequestMapping(value="/goods/vlist", method=RequestMethod.POST)
+	public @ResponseBody List<GoodsInfo> getvGoodsInfoList(GoodsInfo gi){
 		return gs.getGoodsInfoList(gi);
 	}
 	

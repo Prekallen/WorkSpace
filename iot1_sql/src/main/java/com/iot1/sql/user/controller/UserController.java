@@ -62,4 +62,9 @@ public class UserController {
 		int rCnt = us.insertUserList(userList);
 		return us.selectUserList(null);
 	}
+	@RequestMapping(value="/url/user/logout", method=RequestMethod.GET)
+	public String logout(HttpSession hs){
+		hs.invalidate();
+		return "redirect: /url/user/main";
+	}
 }

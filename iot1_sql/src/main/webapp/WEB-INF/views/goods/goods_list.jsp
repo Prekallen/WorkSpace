@@ -1,50 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<c:url value="/goods/list" var="readUrl" />
-<c:url value="/goods/create" var="createUrl" />
-<c:url value="/goods/update" var="updateUrl" />
-<c:url value="/goods/delete" var="deleteUrl" />
-<br><br><p/><br><p/><br>
-
-	<div class="container">
-		<button id="goVendorBtn" class="btn btn-lg btn-primary " type="button" align="middle">회사목록가기</button>
-	</div>
-<br><br><p/><br><p/><br>
+<c:url value="/goods/list" var="bReadUrl" />
+<c:url value="/goods/create" var="bCreateUrl" />
+<c:url value="/goods/update" var="bUpdateUrl" />
+<c:url value="/goods/delete" var="bDeleteUrl" />
+<c:url value="/vendor/combo" var="vendorComboUrl" />
+<c:url value="/vendor/list" var="vReadUrl" />
+<c:url value="/vendor/create" var="vCreateUrl" />
+<c:url value="/vendor/update" var="vUpdateUrl" />
+<c:url value="/vendor/delete" var="vDeleteUrl" />
+<title>SPRING</title>
+</head>
+<body>
+<style>
+		.k-link, tr {
+             text-align : center;
+         }
+</style>
 <script>
-
-$("#goVendorBtn").click(function(){
-	pageMove("vendor/vendor_list")
+$(document).ready(function(){
+	if(!"${vendors}"){
+		location.href="${vendorComboUrl}";
+	}
+	var gGrid = $("#gGrid");
 })
-</script>
-<div class="container" id="r_div"></div>
 
-<kendo:grid title="그리드" name="grid" pageable="true" sortable="true" scrollable="true" height="530">
-	<kendo:grid-editable mode="incell"/>
+
+function onChange(arg){	
+	var gGrid=$("#gGrid");
+	var ki = new KendoItem(this, gGrid, "${bReadUrl}", "viNum");
+	ki.send();
+}
+
+function onDataBound(arg) {
+	console.log("Grid data bound");
+}
+
+function onDataBinding(arg) {
+	console.log("Grid data binding");
+}
+
+function onSorting(arg) {
+	console.log("Sorting on field: " + arg.sort.field + ", direction:"
+			+ (arg.sort.dir || "none"));
+}
+
+function onFiltering(arg) {
+	console.log("Filter on " + kendo.stringify(arg.filter));
+}
+
+function onPaging(arg) {
+	console.log("Paging to page index:" + arg.page);
+}
+
+function onGrouping(arg) {
+	console.log("Group on " + kendo.stringify(arg.groups));
+}
+</script>
+
+<h4 style="padding-left:50px; padding-bottom:5px;">회사목록</h4>
+<kendo:grid title="회사그리드" name="vGrid" selectable="multiple" sortable="true" scrollable="true" height="270" change="onChange"
+	dataBound="onDataBound" dataBinding="onDataBinding" sort="onSorting" filter="onFiltering" page="onPaging" group="onGrouping" 
+	filterable="true" groupable="true">
+	<kendo:grid-editable mode="inline"/>
 	<kendo:grid-toolbar>
 		<kendo:grid-toolbarItem name="create" text="생성"/>
-		<kendo:grid-toolbarItem name="save" text="저장" />
-		<kendo:grid-toolbarItem name="edit" text="변경"/>
+		<kendo:grid-toolbarItem name="save" text="저장"/>
+		<kendo:grid-toolbarItem name="cancel" text="취소"/>
 	</kendo:grid-toolbar>
-<kendo:grid-columns>
-		<kendo:grid-column title="상품번호" field="giNum" editable="false"/>
-		<kendo:grid-column title="상품명" field="giName" />
-		<kendo:grid-column title="상품설명" field="giDesc" />
-		<kendo:grid-column title="회사번호" field="viNum" />
-		<kendo:grid-column title="작성일" field="giCreDat" />
-		<kendo:grid-column title="작성시간" field="giCreTim" />
-		<kendo:grid-column title="&nbsp;" width="200px" >
+	<kendo:grid-columns>
+		<kendo:grid-column title="회사번호" field="viNum" editable="false"/>
+		<kendo:grid-column title="회사명" field="viName" />
+		<kendo:grid-column title="회사설명" field="viDesc" />
+		<kendo:grid-column title="회사주소" field="viAddress" />
+		<kendo:grid-column title="회사전화" field="viPhone" />
+		<kendo:grid-column title="작성일" field="viCreDat" />
+		<kendo:grid-column title="작성시간" field="viCreTim" />
+		<kendo:grid-column title="&nbsp;" width="180px" >
 			<kendo:grid-column-command>
-           		<kendo:grid-column-commandItem name="destroy" />
-            </kendo:grid-column-command>
+				<kendo:grid-column-commandItem name="edit" text="변경"/>
+           		<kendo:grid-column-commandItem name="destroy" text="삭제" />
+           	</kendo:grid-column-command>
         </kendo:grid-column>
 	</kendo:grid-columns>
-	<kendo:dataSource pageSize="10" batch="true">
+	<kendo:dataSource batch="true">
 		<kendo:dataSource-transport>
-			<kendo:dataSource-transport-read url="${readUrl}" dataType="json" type="POST" contentType="application/json" />
-			<kendo:dataSource-transport-create url="${createUrl}" dataType="json" type="POST" contentType="application/json" />
-			<kendo:dataSource-transport-update url="${updateUrl}" dataType="json" type="POST" contentType="application/json" />
-			<kendo:dataSource-transport-destroy url="${deleteUrl}" dataType="json" type="POST" contentType="application/json" />
+			<kendo:dataSource-transport-read url="${vReadUrl}" dataType="json" type="POST" contentType="application/json" >
+			<script>
+			$("#vGrid").data("kendoGrid").refresh();
+			</script>
+			</kendo:dataSource-transport-read>
+			<kendo:dataSource-transport-create url="${vCreateUrl}" dataType="json" type="POST" contentType="application/json" />
+			<kendo:dataSource-transport-update url="${vUpdateUrl}" dataType="json" type="POST" contentType="application/json" />
+			<kendo:dataSource-transport-destroy url="${vDeleteUrl}" dataType="json" type="POST" contentType="application/json" />
 			<kendo:dataSource-transport-parameterMap>
 				<script>
 				function parameterMap(options,type){
@@ -54,9 +103,62 @@ $("#goVendorBtn").click(function(){
 						return JSON.stringify(options.models);
 					}
 				}
-				
 				</script>
 			</kendo:dataSource-transport-parameterMap>
+		</kendo:dataSource-transport>
+		
+		<kendo:dataSource-schema>
+			<kendo:dataSource-schema-model id="viNum" >
+				<kendo:dataSource-schema-model-fields>
+					<kendo:dataSource-schema-model-field name="viName" type="string">
+						<kendo:dataSource-schema-model-field-validation required="true"/>
+					</kendo:dataSource-schema-model-field>
+					
+				</kendo:dataSource-schema-model-fields>
+			</kendo:dataSource-schema-model>
+		</kendo:dataSource-schema>
+	</kendo:dataSource>
+</kendo:grid>
+
+<h4 style="padding-left:50px; padding-top:5px; padding-bottom:5px;">상품목록</h4>
+<kendo:grid title="상품그리드" name="gGrid" selectable="multiple" pageable="true" sortable="true" scrollable="true" height="460">
+	<kendo:grid-editable mode="incell"/>
+	<kendo:grid-toolbar>
+		<kendo:grid-toolbarItem name="create" text="생성"/>
+		<kendo:grid-toolbarItem name="save" text="저장" />
+		<kendo:grid-toolbarItem name="edit" text="변경"/>
+		<kendo:grid-toolbarItem name="destroy" text="삭제" />
+		<kendo:grid-toolbarItem name="cancel" text="취소"/>
+
+	</kendo:grid-toolbar>
+<kendo:grid-columns>
+		<kendo:grid-column title="상품번호" field="giNum" editable="false"/>
+		<kendo:grid-column title="상품명" field="giName" />
+		<kendo:grid-column title="상품설명" field="giDesc" />
+		<kendo:grid-column title="회사번호" field="viNum" >
+			<kendo:grid-column-values value="${vendors}"/>
+		</kendo:grid-column>
+		<kendo:grid-column title="작성일" field="giCreDat" />
+		<kendo:grid-column title="작성시간" field="giCreTim" />
+	</kendo:grid-columns>
+	<kendo:dataSource pageSize="10" batch="true">
+		<kendo:dataSource-transport>
+			<kendo:dataSource-transport-read url="${bReadUrl}" dataType="json" type="POST" contentType="application/json" />
+			<kendo:dataSource-transport-create url="${bCreateUrl}" dataType="json" type="POST" contentType="application/json" />
+			<kendo:dataSource-transport-update url="${bUpdateUrl}" dataType="json" type="POST" contentType="application/json" />
+			<kendo:dataSource-transport-destroy url="${bDeleteUrl}" dataType="json" type="POST" contentType="application/json" />
+			<kendo:dataSource-transport-parameterMap>
+				<script>
+				function parameterMap(options,type){
+					if(type==="read"){
+						return JSON.stringify(options);
+					}else{
+						return JSON.stringify(options.models);
+					}
+				}
+				</script>
+			</kendo:dataSource-transport-parameterMap>
+			
 		</kendo:dataSource-transport>
 		
 		<kendo:dataSource-schema>
@@ -71,7 +173,10 @@ $("#goVendorBtn").click(function(){
 				</kendo:dataSource-schema-model-fields>
 			</kendo:dataSource-schema-model>
 		</kendo:dataSource-schema>
-		
 	</kendo:dataSource>
 </kendo:grid>
+<script>
+
+</script>
+</body>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

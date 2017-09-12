@@ -1,11 +1,11 @@
 package com.iot1.sql.vendor.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iot1.sql.user.dao.dto.UserInfo;
 import com.iot1.sql.vendor.dao.VendorDao;
 import com.iot1.sql.vendor.dto.VendorInfo;
 
@@ -16,10 +16,14 @@ public class VendorServiceImpl implements VendorService{
 	VendorDao vd;
 	
 	@Override
-	public VendorInfo getVendorInfo(VendorInfo vi) {
+	public List<VendorInfo> getVendorInfoCombo() {
+		return vd.selectVendorInfoCombo();
+	}
+	
+	@Override
+	public List<VendorInfo> getVendorInfo(VendorInfo[] vi) {
 		return vd.selectVendor(vi);
 	}
-
 	@Override
 	public List<VendorInfo> getVendorInfoList(VendorInfo vi) {
 		return vd.selectVendorList(vi);
@@ -30,6 +34,24 @@ public class VendorServiceImpl implements VendorService{
 		int rCnt = 0;
 		for(VendorInfo vendor : vi){
 			rCnt += vd.insertVendor(vendor);
+		}
+		return rCnt;
+	}
+
+	@Override
+	public int updateVendor(VendorInfo[] vi) {
+		int rCnt = 0;
+		for(VendorInfo vendor: vi){
+			rCnt += vd.updateVendor(vendor);
+		}
+		return rCnt;
+	}
+
+	@Override
+	public int deleteVendor(VendorInfo[] vi) {
+		int rCnt = 0;
+		for(VendorInfo vendor: vi){
+			rCnt += vd.deleteVendor(vendor);
 		}
 		return rCnt;
 	}

@@ -6,9 +6,16 @@ import com.iot1.sql.vendor.dto.VendorInfo;
 
 public interface VendorService {
 	
-	public VendorInfo getVendorInfo(VendorInfo gi);
+	public List<VendorInfo>getVendorInfoCombo();
 	
-	public List<VendorInfo> getVendorInfoList(VendorInfo gi);
+	public List<VendorInfo> getVendorInfo(VendorInfo[] vi);
+	
+	public List<VendorInfo> getVendorInfoList(VendorInfo vi);
 	
 	public int insertVendor(VendorInfo[] vi);
+	
+	public int updateVendor(VendorInfo[] vi);
+	
+	public int deleteVendor(VendorInfo[] vi);
+	
 }
