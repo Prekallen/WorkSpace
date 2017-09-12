@@ -5,17 +5,76 @@
 <title>IOT SQL</title>
 </head>
 <script>
-function onBount(){
+var treeview;
+function onBound(){
+	treeview = $('#treeview').data('kendoTreeView');
+}
+function onChange(e){
 	
 }
-function toolbarEvent(){
-	
+function treeSelect(e){
+	window.selectedNode = e.node;
+	var data = treeview.dataItem(window.selectedNode);
+	if(data.database && !data.hasChildren){
+	      var au = new AjaxUtil("db/table/list");
+	      var param = {};
+	      param["database"] = data.database;
+	      au.param = JSON.stringify(param);
+	      au.setCallbackSuccess(callbackForTreeItem2);
+	      au.send();
+	   }
 }
-function treeSelect(){
-	
+function callbackForTreeItem2(result){
+	if(result.error){
+		alert(result.error);
+		return;
+	}
+	for(var i=0, max=result.tableList.length;i<max;i++){
+		var table = result.tableList[i];
+		treeview.append({
+			tableName: table.tableName
+        }, treeview.select());
+	}
+	$("#btnConnect").text("접속해제");
+}
+
+function callbackForTreeItem(result){
+	if(result.error){
+		alert(result.error);
+		return;
+	}
+	for(var i=0, max=result.databaseList.length;i<max;i++){
+		var database = result.databaseList[i];
+		treeview.append({
+			database: database.database
+        }, treeview.select());
+	}
+	$("#btnConnect").text("접속해제");
+}
+
+function toolbarEvent(e){
+	if($("#btnConnect").text()=="접속해제"){
+		treeview.dataSource.read();
+		$("#btnConnect").text("접속");
+		return;
+	}
+	var data = treeview.dataItem(window.selectedNode);
+	if(data && data.diNum){
+		//$('#treeview>.k-group>.k-item>.k-group').remove();
+		//treeview.dataSource.read();
+		var au = new AjaxUtil("db/connect");
+		var param = {};
+		param["diNum"] = data.diNum;
+		au.param = JSON.stringify(param);
+		au.setCallbackSuccess(callbackForTreeItem);
+		au.send();
+	}else{
+		alert("접속하실 데이터베이스를 선택해주세요");
+	}
 }
 </script>
 <body>
+
 <kendo:splitter name="vertical" orientation="vertical">
     <kendo:splitter-panes>
         <kendo:splitter-pane id="top-pane" collapsible="false">
@@ -30,8 +89,8 @@ function treeSelect(){
 											<kendo:toolBar-item type="button" text="접속" id="btnConnect" click="toolbarEvent"></kendo:toolBar-item>
 										</kendo:toolBar-items>
 									</kendo:toolBar>
-									 <kendo:treeView name="treeview" dataTextField="<%= new String[]{\"dbTitle\", \"database\",\"tableName\"} %>" change="treeSelect"  
-									 dataBound="onBound">
+									 <kendo:treeView name="treeview" dataTextField="<%= new String[]{\"dbTitle\", \"database\",\"tableName\"} %>" select="treeSelect"  
+									 change="onChange" dataBound="onBound">
 									     <kendo:dataSource>
 									         <kendo:dataSource-transport>
 									             <kendo:dataSource-transport-read url="${dbRUrl}" type="POST"  contentType="application/json"/>    
@@ -56,9 +115,21 @@ function treeSelect(){
 								<kendo:splitter name="vertical1" orientation="vertical" style="height: 100%; width: 100%;">
 				   					<kendo:splitter-panes>
 		       							<kendo:splitter-pane id="top-pane" collapsible="false" >
-							                <div class="pane-content">
-						                		<h3>Inner splitter / middle top pane</h3>
-			                                </div>
+		       								<kendo:grid name="tableInfo">
+								                <kendo:grid-columns>
+													<kendo:grid-column title="컬럼명" field="column_name" />
+													<kendo:grid-column title="자료형" field="data_type" />
+													<kendo:grid-column title="글자수" field="character_maximum_length" />
+													<kendo:grid-column title="NULL여부" field="is_nullable" />
+												</kendo:grid-columns>
+												<kendo:dataSource batch="true">
+													<kendo:dataSource-transport>
+														<script>
+														
+														</script>
+													</kendo:dataSource-transport>
+												</kendo:dataSource>
+											</kendo:grid>
 		       							</kendo:splitter-pane>
 		       							<kendo:splitter-pane id="middle-pane" collapsible="true" >
 							                <div class="pane-content">

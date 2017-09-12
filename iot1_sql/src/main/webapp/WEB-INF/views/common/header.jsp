@@ -8,8 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>SPRING</title>
-</head>
+
+
 <c:set var="version" value="1.0.0"/>
 <c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 <c:set var="nowUrl" value="${pageContext.request.requestURI}"/>
@@ -146,7 +146,7 @@ var KendoItem = function(obj, grid, url, keyStr){
 
 </script>
 
-<head>
+
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -185,3 +185,4 @@ $("#logOut").click(function(){
 })
 
 </script>
+<br><br><p/><br>
