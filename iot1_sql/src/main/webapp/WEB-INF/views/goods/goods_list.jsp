@@ -10,6 +10,7 @@
 <c:url value="/vendor/create" var="vCreateUrl" />
 <c:url value="/vendor/update" var="vUpdateUrl" />
 <c:url value="/vendor/delete" var="vDeleteUrl" />
+<body>
 <style>
 		.k-link, tr {
              text-align : center;
@@ -175,4 +176,5 @@ function onGrouping(arg) {
 <script>
 
 </script>
+</body>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

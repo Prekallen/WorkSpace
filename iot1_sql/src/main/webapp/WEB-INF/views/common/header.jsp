@@ -146,7 +146,7 @@ var KendoItem = function(obj, grid, url, keyStr){
 
 </script>
 
-<body>
+<head>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
