@@ -10,6 +10,9 @@
 <c:url value="/vendor/create" var="vCreateUrl" />
 <c:url value="/vendor/update" var="vUpdateUrl" />
 <c:url value="/vendor/delete" var="vDeleteUrl" />
+<title>SPRING</title>
+</head>
+<body>
 <style>
 		.k-link, tr {
              text-align : center;
@@ -55,7 +58,7 @@ function onGrouping(arg) {
 	console.log("Group on " + kendo.stringify(arg.groups));
 }
 </script>
-<br><br><p/><br>
+
 <h4 style="padding-left:50px; padding-bottom:5px;">회사목록</h4>
 <kendo:grid title="회사그리드" name="vGrid" selectable="multiple" sortable="true" scrollable="true" height="270" change="onChange"
 	dataBound="onDataBound" dataBinding="onDataBinding" sort="onSorting" filter="onFiltering" page="onPaging" group="onGrouping" 
@@ -175,4 +178,5 @@ function onGrouping(arg) {
 <script>
 
 </script>
+</body>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

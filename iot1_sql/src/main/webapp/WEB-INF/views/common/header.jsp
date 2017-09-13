@@ -1,19 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="kendo" uri="http://www.kendoui.com/jsp/tags"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
+<%@include file="/WEB-INF/views/common/common.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>SPRING</title>
-</head>
-<c:set var="version" value="1.0.0"/>
-<c:set var="rootPath" value="${pageContext.request.contextPath}"/>
-<c:set var="nowUrl" value="${pageContext.request.requestURI}"/>
-<script src="<c:url value="/resources/js/jquery-3.2.1.js?version=${version}"/>"></script>
+
+
+
+
+<script src="<c:url value="/resources/js/jquery.min.js?version=${version}"/>"></script>
 <script src="<c:url value="/resources/js/jquery-ui-1.9.2.custom.js?version=${version}"/>"></script>
 <script src="<c:url value="/resources/js/jquery.fileupload.js?version=${version}"/>"></script>
 <script src="<c:url value="/resources/js/jquery.iframe-transport.js?version=${version}"/>"></script>
@@ -29,6 +27,7 @@
 <link rel="stylesheet" href="<c:url value="/resources/ui/common.css?version=${version}"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/ui/signin.css?version=${version}"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/ui/footer.css?version=${version}"/>"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
 
 <script src="<c:url value='/resources/js/kendo.all.min.js' />"></script>
 <script src="<c:url value='/resources/js/kendo.timezones.min.js' />"></script>
@@ -131,6 +130,9 @@ var KendoItem = function(obj, grid, url, keyStr){
 		        xhr.setRequestHeader("Content-Type", "application/json");
 		    },
 		    success : function(result){
+		    	if(result.key){
+		    		result = result[result.key];
+		    	}
 		    	options.success(result);
 			},
 			error : function(xhr){
@@ -143,45 +145,5 @@ var KendoItem = function(obj, grid, url, keyStr){
 		gridObj.dataSource.read();
 	}
 }
-
-</script>
-
-<body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" id="main" style="cursor:pointer;">WHAT</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a id="board" style="cursor:pointer;">게시판가기</a></li>
-            <li><a id="userList" style="cursor:pointer;">유저정보가기</a></li>
-            <li><a href="${rootPath}/user/user_info">권한정보가기</a></li>
-            <li><a id="logOut" style="cursor:pointer;">로그아웃</a></li>
-          </ul>
-          
-        </div><!--/.nav-collapse -->
-      </div>
-</nav>
-<script>
-$("#main").click(function(){
-	pageMove("user/main");
-})
-$("#board").click(function(){
-	pageMove("goods/goods_list")
-})
-$("#userList").click(function(){
-	pageMove("grid/api");
-})
-$("#logOut").click(function(){
-	pageMove("user/logout");
-})
 
 </script>
