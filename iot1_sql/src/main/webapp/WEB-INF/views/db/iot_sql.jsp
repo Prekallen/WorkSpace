@@ -23,6 +23,18 @@ function treeSelect(e){
 	      au.setCallbackSuccess(callbackForTreeItem2);
 	      au.send();
 	   }
+	if(data.database && data.hasChildren){
+		var children = data.hasChildren;
+		var au= new AjaxUtil("db/table/info");
+		var param = {};
+		param["database"] = data.database;
+	    au.param = JSON.stringify(param);
+	    au.setCallbackSuccess(callbackForTable);
+	    au.send();
+	}
+}
+function callbackForTabel(result){
+	$("#tableInfo").dataSource.transport.read(result);
 }
 function callbackForTreeItem2(result){
 	if(result.error){
@@ -72,6 +84,7 @@ function toolbarEvent(e){
 		alert("접속하실 데이터베이스를 선택해주세요");
 	}
 }
+
 </script>
 <body>
 
@@ -115,22 +128,9 @@ function toolbarEvent(e){
 								<kendo:splitter name="vertical1" orientation="vertical" style="height: 100%; width: 100%;">
 				   					<kendo:splitter-panes>
 		       							<kendo:splitter-pane id="top-pane" collapsible="false" >
-		       								<kendo:grid name="tableInfo">
-								                <kendo:grid-columns>
-													<kendo:grid-column title="컬럼명" field="column_name" />
-													<kendo:grid-column title="자료형" field="data_type" />
-													<kendo:grid-column title="글자수" field="character_maximum_length" />
-													<kendo:grid-column title="NULL여부" field="is_nullable" />
-												</kendo:grid-columns>
-												<kendo:dataSource batch="true">
-													<kendo:dataSource-transport>
-														<script>
-														
-														</script>
-													</kendo:dataSource-transport>
-												</kendo:dataSource>
-											</kendo:grid>
+		       								<%@ include file="/WEB-INF/views/db/tableInfo.jsp"%>
 		       							</kendo:splitter-pane>
+		       							
 		       							<kendo:splitter-pane id="middle-pane" collapsible="true" >
 							                <div class="pane-content">
 						                		<h3>Inner splitter / middle-middle pane</h3>
