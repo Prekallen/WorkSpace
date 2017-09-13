@@ -1,15 +1,15 @@
 package com.iot1.sql.db.service;
 
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.metadata.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iot1.sql.db.dao.DbDao;
+import com.iot1.sql.db.dto.Column;
 import com.iot1.sql.db.dto.DataBase;
 import com.iot1.sql.db.dto.DbInfo;
+import com.iot1.sql.db.dto.Table;
 @Service
 public class DbServiceImpl implements DbService{
 
@@ -37,9 +37,12 @@ public class DbServiceImpl implements DbService{
 	}
 
 	@Override
-	public Map getTableInfo(String tName) {
-		return dDao.selectTableInfo(tName);
+	public List<Column> getTableInfo(Table table) throws Exception {
+		return dDao.selectTableInfo(table);
 	}
+
+
+	
 
 
 }

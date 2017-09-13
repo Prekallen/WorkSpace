@@ -4,16 +4,16 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.metadata.Table;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.iot1.sql.common.DataSourceFactory;
+import com.iot1.sql.db.dto.Column;
 import com.iot1.sql.db.dto.DataBase;
 import com.iot1.sql.db.dto.DbInfo;
+import com.iot1.sql.db.dto.Table;
 @Repository
 public class DbDaoImpl extends SqlSessionDaoSupport implements DbDao{
 	
@@ -34,7 +34,7 @@ public class DbDaoImpl extends SqlSessionDaoSupport implements DbDao{
 	public boolean isConnecteDB(DbInfo di) throws Exception {
 		return dsf.isConnecteDB(di);
 	}
-
+	
 	@Override
 	public List<DataBase> selectDatabaseList() throws Exception {
 		DatabaseMetaData meta = dsf.getSqlSession().getConnection().getMetaData();
@@ -50,14 +50,14 @@ public class DbDaoImpl extends SqlSessionDaoSupport implements DbDao{
 	}
 
 	@Override
-	public List<Table> selectTableList(DataBase di) throws Exception {
-		return dsf.getSqlSession().selectList("db.TABLE_SELECT",di);
+	public List<Table> selectTableList(DataBase db) throws Exception {
+		dsf.getSqlSession().selectList("db.USE_DATABASE",db);
+		return dsf.getSqlSession().selectList("db.TABLE_SELECT",db);
 	}
 
 	@Override
-	public Map selectTableInfo(String tName) {
-		return this.getSqlSession().selectMap("db.TABLE_INFO_SELECT", tName);
+	public List<Column> selectTableInfo(Table table) throws Exception {
+		return dsf.getSqlSession().selectList("db.TABLE_INFO_SELECT",table);
 	}
-	
-	
+
 }

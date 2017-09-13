@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="kendo" uri="http://www.kendoui.com/jsp/tags"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
+<%@include file="/WEB-INF/views/common/common.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +11,7 @@
 
 
 
-<script src="<c:url value="/resources/js/jquery-3.2.1.js?version=${version}"/>"></script>
+<script src="<c:url value="/resources/js/jquery.min.js?version=${version}"/>"></script>
 <script src="<c:url value="/resources/js/jquery-ui-1.9.2.custom.js?version=${version}"/>"></script>
 <script src="<c:url value="/resources/js/jquery.fileupload.js?version=${version}"/>"></script>
 <script src="<c:url value="/resources/js/jquery.iframe-transport.js?version=${version}"/>"></script>
@@ -28,6 +27,7 @@
 <link rel="stylesheet" href="<c:url value="/resources/ui/common.css?version=${version}"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/ui/signin.css?version=${version}"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/ui/footer.css?version=${version}"/>"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
 
 <script src="<c:url value='/resources/js/kendo.all.min.js' />"></script>
 <script src="<c:url value='/resources/js/kendo.timezones.min.js' />"></script>
@@ -130,6 +130,9 @@ var KendoItem = function(obj, grid, url, keyStr){
 		        xhr.setRequestHeader("Content-Type", "application/json");
 		    },
 		    success : function(result){
+		    	if(result.key){
+		    		result = result[result.key];
+		    	}
 		    	options.success(result);
 			},
 			error : function(xhr){

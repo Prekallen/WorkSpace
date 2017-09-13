@@ -1,12 +1,11 @@
 package com.iot1.sql.db.service;
 
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.metadata.Table;
-
+import com.iot1.sql.db.dto.Column;
 import com.iot1.sql.db.dto.DataBase;
 import com.iot1.sql.db.dto.DbInfo;
+import com.iot1.sql.db.dto.Table;
 
 
 public interface DbService {
@@ -15,5 +14,5 @@ public interface DbService {
 	public List<DataBase> getDataBaseList() throws Exception;
 	public boolean isConnecteDB(DbInfo pDi) throws Exception;
 	public List<Table> getTableList(DataBase di) throws Exception;
-	public Map getTableInfo(String tName);
+	public List<Column> getTableInfo(Table table) throws Exception;
 }
