@@ -15,29 +15,137 @@ function onBound(){
 	treeview = $('#treeview').data('kendoTreeView');
 	$( "#query" ).keydown(function(e) {
 		var keyCode = e.keyCode || e.which;
-		if(e.ctrlKey && keyCode==120 && e.shiftKey){
-			var sql = this.value;
-			var cursor = this.selectionStart;
-			var startSql = sql.substr(0,cursor);
-			var startSap = startSql.lastIndexOf(";")
-			startSql = startSql.substr(startSap+1);
-			var endSql = sql.substr(cursor);
-			var endSap = endSql.indexOf(";");
-			if(endSap==-1) {
-				endSap=sql.length;
+		if(keyCode==120){
+			var sql;
+			var sqls;
+			if(e.ctrlKey && keyCode==120 && e.shiftKey){
+				sql = this.value;
+				var cursor = this.selectionStart;
+				var startSql = sql.substr(0,cursor);
+				var startSap = startSql.lastIndexOf(";")
+				startSql = startSql.substr(startSap+1);
+				var endSql = sql.substr(cursor);
+				var endSap = endSql.indexOf(";");
+				if(endSap==-1) {
+					endSap=sql.length;
+				}
+				endSql = endSql.substr(0,endSap);
+				sql = startSql + endSql;
+			}else if(e.ctrlKey && keyCode==120){
+				sql = this.value.substr(this.selectionStart, this.selectionEnd - this.selectionStart);
+			}else if(keyCode==120){
+				sql = this.value;
 			}
-			endSql = endSql.substr(0,endSap);
-			sql = startSql + endSql;
-			alert(sql);
-			alert(this.selectionStart);
-		}else if(e.ctrlKey && keyCode==120){
-			var t = this.value.substr(this.selectionStart, this.selectionEnd - this.selectionStart);
-			alert(t);
-		}else if(keyCode==120){
+			if(sql){
+				sql = sql.trim();
+				sqls = sql.split(";");
+				if(sqls.length==1){
+					var au = new AjaxUtil("db/run/sql");
+					var param = {};
+					param["sql"] = sql;
+					au.param = JSON.stringify(param);
+					au.setCallbackSuccess(callbackSql);
+					au.send();
+					return;
+				}else if(sqls){
+					
+					return;
+				}
+			}
 			
 		}
-		
 	});
+}
+function callbackSql(result){
+	if(result.error){
+		alert(result.error);
+		return;
+	}
+	var key = result.key;
+	var obj = result[key];
+	var dateFields=[];
+	generateGrid(obj);
+	
+	function generateGrid(gridData) {
+
+		  var model = generateModel(gridData.columns);
+
+		  var parseFunction;
+		  if (dateFields.length > 0) {
+		    parseFunction = function (response) {
+		      for (var i = 0; i < response.length; i++) {
+		        for (var fieldIndex = 0; fieldIndex < dateFields.length; fieldIndex++) {
+		          var record = response[i];
+		          record[dateFields[fieldIndex]] = kendo.parseDate(record[dateFields[fieldIndex]]);
+		        }
+		      }
+		      return response;
+		    };
+		  }
+
+		  var grid = $("#queryResult").kendoGrid({
+		    dataSource: {
+		      data: gridData,
+		      schema: {
+		        model: model,
+		        parse: parseFunction
+		      }
+		    },
+		    editable: true,
+		    sortable: true
+		  });
+		}
+	function generateModel(gridData) {
+		  var model = {};
+		  model.id = "ID";
+		  var fields = {};
+		  for (var property in gridData) {
+		    var propType = typeof gridData[property];
+
+		    if (propType == "number") {
+		      fields[property] = {
+		        type: "number",
+		        validation: {
+		          required: true
+		        }
+		      };
+		    } else if (propType == "boolean") {
+		      fields[property] = {
+		        type: "boolean",
+		        validation: {
+		          required: true
+		        }
+		      };
+		    } else if (propType == "string") {
+		      var parsedDate = kendo.parseDate(gridData[property]);
+		      if (parsedDate) {
+		        fields[property] = {
+		          type: "date",
+		          validation: {
+		            required: true
+		          }
+		        };
+		        dateFields.push(property);
+		      } else {
+		        fields[property] = {
+		          validation: {
+		            required: true
+		          }
+		        };
+		      }
+		    } else {
+		      fields[property] = {
+		        validation: {
+		          required: true
+		        }
+		      };
+		    }
+
+		  }
+		  model.fields = fields;
+
+		  return model;
+		}
 }
 
 function treeSelect(){
@@ -55,9 +163,7 @@ function treeSelect(){
 		ki.send();
 	}
 }
-function callbackForTabel(result){
-	$("#tableInfo").dataSource.transport.read(result);
-}
+
 function callbackForTreeItem2(result){
 	if(result.error){
 		alert(result.error);
@@ -147,10 +253,8 @@ function toolbarEvent(e){
         </kendo:splitter-pane>
         <kendo:splitter-pane id="middle-pane" collapsible="false" size="100px">
             <kendo:splitter-pane-content>
-                <div class="pane-content">
-	                <h3>Outer splitter / middle pane</h3>
-	                <p>Resizable only.</p>
-                </div>
+                <div class="pane-content" id="queryResult">
+	            </div>
             </kendo:splitter-pane-content>
         </kendo:splitter-pane>
         <kendo:splitter-pane id="bottom-pane" collapsible="false" resizable="false" size="20px" scrollable="false">
