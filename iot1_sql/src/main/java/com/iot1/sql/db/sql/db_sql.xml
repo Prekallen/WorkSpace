@@ -17,14 +17,16 @@
 		SELECT table_name as tablename FROM INFORMATION_SCHEMA.TABLES
         where table_schema=#{database}
        <if test="tableName != null">
-       		and table_name = #{table_name}
+       		and table_name = #{tableName}
        </if>
 	</select>
 	
 	<select id="TABLE_INFO_SELECT" parameterType="table"  resultType="column">
-		select  column_name, data_type, character_maximum_length,is_nullable
+		select  column_name as columnName, data_type as dataType, 
+		  character_maximum_length as characterMaximumLength,
+		  is_nullable as isNullable
 		 from INFORMATION_SCHEMA.columns 
-		where table_name=#{dbname}
+		where table_name=#{tableName}
 		and table_schema=database()
 		 order by ordinal_position;
 	</select>
@@ -32,6 +34,7 @@
 	<select id="USE_DATABASE" parameterType="database">
 		use ${database}
 	</select>
+
 
 </mapper>
 

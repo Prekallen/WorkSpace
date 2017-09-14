@@ -24,8 +24,8 @@
 		</kendo:tabStrip-item>
 		<kendo:tabStrip-item text="쿼리">
 			<kendo:tabStrip-item-content>
-				<div class="weather">
-					<textarea id="query"></textarea>
+				<div class="sql">
+					<textarea id="query" style="width: 100%;height:100px;overflow: scroll;resize:none;"></textarea>
 				</div>
 			</kendo:tabStrip-item-content>
 		</kendo:tabStrip-item>
