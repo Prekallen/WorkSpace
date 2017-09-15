@@ -69,6 +69,7 @@ public class DbDaoImpl extends SqlSessionDaoSupport implements DbDao{
 		String sql = pm.get("sql");
 		sql = sql.trim();			
 		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("sql", sql);
 		Statement statement = dsf.getSqlSession().getConnection().createStatement();
 		if(sql.indexOf("select")==0){
 			ResultSet resultSet = statement.executeQuery(sql);
@@ -90,6 +91,7 @@ public class DbDaoImpl extends SqlSessionDaoSupport implements DbDao{
 			map.put("type", "select");
 			map.put("list", list);
 			map.put("columns", columns);
+			
 		}else{
 			int result = statement.executeUpdate(sql);
 			map.put("type", "save");
