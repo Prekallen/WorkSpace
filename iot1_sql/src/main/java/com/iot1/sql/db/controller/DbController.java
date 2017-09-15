@@ -76,7 +76,7 @@ public class DbController {
 	@RequestMapping(value="/db/run/sqls", method=RequestMethod.POST)
 	public @ResponseBody ModelMap getSqlResults(@RequestBody Map<String,List> pm, ModelMap map){
 		try{
-			map.put("resultMap", ds.runSql(pm));
+			map.put("resultMap", ds.runSqls(pm));
 			map.put("key", "resultMap");
 			map.put("state", "Success your SQL");
 		}catch(Exception e){
