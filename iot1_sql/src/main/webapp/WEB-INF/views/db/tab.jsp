@@ -8,7 +8,7 @@
 	<kendo:tabStrip-items>
 		<kendo:tabStrip-item text="테이블정보" selected="true">
 			<kendo:tabStrip-item-content>
-				<div class="weather">
+				<div class="tableInfo">
 					<kendo:grid title="테이블정보" name="tableInfoGrid" sortable="true"
 					pageable="false" navigatable="true">
 						<kendo:grid-columns>

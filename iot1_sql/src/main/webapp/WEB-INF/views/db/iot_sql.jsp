@@ -51,8 +51,13 @@ $(document).ready(function(){
 					au.setCallbackSuccess(callbackSql);
 					au.send();
 					return;
-				}else if(sqls){
-					
+				}else if(sqls.length>1){
+					var au = new AjaxUtil("db/run/sql");
+					var param={};
+					param["sql"] = sqls;
+					au.param = JSON.stringify(param);
+					au.setCallbackSuccess(callbackSql);
+					au.send();
 					return;
 				}
 			}
@@ -166,7 +171,7 @@ function toolbarEvent(e){
 </script>
 <body>
 
-<kendo:splitter name="vertical" orientation="vertical" style="height: 850px;">
+<kendo:splitter name="vertical" orientation="vertical" style="height: 820px;">
     <kendo:splitter-panes>
         <kendo:splitter-pane id="top-pane" collapsible="false">
             <kendo:splitter-pane-content>
@@ -201,7 +206,7 @@ function toolbarEvent(e){
 				</kendo:splitter>
             </kendo:splitter-pane-content>
         </kendo:splitter-pane>
-        <kendo:splitter-pane id="middle-pane" collapsible="false" size="30%">
+        <kendo:splitter-pane id="middle-pane" collapsible="false" size="25%">
             <kendo:splitter-pane-content>
                 <div class="pane-content" >
                 	<dive id="stateLog" />

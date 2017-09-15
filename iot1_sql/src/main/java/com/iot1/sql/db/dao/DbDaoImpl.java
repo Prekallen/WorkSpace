@@ -99,4 +99,10 @@ public class DbDaoImpl extends SqlSessionDaoSupport implements DbDao{
 		}
 		return map;
 	}
+
+	@Override
+	public Map<String, Object> runSqls(Map<String, List> pm) throws Exception {
+		ArrayList sqls = (ArrayList) pm.get("sql");
+		return null;
+	}
 }
