@@ -26,7 +26,6 @@
 <link rel="stylesheet" href="<c:url value="/resources/ui/btsp3.7.7/css/bootstrap-table.css?version=${version}"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/ui/common.css?version=${version}"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/ui/signin.css?version=${version}"/>"/>
-<link rel="stylesheet" href="<c:url value="/resources/ui/footer.css?version=${version}"/>"/>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
 
 <script src="<c:url value='/resources/js/kendo.all.min.js' />"></script>
@@ -147,6 +146,8 @@ var AjaxUtil = function (url, params, type, dataType){
 		});
 	}
 }
+
+
 
 
 </script>

@@ -104,10 +104,10 @@ public class DbDaoImpl extends SqlSessionDaoSupport implements DbDao{
 	public Map<String, Object> runSqls(Map<String, List> pm) throws Exception {
 		List<String> sqls = pm.get("sql");
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("sql", sqls);
+		map.put("sqls", sqls);
 		Statement statement = dsf.getSqlSession().getConnection().createStatement();
 		for(int j=0; sqls.size()>j;j++){
-			String sql = sqls.get(j);
+			String sql = sqls.get(j).trim();
 			if(sql.indexOf("select")==0){
 				ResultSet resultSet = statement.executeQuery(sql);
 				ResultSetMetaData metadata = resultSet.getMetaData();

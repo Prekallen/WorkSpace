@@ -2,11 +2,14 @@ package com.iot1.sql.user.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,24 +22,32 @@ import com.iot1.sql.user.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService us;
-
-	@RequestMapping(value="/user/login", method=RequestMethod.GET)
-	public String login(){
-		return "/user/login";
+	
+	@RequestMapping(value= "/user/main", method=RequestMethod.GET)
+	public @ResponseBody String init( ModelMap model, HttpSession hs) {
+		UserInfo user = (UserInfo)hs.getAttribute("user");
+		if(user!=null){
+			model.addAttribute("userName", user.getUserName());
+			return "/user/main";
+		}else{
+		return "redirect : user/login";
+		}
+		
 	}
 	
+	
 	@RequestMapping(value="/user/login", method=RequestMethod.POST)
-	public @ResponseBody ModelMap login(HttpSession hs, @RequestBody UserInfo user, ModelMap hm){
+	public @ResponseBody ModelMap login(HttpSession hs, @RequestBody UserInfo user, ModelMap model){
 		UserInfo rUser = us.login(user);
 		if(rUser!=null){
 			hs.setAttribute("user", rUser);
-			hm.put("msg", "Log In Success.");
-			hm.put("url", "user/main");
+			model.put("msg", "Log In Success.");
+			model.put("url", "user/main");
 		}else{
-			hm.put("msg", "계정 정보를 확인해주세요.");
-			hm.put("url", "user/login");
+			model.put("msg", "계정 정보를 확인해주세요.");
+			model.put("url", "user/login");
 		}
-		return hm;
+		return model;
 	}
 	
 	@RequestMapping(value="/user/list", method=RequestMethod.POST)
@@ -62,9 +73,9 @@ public class UserController {
 		int rCnt = us.insertUserList(userList);
 		return us.selectUserList(null);
 	}
-	@RequestMapping(value="/url/user/logout", method=RequestMethod.GET)
-	public String logout(HttpSession hs){
+	@RequestMapping(value="/user/logout", method=RequestMethod.POST)
+	public ModelMap logout(ModelMap model, HttpSession hs){
 		hs.invalidate();
-		return "redirect: /url/user/main";
+		return model;
 	}
 }

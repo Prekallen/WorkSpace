@@ -1,15 +1,14 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%@ include file="/WEB-INF/views/common/top_menu.jsp"%>
 <c:url value="/user/list" var="readUrl" />
 <c:url value="/user/update" var="updateUrl" />
 <c:url value="/user/delete" var="deleteUrl" />
 <c:url value="/user/create" var="createUrl" />
-<br>
-<br>
-<p>
-	<br>
-<p>
-	<br>
+
+<div class="empty" style="padding-top:40px;padding-bottom:10px">
+	<h3 style="padding-left:20px">유저정보</h3>
+</div>
 	<kendo:grid title="그리드" name="grid" pageable="true" sortable="true"
 		scrollable="false" height="450">
 		<kendo:grid-editable mode="incell" />
