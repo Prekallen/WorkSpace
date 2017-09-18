@@ -24,19 +24,16 @@
 				<kendo:grid-column title="이름" field="userName" />
 				<kendo:grid-column title="나이" field="age" />
 				<kendo:grid-column title="주소" field="address" />
-					
-					<kendo:grid-column-group title="전화번호" >
+				<kendo:grid-column-group title="전화번호" >
 					<kendo:grid-column-group-columns>
 						<kendo:grid-column title="hp1" field=" hp1" />
 						<kendo:grid-column title="hp2" field=" hp2" />
 						<kendo:grid-column title="hp3" field=" hp3" />
 					</kendo:grid-column-group-columns>
 				</kendo:grid-column-group>
-				
 				<kendo:grid-column title="유저권한" field="userRoleLevel" />
 				<kendo:grid-column title="성별" field="gender" />
 			</kendo:grid-columns>
-		
 			
 		<kendo:dataSource pageSize="20">
 			<kendo:dataSource-transport>
@@ -88,7 +85,30 @@
                 </kendo:dataSource-schema-model>
             </kendo:dataSource-schema>
         </kendo:dataSource>
-		
 	</kendo:grid>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

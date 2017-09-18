@@ -19,6 +19,5 @@ public interface UserService {
 	public int deleteUser(UserInfo user);
 	
 	public int insertUserList(UserInfo[] userList);
-	
 
 }

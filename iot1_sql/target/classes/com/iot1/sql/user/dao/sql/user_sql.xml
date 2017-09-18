@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
 
 <mapper namespace="user">
-
 	<select id="SELECT_USER" parameterType="user" resultType="user">
 	  select 
 	    userId,
@@ -68,9 +67,3 @@
 	    where usernum=#{usernum}
 	</delete>
 </mapper>
-
-
-
-
-
-

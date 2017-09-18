@@ -39,7 +39,4 @@ public class VendorDaoImpl extends SqlSessionDaoSupport implements VendorDao{
 	public int deleteVendor(VendorInfo vi) {
 		return this.getSqlSession().delete("vendor.DELETE_VENDOR",vi);
 	}
-
-	
-
 }

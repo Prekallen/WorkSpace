@@ -10,7 +10,6 @@
              text-align : center;
          }
 </style>
-
 <kendo:grid title="상품그리드" name="gGrid" selectable="multiple" pageable="true" sortable="true" scrollable="true" height="460">
 	<kendo:grid-editable mode="incell"/>
 	<kendo:grid-toolbar>

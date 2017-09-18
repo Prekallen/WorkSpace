@@ -55,8 +55,6 @@ function onFiltering(arg) {
 function onPaging(arg) {
 	console.log("Paging to page index:" + arg.page);
 }
-
-
 </script>
 
 <h4 style="padding-left:50px; padding-bottom:5px;">회사목록</h4>
@@ -106,7 +104,6 @@ function onPaging(arg) {
 				</script>
 			</kendo:dataSource-transport-parameterMap>
 		</kendo:dataSource-transport>
-		
 		<kendo:dataSource-schema>
 			<kendo:dataSource-schema-model id="viNum" >
 				<kendo:dataSource-schema-model-fields>
@@ -129,7 +126,6 @@ function onPaging(arg) {
 		<kendo:grid-toolbarItem name="edit" text="변경"/>
 		<kendo:grid-toolbarItem name="destroy" text="삭제" />
 		<kendo:grid-toolbarItem name="cancel" text="취소"/>
-
 	</kendo:grid-toolbar>
 <kendo:grid-columns>
 		<kendo:grid-column title="상품번호" field="giNum" editable="false"/>
@@ -158,7 +154,6 @@ function onPaging(arg) {
 				}
 				</script>
 			</kendo:dataSource-transport-parameterMap>
-			
 		</kendo:dataSource-transport>
 		
 		<kendo:dataSource-schema>
@@ -175,8 +170,5 @@ function onPaging(arg) {
 		</kendo:dataSource-schema>
 	</kendo:dataSource>
 </kendo:grid>
-<script>
-
-</script>
 </body>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

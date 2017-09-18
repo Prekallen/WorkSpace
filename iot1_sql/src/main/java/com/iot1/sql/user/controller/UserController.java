@@ -2,14 +2,11 @@ package com.iot1.sql.user.controller;
 
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,17 +24,18 @@ public class UserController {
 	public @ResponseBody String init( ModelMap model, HttpSession hs) {
 		UserInfo user = (UserInfo)hs.getAttribute("user");
 		if(user!=null){
+			
+			model.addAttribute("userId",user.getUserId());
 			model.addAttribute("userName", user.getUserName());
-			return "/user/main";
+			return "user/main";
 		}else{
-		return "redirect : user/login";
+		return "user/login";
 		}
 		
 	}
 	
-	
 	@RequestMapping(value="/user/login", method=RequestMethod.POST)
-	public @ResponseBody ModelMap login(HttpSession hs, @RequestBody UserInfo user, ModelMap model){
+	public @ResponseBody ModelMap login( HttpSession hs, @RequestBody UserInfo user, ModelMap model){
 		UserInfo rUser = us.login(user);
 		if(rUser!=null){
 			hs.setAttribute("user", rUser);
@@ -73,9 +71,9 @@ public class UserController {
 		int rCnt = us.insertUserList(userList);
 		return us.selectUserList(null);
 	}
-	@RequestMapping(value="/user/logout", method=RequestMethod.POST)
-	public ModelMap logout(ModelMap model, HttpSession hs){
+	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
+	public String logout(ModelMap model, HttpSession hs){
 		hs.invalidate();
-		return model;
+		return "redirect: /user/main";
 	}
 }
