@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%@ include file="/WEB-INF/views/common/top_menu.jsp"%>
 <c:url value="/goods/list" var="bReadUrl" />
 <c:url value="/goods/create" var="bCreateUrl" />
 <c:url value="/goods/update" var="bUpdateUrl" />
@@ -13,6 +14,7 @@
 <title>SPRING</title>
 </head>
 <body>
+<div class="empty" style="padding-top:30px;"></div>
 <style>
 		.k-link, tr {
              text-align : center;
@@ -53,16 +55,12 @@ function onFiltering(arg) {
 function onPaging(arg) {
 	console.log("Paging to page index:" + arg.page);
 }
-
-function onGrouping(arg) {
-	console.log("Group on " + kendo.stringify(arg.groups));
-}
 </script>
 
 <h4 style="padding-left:50px; padding-bottom:5px;">회사목록</h4>
 <kendo:grid title="회사그리드" name="vGrid" selectable="multiple" sortable="true" scrollable="true" height="270" change="onChange"
-	dataBound="onDataBound" dataBinding="onDataBinding" sort="onSorting" filter="onFiltering" page="onPaging" group="onGrouping" 
-	filterable="true" groupable="true">
+	dataBound="onDataBound" dataBinding="onDataBinding" sort="onSorting" filter="onFiltering" page="onPaging"  
+	filterable="true" >
 	<kendo:grid-editable mode="inline"/>
 	<kendo:grid-toolbar>
 		<kendo:grid-toolbarItem name="create" text="생성"/>
@@ -106,7 +104,6 @@ function onGrouping(arg) {
 				</script>
 			</kendo:dataSource-transport-parameterMap>
 		</kendo:dataSource-transport>
-		
 		<kendo:dataSource-schema>
 			<kendo:dataSource-schema-model id="viNum" >
 				<kendo:dataSource-schema-model-fields>
@@ -120,7 +117,7 @@ function onGrouping(arg) {
 	</kendo:dataSource>
 </kendo:grid>
 
-<h4 style="padding-left:50px; padding-top:5px; padding-bottom:5px;">상품목록</h4>
+<h4 style="padding-left:50px; padding-top:10px; padding-bottom:5px;">상품목록</h4>
 <kendo:grid title="상품그리드" name="gGrid" selectable="multiple" pageable="true" sortable="true" scrollable="true" height="460">
 	<kendo:grid-editable mode="incell"/>
 	<kendo:grid-toolbar>
@@ -129,7 +126,6 @@ function onGrouping(arg) {
 		<kendo:grid-toolbarItem name="edit" text="변경"/>
 		<kendo:grid-toolbarItem name="destroy" text="삭제" />
 		<kendo:grid-toolbarItem name="cancel" text="취소"/>
-
 	</kendo:grid-toolbar>
 <kendo:grid-columns>
 		<kendo:grid-column title="상품번호" field="giNum" editable="false"/>
@@ -158,7 +154,6 @@ function onGrouping(arg) {
 				}
 				</script>
 			</kendo:dataSource-transport-parameterMap>
-			
 		</kendo:dataSource-transport>
 		
 		<kendo:dataSource-schema>
@@ -175,8 +170,5 @@ function onGrouping(arg) {
 		</kendo:dataSource-schema>
 	</kendo:dataSource>
 </kendo:grid>
-<script>
-
-</script>
 </body>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -23,27 +23,25 @@ public class UserController {
 	@RequestMapping(value= "/user/main", method=RequestMethod.GET)
 	public @ResponseBody String init( ModelMap model, HttpSession hs) {
 		UserInfo user = (UserInfo)hs.getAttribute("user");
-		if(user!=null){
-			
+		if(user.getUserId()!=null&&!user.getUserId().equals("")){
 			model.addAttribute("userId",user.getUserId());
 			model.addAttribute("userName", user.getUserName());
 			return "user/main";
 		}else{
-		return "user/login";
+			return "user/login";
 		}
-		
 	}
 	
 	@RequestMapping(value="/user/login", method=RequestMethod.POST)
 	public @ResponseBody ModelMap login( HttpSession hs, @RequestBody UserInfo user, ModelMap model){
 		UserInfo rUser = us.login(user);
-		if(rUser!=null){
+		if(rUser==null){
+			model.put("msg", "계정 정보를 확인해주세요.");
+			model.put("url", "user/login");
+		}else{
 			hs.setAttribute("user", rUser);
 			model.put("msg", "Log In Success.");
 			model.put("url", "user/main");
-		}else{
-			model.put("msg", "계정 정보를 확인해주세요.");
-			model.put("url", "user/login");
 		}
 		return model;
 	}
@@ -72,7 +70,7 @@ public class UserController {
 		return us.selectUserList(null);
 	}
 	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
-	public String logout(ModelMap model, HttpSession hs){
+	public String logOut(HttpSession hs, UserInfo user){
 		hs.invalidate();
 		return "redirect: /user/main";
 	}

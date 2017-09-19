@@ -1,15 +1,14 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%@ include file="/WEB-INF/views/common/top_menu.jsp"%>
 <c:url value="/user/list" var="readUrl" />
 <c:url value="/user/update" var="updateUrl" />
 <c:url value="/user/delete" var="deleteUrl" />
 <c:url value="/user/create" var="createUrl" />
-<br>
-<br>
-<p>
-	<br>
-<p>
-	<br>
+
+<div class="empty" style="padding-top:40px;padding-bottom:10px">
+	<h3 style="padding-left:20px">유저정보</h3>
+</div>
 	<kendo:grid title="그리드" name="grid" pageable="true" sortable="true"
 		scrollable="false" height="450">
 		<kendo:grid-editable mode="incell" />
@@ -25,19 +24,16 @@
 				<kendo:grid-column title="이름" field="userName" />
 				<kendo:grid-column title="나이" field="age" />
 				<kendo:grid-column title="주소" field="address" />
-					
-					<kendo:grid-column-group title="전화번호" >
+				<kendo:grid-column-group title="전화번호" >
 					<kendo:grid-column-group-columns>
 						<kendo:grid-column title="hp1" field=" hp1" />
 						<kendo:grid-column title="hp2" field=" hp2" />
 						<kendo:grid-column title="hp3" field=" hp3" />
 					</kendo:grid-column-group-columns>
 				</kendo:grid-column-group>
-				
 				<kendo:grid-column title="유저권한" field="userRoleLevel" />
 				<kendo:grid-column title="성별" field="gender" />
 			</kendo:grid-columns>
-		
 			
 		<kendo:dataSource pageSize="20">
 			<kendo:dataSource-transport>
@@ -89,7 +85,30 @@
                 </kendo:dataSource-schema-model>
             </kendo:dataSource-schema>
         </kendo:dataSource>
-		
 	</kendo:grid>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
