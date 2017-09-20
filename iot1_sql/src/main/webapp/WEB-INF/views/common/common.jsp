@@ -7,3 +7,4 @@
 <c:set var="nowUrl" value="${pageContext.request.requestURI}"/>
 <c:set var="version" value="1.0.0"/>
 <c:set var="menuUrl" value="/WEB-INF/views/common/top_menu.jsp" />
+<c:set var="imgUrl" value="${rootPath}/resources/images/"/>

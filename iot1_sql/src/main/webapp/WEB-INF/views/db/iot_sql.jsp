@@ -12,7 +12,11 @@
 var treeview;
 
 function onBound(){
-	treeview = $('#treeview').data('kendoTreeView');
+	if(!treeview){
+		treeview = $('#treeview').data('kendoTreeView');
+	}
+}
+$(document).ready(function(){
 	$( "#query" ).keydown(function(e) {
 		var keyCode = e.keyCode || e.which;
 		if(keyCode==120){
@@ -39,6 +43,7 @@ function onBound(){
 			if(sql){
 				sql = sql.trim();
 				sqls = sql.split(";");
+				sqls = sqls.filter(function(e){return e});
 				if(sqls.length==1){
 					var au = new AjaxUtil("db/run/sql");
 					var param = {};
@@ -47,105 +52,65 @@ function onBound(){
 					au.setCallbackSuccess(callbackSql);
 					au.send();
 					return;
-				}else if(sqls){
-					
+				}else if(sqls.length>1){
+					var au = new AjaxUtil("db/run/sqls");
+					var param={};
+					param["sql"] = sqls;
+					au.param = JSON.stringify(param);
+					au.setCallbackSuccess(callbackSql);
+					au.send();
 					return;
 				}
 			}
 			
 		}
 	});
-}
+})
+
 function callbackSql(result){
+	var state=result.state;
 	if(result.error){
 		alert(result.error);
+		$("#stateLog").append(result.error);
+		$("#stateLog").append("<br/>");
+		$("#stateLog").append(state);
+		$("#stateLog").append("<br/>");
 		return;
 	}
 	var key = result.key;
 	var obj = result[key];
-	var dateFields=[];
-	generateGrid(obj);
+	var list = obj.list;
+	var sql = obj.sql;
+	var sqls = obj.sqls;
+	if(key){
+		if(sql){
+		$("#stateLog").append(sql);
+		$("#stateLog").append("<br/>");
+		}
+		if(sqls){
+			for(var i = 0; i<sqls.length; i++){
+				$("#stateLog").append(sqls[i]);
+				$("#stateLog").append("<br/>");
+			}
+		}
+		$("#stateLog").append(state);
+		$("#stateLog").append("<br/>");
+	}
 	
-	function generateGrid(gridData) {
-
-		  var model = generateModel(gridData.columns);
-
-		  var parseFunction;
-		  if (dateFields.length > 0) {
-		    parseFunction = function (response) {
-		      for (var i = 0; i < response.length; i++) {
-		        for (var fieldIndex = 0; fieldIndex < dateFields.length; fieldIndex++) {
-		          var record = response[i];
-		          record[dateFields[fieldIndex]] = kendo.parseDate(record[dateFields[fieldIndex]]);
-		        }
-		      }
-		      return response;
-		    };
-		  }
-
-		  var grid = $("#queryResult").kendoGrid({
-		    dataSource: {
-		      data: gridData,
-		      schema: {
-		        model: model,
-		        parse: parseFunction
-		      }
-		    },
-		    editable: true,
-		    sortable: true
-		  });
-		}
-	function generateModel(gridData) {
-		  var model = {};
-		  model.id = "ID";
-		  var fields = {};
-		  for (var property in gridData) {
-		    var propType = typeof gridData[property];
-
-		    if (propType == "number") {
-		      fields[property] = {
-		        type: "number",
-		        validation: {
-		          required: true
-		        }
-		      };
-		    } else if (propType == "boolean") {
-		      fields[property] = {
-		        type: "boolean",
-		        validation: {
-		          required: true
-		        }
-		      };
-		    } else if (propType == "string") {
-		      var parsedDate = kendo.parseDate(gridData[property]);
-		      if (parsedDate) {
-		        fields[property] = {
-		          type: "date",
-		          validation: {
-		            required: true
-		          }
-		        };
-		        dateFields.push(property);
-		      } else {
-		        fields[property] = {
-		          validation: {
-		            required: true
-		          }
-		        };
-		      }
-		    } else {
-		      fields[property] = {
-		        validation: {
-		          required: true
-		        }
-		      };
-		    }
-
-		  }
-		  model.fields = fields;
-
-		  return model;
-		}
+	try{
+		$("#resultGrid").kendoGrid("destroy").empty();
+	}catch(e){
+		
+	}
+	var grid = $("#resultGrid").kendoGrid({
+  		dataSource: {
+  	      data: list,
+  	      pageSize: 5
+  	    },
+  	    editable: false,
+  	    sortable: true,
+  	    pageable:true	    
+	});
 }
 
 function treeSelect(){
@@ -215,8 +180,8 @@ function toolbarEvent(e){
 
 </script>
 <body>
-
-<kendo:splitter name="vertical" orientation="vertical">
+<c:import url="${menuUrl}"/> 
+<kendo:splitter name="vertical" orientation="vertical" style="height: 800px;">
     <kendo:splitter-panes>
         <kendo:splitter-pane id="top-pane" collapsible="false">
             <kendo:splitter-pane-content>
@@ -239,7 +204,7 @@ function toolbarEvent(e){
 		       							
 		       							<kendo:splitter-pane id="middle-pane" collapsible="true" >
 							                <div class="pane-content">
-						                		<c:import url="${tableInfoJsp}"/>
+						                		<div id="resultGrid" style="width: 100%;"></div>
 			                                </div>
 		       							</kendo:splitter-pane>
 		       							
@@ -251,9 +216,10 @@ function toolbarEvent(e){
 				</kendo:splitter>
             </kendo:splitter-pane-content>
         </kendo:splitter-pane>
-        <kendo:splitter-pane id="middle-pane" collapsible="false" size="100px">
+        <kendo:splitter-pane id="middle-pane" collapsible="false" size="25%">
             <kendo:splitter-pane-content>
-                <div class="pane-content" id="queryResult">
+                <div class="pane-content" >
+                	<dive id="stateLog" />
 	            </div>
             </kendo:splitter-pane-content>
         </kendo:splitter-pane>
@@ -264,57 +230,5 @@ function toolbarEvent(e){
         </kendo:splitter-pane>
     </kendo:splitter-panes>
 </kendo:splitter>
-
-<style>
-    #vertical {
-        height: 580px;
-        margin: 0 auto;
-    }
-
-    #middle-pane { 
-        color: #000; background-color: #fff; 
-    }
-
-    #bottom-pane { 
-        color: #000; background-color: #fff; 
-    }
-
-    #left-pane, #center-pane, #right-pane  { 
-        color: #000; background-color: #fff;
-    }
-
-    .pane-content {
-        padding: 0 10px;
-    }
-    
-
-    #toolbar {
-        border-width: 0 0 1px;
-    }
-    .user-image {
-        margin: 0 .5em;
-    }
-    #example {
-        height: 500px;
-    }
-    #example .box p {
-        padding-bottom: 5px;
-    }
-    #content .demo-section {
-        margin: 0;
-        padding: 10px;
-        border-width: 0 0 1px 0;
-    }
-    #content .demo-section label {
-        display: inline-block;
-        width: 40px;
-        text-align: right;
-        line-height: 2.5em;
-        vertical-align: middle;
-    }
-    #content .demo-section input {
-        width: 80%;
-    }
-</style>
 </body>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

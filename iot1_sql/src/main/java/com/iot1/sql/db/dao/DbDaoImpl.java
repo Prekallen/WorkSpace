@@ -69,6 +69,7 @@ public class DbDaoImpl extends SqlSessionDaoSupport implements DbDao{
 		String sql = pm.get("sql");
 		sql = sql.trim();			
 		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("sql", sql);
 		Statement statement = dsf.getSqlSession().getConnection().createStatement();
 		if(sql.indexOf("select")==0){
 			ResultSet resultSet = statement.executeQuery(sql);
@@ -90,10 +91,51 @@ public class DbDaoImpl extends SqlSessionDaoSupport implements DbDao{
 			map.put("type", "select");
 			map.put("list", list);
 			map.put("columns", columns);
+			
 		}else{
 			int result = statement.executeUpdate(sql);
 			map.put("type", "save");
 			map.put("row", result);
+		}
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> runSqls(Map<String, List> pm) throws Exception {
+		List<String> sqls = pm.get("sql");
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("sqls", sqls);
+		Statement statement = dsf.getSqlSession().getConnection().createStatement();
+		for(int j=0; sqls.size()>j;j++){
+			String sql = sqls.get(j).trim();
+			if(sql.indexOf("select")==0){
+				ResultSet resultSet = statement.executeQuery(sql);
+				ResultSetMetaData metadata = resultSet.getMetaData();
+				int columnCount = metadata.getColumnCount();
+				List<String> columns = new ArrayList<String>();
+				for (int i = 1; i <= columnCount; i++) {
+					String columnName = metadata.getColumnName(i);
+					columns.add(columnName);
+				}
+				List<List<Map<String,String>>> lists = new ArrayList<List<Map<String,String>>>();
+				List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+				while(resultSet.next()){
+					Map<String,String> hm = new HashMap<String,String>();
+					for(String column : columns){
+						hm.put(column, resultSet.getString(column));
+					}
+					list.add(hm);
+					lists.add(list);
+				}
+				map.put("type", "select");
+				map.put("list", list);
+				map.put("columns", columns);
+				
+			}else{
+				int result = statement.executeUpdate(sql);
+				map.put("type", "save");
+				map.put("row", result);
+			}
 		}
 		return map;
 	}

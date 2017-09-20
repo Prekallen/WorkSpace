@@ -46,9 +46,10 @@ public class DbServiceImpl implements DbService{
 	public Map<String, Object> runSql(Map<String, String> pm) throws Exception {
 		return dDao.runSql(pm);
 	}
-
-
 	
-
+	@Override
+	public Map<String, Object> runSqls(Map<String, List> pm) throws Exception {
+		return dDao.runSqls(pm);
+	}
 
 }

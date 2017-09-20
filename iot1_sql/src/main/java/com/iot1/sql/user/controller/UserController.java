@@ -19,24 +19,31 @@ import com.iot1.sql.user.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService us;
-
-	@RequestMapping(value="/user/login", method=RequestMethod.GET)
-	public String login(){
-		return "/user/login";
+	
+	@RequestMapping(value= "/user/main", method=RequestMethod.GET)
+	public @ResponseBody String init( ModelMap model, HttpSession hs) {
+		UserInfo user = (UserInfo)hs.getAttribute("user");
+		if(user.getUserId()!=null&&!user.getUserId().equals("")){
+			model.addAttribute("userId",user.getUserId());
+			model.addAttribute("userName", user.getUserName());
+			return "user/main";
+		}else{
+			return "user/login";
+		}
 	}
 	
 	@RequestMapping(value="/user/login", method=RequestMethod.POST)
-	public @ResponseBody ModelMap login(HttpSession hs, @RequestBody UserInfo user, ModelMap hm){
+	public @ResponseBody ModelMap login( HttpSession hs, @RequestBody UserInfo user, ModelMap model){
 		UserInfo rUser = us.login(user);
-		if(rUser!=null){
-			hs.setAttribute("user", rUser);
-			hm.put("msg", "Log In Success.");
-			hm.put("url", "user/main");
+		if(rUser==null){
+			model.put("msg", "계정 정보를 확인해주세요.");
+			model.put("url", "user/login");
 		}else{
-			hm.put("msg", "계정 정보를 확인해주세요.");
-			hm.put("url", "user/login");
+			hs.setAttribute("user", rUser);
+			model.put("msg", "Log In Success.");
+			model.put("url", "user/main");
 		}
-		return hm;
+		return model;
 	}
 	
 	@RequestMapping(value="/user/list", method=RequestMethod.POST)
@@ -62,9 +69,9 @@ public class UserController {
 		int rCnt = us.insertUserList(userList);
 		return us.selectUserList(null);
 	}
-	@RequestMapping(value="/url/user/logout", method=RequestMethod.GET)
-	public String logout(HttpSession hs){
+	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
+	public String logOut(HttpSession hs, UserInfo user){
 		hs.invalidate();
-		return "redirect: /url/user/main";
+		return "redirect: /user/main";
 	}
 }

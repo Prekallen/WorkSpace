@@ -51,8 +51,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	@ResponseBody
-	public  ModelMap logIn(HttpServletRequest request, @RequestBody UserInfo pUser, ModelMap model, HttpSession hs, HttpServletResponse response,  @CookieValue(value="id",required=false)Cookie ck){
+	@ResponseBody public  ModelMap logIn(HttpServletRequest request, @RequestBody UserInfo pUser, ModelMap model, HttpSession hs,
+			HttpServletResponse response,  @CookieValue(value="id",required=false)Cookie ck){
 		UserInfo user = us.getUser(pUser);
 		if(user==null){
 			model.put("data", "F");
@@ -82,7 +82,7 @@ public class UserController {
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logOut(HttpSession hs){
 		hs.invalidate();
-		return "redirect:/user/main";
+		return "redirect: /user/main";
 	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.POST)

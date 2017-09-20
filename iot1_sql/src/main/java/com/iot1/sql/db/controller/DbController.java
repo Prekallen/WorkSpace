@@ -66,8 +66,22 @@ public class DbController {
 		try{
 			map.put("resultMap", ds.runSql(pm));
 			map.put("key", "resultMap");
+			map.put("state", "Success your SQL");
 		}catch(Exception e){
 			map.put("error", e.getMessage());
+			map.put("state", "Fail your SQL");
+		}
+		return map;
+	}
+	@RequestMapping(value="/db/run/sqls", method=RequestMethod.POST)
+	public @ResponseBody ModelMap getSqlResults(@RequestBody Map<String,List> pm, ModelMap map){
+		try{
+			map.put("resultMap", ds.runSqls(pm));
+			map.put("key", "resultMap");
+			map.put("state", "Success your SQL");
+		}catch(Exception e){
+			map.put("error", e.getMessage());
+			map.put("state", "Fail your SQL");
 		}
 		return map;
 	}

@@ -63,4 +63,3 @@ public class VendorController {
 		return vs.getVendorInfoList(vi);
 	}
 }
-

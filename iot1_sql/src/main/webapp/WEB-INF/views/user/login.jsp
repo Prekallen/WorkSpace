@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ include file="/WEB-INF/views/common/top_menu.jsp" %>
 <title>Login</title>
 </head>
 <link rel="stylesheet" href="${rootPath}/resources/ui/signin.css" />
 <body>
-	<div class="container">
+	<div class="i-container" style="height:200px; align:middle">
 		<form class="form-signin">
 			<h2 class="form-signin-heading">Please login</h2>
 			<label for="inputEmail" class="sr-only">ID</label> <input type="text"
