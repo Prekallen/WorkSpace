@@ -7,7 +7,19 @@
 <title>TEST</title>
 </head>
 <body>
+<form action="/sp/test/test1" method="get">
+<input type ="text" name="exam">
+<input type ="submit">
+</form>
+<form action="/sp/test/test1" method="post">
+<input type ="text" name="exam">
+<input type ="submit">
+</form>
+<form action="/sp/test/t" method="post">
+<input type ="text" name="exam">
+<input type ="submit">
+</form>
 ${test}
-${trans}
+${exam}
 </body>
 </html>
