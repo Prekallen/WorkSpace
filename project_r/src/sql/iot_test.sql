@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `cal` (
   `num2` int(11) NOT NULL,
   `result` int(11) NOT NULL,
   PRIMARY KEY (`calnum`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 iot.cal:~14 rows (대략적) 내보내기
 DELETE FROM `cal`;
@@ -73,7 +73,9 @@ INSERT INTO `cal` (`calnum`, `num1`, `op`, `num2`, `result`) VALUES
 	(12, 11, '+', 2, 13),
 	(13, 1, '+', 2, 3),
 	(14, 2, '/', 3, 0),
-	(15, 4, '*', 5, 20);
+	(15, 4, '*', 5, 20),
+	(16, 1, '+', 1, 2),
+	(17, 2, '+', 2, 4);
 /*!40000 ALTER TABLE `cal` ENABLE KEYS */;
 
 -- 테이블 iot.db_info 구조 내보내기
@@ -137,7 +139,7 @@ INSERT INTO `goods_info` (`ginum`, `giname`, `gidesc`, `vinum`, `gicredat`, `gic
 	(22, '테사다르', '엔타로', 3, '2017-08-18', '17:19:49'),
 	(23, '공허포격기', 'DPS 굿', 3, '2017-08-21', '18:18:31'),
 	(24, '폭풍함', '사정거리 최고', 3, '2017-08-22', '13:13:50'),
-	(25, 'giname9', 'gidesc9', 3, '2017-08-07', '12:43:35'),
+	(25, 'RED', '빨강', 3, '2017-08-07', '12:43:35'),
 	(27, 'giname11', 'gidesc11', 3, '2017-08-07', '12:43:35'),
 	(28, 'giname12', 'gidesc12', 3, '2017-08-07', '12:43:35'),
 	(29, 'giname13', 'gidesc13', 3, '2017-08-07', '12:43:35'),
@@ -1174,7 +1176,7 @@ INSERT INTO `json_test` (`jtnum`, `jttest`) VALUES
 	(1, 'TEST'),
 	(2, 'Qween'),
 	(3, 'Lord'),
-	(4, 'Jason');
+	(4, 'JSON');
 /*!40000 ALTER TABLE `json_test` ENABLE KEYS */;
 
 -- 테이블 iot.user_info 구조 내보내기
@@ -1219,7 +1221,7 @@ CREATE TABLE IF NOT EXISTS `vendor_info` (
   `vicredat` varchar(10) DEFAULT NULL,
   `vicretim` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`vinum`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 iot.vendor_info:~7 rows (대략적) 내보내기
 DELETE FROM `vendor_info`;
