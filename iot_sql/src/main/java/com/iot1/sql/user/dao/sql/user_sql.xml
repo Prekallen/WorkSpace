@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="user">
+	<select id="SELECT_USER" parameterType="user" resultType="user">
+	  select 
+	    userId,
+	  	userpwd,
+	  	usernum,
+	  	username,
+	  	age,
+	    userid,
+	  	userpwd,
+	  	address,
+	  	hp1,
+	  	hp2,
+	  	hp3,
+	  	departnum,
+	  	userrolelevel,
+	  	gender
+	  from user_info
+	  where 1=1
+	  <if test="userId!=null and userId!=''">
+	  	and	userid = #{userId}
+	  </if>
+	  <if test="userNum!=0">
+	  	and	usernum = #{userNum}
+	  </if>
+	</select>	
+	<select id="SELECT_USER_LIST" parameterType="user" resultType="user">
+	  select 
+	  	usernum,
+	  	username,
+	  	age,
+	    userid,
+	  	userpwd,
+	  	address,
+	  	hp1,
+	  	hp2,
+	  	hp3,
+	  	departnum,
+	  	userrolelevel,
+	  	gender 
+	  from user_info
+	  where 1=1
+	  <if test="userName!=null">
+	  	and username like concat('%',#{userName},'%')
+	  </if>
+	</select>	
+	
+	<insert id="INSERT_USER" parameterType="user">
+		insert user_info(username, age, userid, userpwd, address, hp1, hp2, hp3,
+	  	userrolelevel, gender)
+	  	values(#{userName},#{age},#{userId},#{userPwd},#{address},#{hp1},#{hp2},#{hp3},
+	  	#{userRoleLevel},#{gender})
+	</insert>
+	<update id="UPDATE_USER" parameterType="user">
+		update user_info
+		set username = #{userName}
+		<if test="gender!=0">
+	  	, gender =#{gender}
+	  </if>
+	  <if test="userRoleLevel!=0">
+	  	, userrolelevel =#{userRoleLevel}
+	  </if>
+	  <if test="age!=0">
+	  	, age =#{age}
+	  </if>
+	  <if test="address!=null">
+	  	, address =#{address}
+	  </if>
+	  <if test="hp1!=0">
+	  	, hp1 =#{hp1}
+	  </if>
+	  <if test="hp2!=0">
+	  	, hp2 =#{hp2}
+	  </if>
+	  <if test="hp3!=0">
+	  	, hp3 =#{hp3}
+	  </if>
+	  <if test="userPwd!=null">
+	  	, userpwd =#{userPwd}
+	  </if>
+	  <if test="userId!=null">
+	  	, userid =#{userId}
+	  </if>
+	  	 where usernum=#{usernum}
+	</update>
+	<delete id="DELETE_USER" parameterType="user">
+		delete from user_info
+	    where usernum=#{userNum}
+	</delete>
+</mapper>
