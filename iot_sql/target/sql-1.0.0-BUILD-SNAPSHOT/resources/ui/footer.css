@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: auto;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 20px;
+  background-color: #993300;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.f-container {
+  width: auto;
+  max-width: 20%;
+  padding: 0 0px;
+  	
+}
+.f-container .text-muted {
+  margin: 0px 0;
+  color:#d9d9d9;
+  text-align: center;
+}
