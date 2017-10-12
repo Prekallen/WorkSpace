@@ -72,6 +72,6 @@ public class UserController {
 	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
 	public String logOut(HttpSession hs, UserInfo user){
 		hs.invalidate();
-		return "redirect: /user/main";
+		return "redirect: /user:main";
 	}
 }
