@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<<<<<<< HEAD
 <testsuite tests="4" failures="0" name="com.iot1.sql.CalcTest" time="0.007" errors="0" skipped="0">
+=======
+<testsuite tests="4" failures="0" name="com.iot1.sql.CalcTest" time="0.003" errors="0" skipped="0">
+>>>>>>> branch 'master' of https://github.com/Prekallen/WorkSpace.git
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="E:\iot\jdk1.8.0_131\jre\bin"/>
@@ -27,7 +31,11 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 7"/>
+<<<<<<< HEAD
     <property name="classworlds.conf" value="D:\iot\workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf6401065732414628776.tmp"/>
+=======
+    <property name="classworlds.conf" value="D:\IOT_Study\Workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf8014706471605954007.tmp"/>
+>>>>>>> branch 'master' of https://github.com/Prekallen/WorkSpace.git
     <property name="sun.jnu.encoding" value="MS949"/>
     <property name="java.library.path" value="E:\iot\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files (x86)\Autodesk\Backburner\;D:\IOT_Study\apache-maven-3.5.0\bin;C:\Program Files\PuTTY\;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -61,8 +69,13 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
+<<<<<<< HEAD
   <testcase classname="com.iot1.sql.CalcTest" name="testCalcMinus" time="0.007"/>
   <testcase classname="com.iot1.sql.CalcTest" name="testCalcPlus" time="0"/>
+=======
+  <testcase classname="com.iot1.sql.CalcTest" name="testCalcPlus" time="0.003"/>
+  <testcase classname="com.iot1.sql.CalcTest" name="testCalcMinus" time="0"/>
+>>>>>>> branch 'master' of https://github.com/Prekallen/WorkSpace.git
   <testcase classname="com.iot1.sql.CalcTest" name="testCalcDivide" time="0"/>
   <testcase classname="com.iot1.sql.CalcTest" name="testCalcMultiple" time="0"/>
 </testsuite>
