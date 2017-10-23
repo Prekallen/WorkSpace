@@ -55,7 +55,7 @@ $("#querySQL").click(function(){
 	}
 })
 
-if(userId!=null&&userId){
+if(userId!=null&&userId!=""){
 	$("#logOut").html("로그아웃");
 }else{
 	$("#logOut").html("로그인");

@@ -23,12 +23,13 @@ public class UserController {
 	@RequestMapping(value= "/user/main", method=RequestMethod.GET)
 	public @ResponseBody String init( ModelMap model, HttpSession hs) {
 		UserInfo user = (UserInfo)hs.getAttribute("user");
-		if(user.getUserId()!=null&&!user.getUserId().equals("")){
+		if(user.getUserId()==null||user.getUserId().equals("")){
+			hs.invalidate();
+			return "user:login";
+		}else{
 			model.addAttribute("userId",user.getUserId());
 			model.addAttribute("userName", user.getUserName());
-			return "user/main";
-		}else{
-			return "user/login";
+			return "user:main";
 		}
 	}
 	
@@ -36,6 +37,7 @@ public class UserController {
 	public @ResponseBody ModelMap login( HttpSession hs, @RequestBody UserInfo user, ModelMap model){
 		UserInfo rUser = us.login(user);
 		if(rUser==null){
+			hs.invalidate();
 			model.put("msg", "계정 정보를 확인해주세요.");
 			model.put("url", "user/login");
 		}else{
@@ -69,9 +71,9 @@ public class UserController {
 		int rCnt = us.insertUserList(userList);
 		return us.selectUserList(null);
 	}
-	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
+	@RequestMapping(value="/user/logout", method=RequestMethod.POST)
 	public String logOut(HttpSession hs, UserInfo user){
 		hs.invalidate();
-		return "redirect: /user:main";
+		return "user/main";
 	}
 }
